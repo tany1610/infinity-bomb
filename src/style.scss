@@ -1,0 +1,31 @@
+:root {
+  font-family: "VT323", monospace;
+  --background-color: #32292F;
+  --text-color: #9B8B70;
+  --dark-text: #000000ff;
+  --primary-text-light: #D9CEAE;
+  --primary-text-darker: #9B8B70;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+}
