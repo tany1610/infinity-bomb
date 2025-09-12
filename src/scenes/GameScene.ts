@@ -6,12 +6,14 @@ import { Inventory } from "../ui/Inventory";
 import { GameManager } from "../managers/GameManager";
 
 export class GameScene extends Phaser.Scene {
+    private gameManager!: GameManager;
+
     constructor() {
         super("GameScene");
     }
 
     create() {
-        new GameManager();
+        this.gameManager = new GameManager();
 
         // --- Top Bar ---
         new Header({ scene: this });
@@ -20,7 +22,7 @@ export class GameScene extends Phaser.Scene {
         new BombPanel({ scene: this });
 
         // --- Shop (right side) ---
-        new Shop({ scene: this });
+        new Shop({ scene: this, manager: this.gameManager.shopManager });
 
         // --- Inventory (bottom) ---
         new Inventory({ scene: this });

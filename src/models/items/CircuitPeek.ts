@@ -12,6 +12,6 @@ export class CircuitPeek extends Item {
     }
 
     apply(gameManager: GameManager): void {
-        gameManager.forceSafeCut();
+        gameManager.wireManager.exposeExplodeChance();
     }
 }
