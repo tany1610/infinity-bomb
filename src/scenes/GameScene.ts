@@ -3,6 +3,7 @@ import { Header } from "../ui/Header";
 import { BombPanel } from "../ui/BombPanel";
 import { Shop } from "../ui/Shop";
 import { Inventory } from "../ui/Inventory";
+import { GameManager } from "../managers/GameManager";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -10,6 +11,8 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
+        new GameManager();
+
         // --- Top Bar ---
         new Header({ scene: this });
 

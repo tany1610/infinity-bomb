@@ -32,6 +32,24 @@ export const WIRE_COLORS = {
     black: getCssVarAsHex("--black-wire"),
 };
 
+export const ITEMS_CONFIG = {
+    snipMaster: {
+        title: "Snip Master",
+        effect: "Guarantees a safe cut on the current wire",
+        price: 30,
+    },
+    circuitPeek: {
+        title: "Circuit Peek",
+        effect: "Reveals the explosion chance of the current wire",
+        price: 20,
+    },
+    fuseKit: {
+        title: "Fuse Kit",
+        effect: "Restores one lost fuse",
+        price: 40,
+    },
+};
+
 export const GAME_CONFIG = {
     header: {
         position: { xRatio: 0.5, y: 30 },
