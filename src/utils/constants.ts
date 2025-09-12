@@ -75,8 +75,8 @@ export const GAME_CONFIG = {
         offsetX: -(BOMB_PANEL_SIZE / 2),
         offsetY: -50,
         backgroundColor: getCssVarAsHex("--background-color"),
-        label: {
-            text: "Bomb Panel",
+        text: {
+            label: "Bomb Panel",
             position: { xRatio: 0.5, yRatio: 0.5 },
             offsetX: -(BOMB_PANEL_SIZE / 2),
             offsetY: -120,
@@ -147,6 +147,21 @@ export const GAME_CONFIG = {
                 color: getCssVar("--primary-text-light"),
                 fontFamily: FONT_FAMILY,
             },
+        },
+    },
+    inventory: {
+        height: 80,
+        position: { xRatio: 0.5, yRatio: 1 },
+        offsetY: -30,
+        backgroundColor: getCssVarAsHex("--background-color"),
+        slots: {
+            count: 6,
+            width: 40,
+            height: 40,
+            spacing: 50,
+            offsetX: 120,
+            offsetY: -30,
+            backgroundColor: getCssVarAsHex("--primary-grey"),
         },
     },
 };

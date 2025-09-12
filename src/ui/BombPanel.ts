@@ -14,7 +14,7 @@ export class BombPanel {
         const { width, height } = this.scene.scale;
 
         const config = GAME_CONFIG.bombPanel;
-        const labelConfig = config.label;
+        const textConfig = config.text;
         const wireConfig = config.wire;
         const cutButtonConfig = config.buttons.cut;
         const skipButtonConfig = config.buttons.skip;
@@ -28,12 +28,12 @@ export class BombPanel {
         );
         this.scene.add
             .text(
-                width * labelConfig.position.xRatio + labelConfig.offsetX,
-                height * labelConfig.position.yRatio + labelConfig.offsetY,
-                labelConfig.text,
-                { ...labelConfig.style }
+                width * textConfig.position.xRatio + textConfig.offsetX,
+                height * textConfig.position.yRatio + textConfig.offsetY,
+                textConfig.label,
+                { ...textConfig.style }
             )
-            .setOrigin(labelConfig.origin);
+            .setOrigin(textConfig.origin);
 
         // Wire placeholder
         this.scene.add.rectangle(
