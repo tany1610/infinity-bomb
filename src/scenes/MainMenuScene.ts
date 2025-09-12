@@ -10,7 +10,6 @@ export class MainMenuScene extends Phaser.Scene {
 
   preload() {
     this.load.image("button_start_normal", "assets/button-normal.png");
-    this.load.image("button_start_hover", "assets/button-normal.png");
   }
 
   create() {
@@ -33,21 +32,17 @@ export class MainMenuScene extends Phaser.Scene {
       y: height * MENU_CONFIG.button.position.yRatio,
       text: "Start",
       style: MENU_CONFIG.button,
-      normalTexture: "button_start_normal",
-      hoverTexture: "button_start_hover",
+      texture: "button_start_normal",
       onClick: () => this.scene.start("GameScene"),
     });
 
     new MenuButton({
       scene: this,
       x: width * MENU_CONFIG.button.position.xRatio,
-      y:
-        height *
-        (MENU_CONFIG.button.position.yRatio + MENU_CONFIG.button.spacing),
+      y: height * (MENU_CONFIG.button.position.yRatio + MENU_CONFIG.button.spacing),
       text: "Quit",
       style: MENU_CONFIG.button,
-      normalTexture: "button_start_normal",
-      hoverTexture: "button_start_hover",
+      texture: "button_start_normal",
       onClick: () => window.close(),
     });
   }

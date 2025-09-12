@@ -10,7 +10,7 @@ interface TextConfig {
 }
 
 export class Text {
-  public textObject: Phaser.GameObjects.Text;
+  private textObject: Phaser.GameObjects.Text;
 
   constructor({ scene, x, y, content, style }: TextConfig) {
     this.textObject = scene.add
