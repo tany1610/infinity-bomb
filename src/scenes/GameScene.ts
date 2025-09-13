@@ -12,11 +12,15 @@ export class GameScene extends Phaser.Scene {
         super("GameScene");
     }
 
+    preload() {
+        this.load.image("snip_master", "assets/snip-master.png");
+    }
+
     create() {
         this.gameManager = new GameManager();
 
         // --- Top Bar ---
-        new Header({ scene: this });
+        new Header({ scene: this, manager: this.gameManager });
 
         // --- Bomb Panel (center) ---
         new BombPanel({ scene: this });

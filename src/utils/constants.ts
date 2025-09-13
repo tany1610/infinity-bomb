@@ -34,23 +34,46 @@ export const WIRE_COLORS = {
 
 export const ITEMS_CONFIG = {
     snipMaster: {
+        _id: 1,
         title: "Snip Master",
         effect: "Guarantees a safe cut on the current wire",
         price: 30,
+        image: "snip_master",
     },
     circuitPeek: {
+        _id: 2,
         title: "Circuit Peek",
         effect: "Reveals the explosion chance of the current wire",
         price: 20,
+        image: "snip_master",
     },
     fuseKit: {
+        _id: 3,
         title: "Fuse Kit",
         effect: "Restores one lost fuse",
         price: 40,
+        image: "snip_master",
+    },
+};
+
+export const EVENTS = {
+    SHOP: {
+        ITEM_BOUGHT: "shop:itemBought",
+        ITEM_ADDED: "shop:itemAdded",
+    },
+    INVENTORY: {
+        ITEM_USED: "inventory:itemUsed",
+        ITEM_ADDED: "inventory:itemAdded",
+    },
+    GAME: {
+        FUSE_LOST: "game:fuseLost",
+        FUSE_ADDED: "game:fuseAdded",
     },
 };
 
 export const GAME_CONFIG = {
+    startingcoins: 100,
+    startinglives: 3,
     header: {
         position: { xRatio: 0.5, y: 30 },
         backgroundColor: getCssVarAsHex("--background-color"),
@@ -174,9 +197,9 @@ export const GAME_CONFIG = {
         backgroundColor: getCssVarAsHex("--background-color"),
         slots: {
             count: 6,
-            width: 40,
-            height: 40,
-            spacing: 50,
+            width: 50,
+            height: 50,
+            spacing: 60,
             offsetX: 120,
             offsetY: -30,
             backgroundColor: getCssVarAsHex("--primary-grey"),

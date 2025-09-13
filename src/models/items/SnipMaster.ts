@@ -7,7 +7,8 @@ export class SnipMaster extends Item {
         super(
             ITEMS_CONFIG.snipMaster.title,
             ITEMS_CONFIG.snipMaster.price,
-            ITEMS_CONFIG.snipMaster.effect
+            ITEMS_CONFIG.snipMaster.effect,
+            ITEMS_CONFIG.snipMaster.image
         );
     }
 

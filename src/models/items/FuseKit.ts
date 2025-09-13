@@ -4,7 +4,12 @@ import { ITEMS_CONFIG } from "../../utils/constants";
 
 export class FuseKit extends Item {
     constructor() {
-        super(ITEMS_CONFIG.fuseKit.title, ITEMS_CONFIG.fuseKit.price, ITEMS_CONFIG.fuseKit.effect);
+        super(
+            ITEMS_CONFIG.fuseKit.title,
+            ITEMS_CONFIG.fuseKit.price,
+            ITEMS_CONFIG.fuseKit.effect,
+            ITEMS_CONFIG.fuseKit.image
+        );
     }
 
     apply(gameManager: GameManager): void {

@@ -7,7 +7,8 @@ export class CircuitPeek extends Item {
         super(
             ITEMS_CONFIG.circuitPeek.title,
             ITEMS_CONFIG.circuitPeek.price,
-            ITEMS_CONFIG.circuitPeek.effect
+            ITEMS_CONFIG.circuitPeek.effect,
+            ITEMS_CONFIG.circuitPeek.image
         );
     }
 

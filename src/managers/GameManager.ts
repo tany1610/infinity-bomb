@@ -1,17 +1,17 @@
+import { GAME_CONFIG } from "../utils/constants";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
 import { WireManager } from "./WireManager";
 
 export class GameManager {
-    private readonly MAX_FUSES = 3;
-    private _fuses!: number;
+    private _lives!: number;
 
     public _wireManager: WireManager;
     public _shopManager: ShopManager;
     public _inventoryManager: InventoryManager;
 
     private initGame() {
-        this._fuses = this.MAX_FUSES;
+        this._lives = GAME_CONFIG.startinglives;
     }
 
     constructor() {
@@ -34,7 +34,11 @@ export class GameManager {
         return this._inventoryManager;
     }
 
+    public get lives() {
+        return this._lives;
+    }
+
     public addFuse(): void {
-        this._fuses = Math.min(this._fuses + 1, this.MAX_FUSES);
+        this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
     }
 }
