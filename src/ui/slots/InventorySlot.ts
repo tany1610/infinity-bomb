@@ -1,6 +1,7 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/items/Item";
-import { GAME_CONFIG } from "../../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../../utils/constants";
+import { EventBus } from "../../utils/EventBus";
 
 interface InventorySlotConfig {
     index: number;
@@ -21,18 +22,15 @@ export class InventorySlot {
         this.gameManager = gameManager;
 
         const { height } = this.scene.scale;
-        const config = GAME_CONFIG.shop;
         const slotsConfig = GAME_CONFIG.inventory.slots;
 
-        this.scene.add
-            .rectangle(
-                slotsConfig.offsetX + index * slotsConfig.spacing,
-                height + slotsConfig.offsetY,
-                slotsConfig.width,
-                slotsConfig.height,
-                slotsConfig.backgroundColor
-            )
-            .setInteractive({ useHandCursor: true });
+        this.scene.add.rectangle(
+            slotsConfig.offsetX + index * slotsConfig.spacing,
+            height + slotsConfig.offsetY,
+            slotsConfig.width,
+            slotsConfig.height,
+            slotsConfig.backgroundColor
+        );
 
         if (this.item) {
             this.sprite = this.scene.add
@@ -42,11 +40,13 @@ export class InventorySlot {
                     this.item.image
                 )
                 .setInteractive({ useHandCursor: true })
-                .setOrigin(0.5);
+                .setOrigin(0.5)
+                .on("pointerover", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTOVER, this.item))
+                .on("pointerout", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTOUT, this.item));
         }
     }
 
-    public destroy() {
+    public destroy(): void {
         if (this.sprite) {
             this.sprite.destroy();
         }

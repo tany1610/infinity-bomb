@@ -60,12 +60,16 @@ export const EVENTS = {
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
     },
+    INVENTORY: {
+        ITEM_POINTOVER: "inventory:itemMouseOver",
+        ITEM_POINTOUT: "inventory:itemMouseOut",
+    },
 };
 
 export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
-    startingShopItems: 3,
+    startingShopItems: 4,
     header: {
         position: { xRatio: 0.5, y: 30 },
         backgroundColor: getCssVarAsHex("--background-color"),
@@ -112,7 +116,7 @@ export const GAME_CONFIG = {
             label: "Bomb Panel",
             position: { xRatio: 0.5, yRatio: 0.5 },
             offsetX: -(BOMB_PANEL_SIZE / 2),
-            offsetY: -120,
+            offsetY: -134,
             origin: 0.5,
             style: {
                 fontSize: "20px",
@@ -166,18 +170,18 @@ export const GAME_CONFIG = {
         },
     },
     shop: {
-        maxItems: 3,
-        position: { xRatio: 1, yRatio: 0.5 },
+        maxItems: 4,
+        position: { xRatio: 1, yRatio: 0.472 },
         offsetX: -120,
         offsetY: -75,
         width: 200,
-        height: 300,
+        height: 275,
         backgroundColor: getCssVarAsHex("--background-color"),
         itemsSpacing: 55,
         text: {
             origin: 0.5,
             label: "Blast Shop",
-            offsetY: -123,
+            offsetY: -120,
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
@@ -212,6 +216,28 @@ export const GAME_CONFIG = {
             offsetX: 120,
             offsetY: -30,
             backgroundColor: getCssVarAsHex("--primary-grey"),
+        },
+    },
+    hint: {
+        height: 60,
+        backgroundColor: getCssVarAsHex("--primary-grey"),
+        title: {
+            offestY: -18,
+            origin: 0.5,
+            style: {
+                fontSize: "20px",
+                color: getCssVar("--primary-text-light"),
+                fontFamily: FONT_FAMILY,
+            },
+        },
+        description: {
+            offestY: 5,
+            origin: 0.5,
+            style: {
+                fontSize: "16px",
+                color: getCssVar("--text-white"),
+                fontFamily: FONT_FAMILY,
+            },
         },
     },
 };
