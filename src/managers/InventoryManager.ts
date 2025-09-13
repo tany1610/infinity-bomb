@@ -1,16 +1,29 @@
 import type { Item } from "../models/items/Item";
-import { GAME_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EventBus } from "../utils/EventBus";
 
 export class InventoryManager {
-    private items: Item[];
+    private _items: Item[] = [];
     private slotsCount: number;
 
+    private addItem(item: Item) {
+        if (this.hasSpace) {
+            this._items.push(item);
+        }
+    }
+
     constructor() {
-        this.items = [];
+        this._items = [];
         this.slotsCount = GAME_CONFIG.inventory.slots.count;
+
+        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.addItem, this);
+    }
+
+    public get items(): Item[] {
+        return this._items;
     }
 
     public get hasSpace(): boolean {
-        return this.items.length + 1 <= this.slotsCount;
+        return this._items.length + 1 <= this.slotsCount;
     }
 }

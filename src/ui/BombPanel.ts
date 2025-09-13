@@ -1,4 +1,3 @@
-import Phaser from "phaser";
 import { GAME_CONFIG } from "../utils/constants";
 import { CutButton } from "./buttons/CutButton";
 import { SkipButton } from "./buttons/SkipButton";

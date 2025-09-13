@@ -1,7 +1,6 @@
-import Phaser from "phaser";
-import { Item } from "../../models/items/Item";
+import type { GameManager } from "../../managers/GameManager";
+import type { Item } from "../../models/items/Item";
 import { GAME_CONFIG } from "../../utils/constants";
-import { GameManager } from "../../managers/GameManager";
 
 interface ShopSlotConfig {
     index: number;

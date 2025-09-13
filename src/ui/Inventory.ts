@@ -1,19 +1,41 @@
 import Phaser from "phaser";
-import { GAME_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { GameManager } from "../managers/GameManager";
+import { InventorySlot } from "./slots/InventorySlot";
+import { EventBus } from "../utils/EventBus";
 
 interface InventoryConfig {
     scene: Phaser.Scene;
+    gameManager: GameManager;
 }
 
 export class Inventory {
     private scene: Phaser.Scene;
+    private gameManager: GameManager;
+    private inventorySlots: InventorySlot[] = [];
 
-    constructor({ scene }: InventoryConfig) {
+    private initInventoryItems() {
+        this.inventorySlots.forEach((slot) => slot.destroy());
+        this.inventorySlots = [];
+
+        const slotsConfig = GAME_CONFIG.inventory.slots;
+
+        const inventoryItems = this.gameManager.inventoryItems;
+
+        for (let index = 0; index < slotsConfig.count; index++) {
+            const item = inventoryItems[index];
+            this.inventorySlots.push(
+                new InventorySlot({ index, item, scene: this.scene, gameManager: this.gameManager })
+            );
+        }
+    }
+
+    constructor({ scene, gameManager }: InventoryConfig) {
         this.scene = scene;
+        this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
         const config = GAME_CONFIG.inventory;
-        const slotsConfig = GAME_CONFIG.inventory.slots;
 
         this.scene.add.rectangle(
             width * config.position.xRatio,
@@ -23,16 +45,8 @@ export class Inventory {
             config.backgroundColor
         );
 
-        for (let i = 0; i < slotsConfig.count; i++) {
-            this.scene.add
-                .rectangle(
-                    slotsConfig.offsetX + i * slotsConfig.spacing,
-                    height + slotsConfig.offsetY,
-                    slotsConfig.width,
-                    slotsConfig.height,
-                    slotsConfig.backgroundColor
-                )
-                .setInteractive({ useHandCursor: true });
-        }
+        this.initInventoryItems();
+
+        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initInventoryItems, this);
     }
 }

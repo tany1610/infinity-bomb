@@ -35,6 +35,10 @@ export class GameManager {
         return this._shopManager.coins;
     }
 
+    public get inventoryItems(): Item[] {
+        return this._inventoryManager.items;
+    }
+
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
     }

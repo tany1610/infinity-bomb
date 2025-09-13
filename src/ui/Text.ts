@@ -1,4 +1,3 @@
-import Phaser from "phaser";
 import { FONT_FAMILY } from "../utils/constants";
 
 interface TextConfig {

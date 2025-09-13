@@ -31,6 +31,6 @@ export class GameScene extends Phaser.Scene {
         new Shop({ scene: this, gameManager: this.gameManager });
 
         // --- Inventory (bottom) ---
-        new Inventory({ scene: this });
+        new Inventory({ scene: this, gameManager: this.gameManager });
     }
 }

@@ -1,6 +1,5 @@
-import Phaser from "phaser";
+import type { GameManager } from "../managers/GameManager";
 import { EVENTS, GAME_CONFIG } from "../utils/constants";
-import { GameManager } from "../managers/GameManager";
 import { EventBus } from "../utils/EventBus";
 
 interface HeaderConfig {

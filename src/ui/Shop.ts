@@ -1,7 +1,6 @@
-import Phaser from "phaser";
+import type { GameManager } from "../managers/GameManager";
 import { EVENTS, GAME_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
-import type { GameManager } from "../managers/GameManager";
 import { ShopSlot } from "./slots/ShopSlot";
 
 interface ShopConfig {
