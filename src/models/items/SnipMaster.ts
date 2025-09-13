@@ -13,6 +13,6 @@ export class SnipMaster extends Item {
     }
 
     apply(gameManager: GameManager): void {
-        gameManager.wireManager.forceSafeCut();
+        gameManager.forceSafeCut();
     }
 }

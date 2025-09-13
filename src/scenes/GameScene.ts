@@ -14,19 +14,21 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image("snip_master", "assets/snip-master.png");
+        this.load.image("circuit_peek", "assets/circuit-peek.png");
+        this.load.image("fuse_kit", "assets/fuse-kit.png");
     }
 
     create() {
         this.gameManager = new GameManager();
 
         // --- Top Bar ---
-        new Header({ scene: this, manager: this.gameManager });
+        new Header({ scene: this, gameManager: this.gameManager });
 
         // --- Bomb Panel (center) ---
         new BombPanel({ scene: this });
 
         // --- Shop (right side) ---
-        new Shop({ scene: this, manager: this.gameManager.shopManager });
+        new Shop({ scene: this, gameManager: this.gameManager });
 
         // --- Inventory (bottom) ---
         new Inventory({ scene: this });

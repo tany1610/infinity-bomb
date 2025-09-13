@@ -23,7 +23,6 @@ export class Inventory {
             config.backgroundColor
         );
 
-        // Inventory slots (placeholders)
         for (let i = 0; i < slotsConfig.count; i++) {
             this.scene.add
                 .rectangle(

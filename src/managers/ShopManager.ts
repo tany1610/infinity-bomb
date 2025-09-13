@@ -5,14 +5,14 @@ import { EventBus } from "../utils/EventBus";
 
 export class ShopManager {
     private _coins: number;
-    private items: Item[] = [];
+    private _items: Item[] = [];
 
     private generateRandomItems(count: number) {
-        this.items = [];
+        this._items = [];
 
         for (let i = 0; i < count; i++) {
             const RandomItem = ITEM_CLASSES[Math.floor(Math.random() * ITEM_CLASSES.length)];
-            this.items.push(new RandomItem());
+            this._items.push(new RandomItem());
         }
     }
 
@@ -21,25 +21,25 @@ export class ShopManager {
     }
 
     constructor() {
-        this._coins = GAME_CONFIG.startingcoins;
-        this.generateRandomItems(1);
+        this._coins = GAME_CONFIG.startingCoins;
+        this.generateRandomItems(GAME_CONFIG.startingShopItems);
     }
 
     public get coins() {
         return this._coins;
     }
 
-    public get availableItems() {
-        return this.items;
+    public get items() {
+        return this._items;
     }
 
     public buyItem(itemId: string): void {
-        const index = this.items.findIndex((item) => item.id === itemId);
-        const itemPrice = this.items[index].price;
+        const index = this._items.findIndex((item) => item.id === itemId);
+        const itemPrice = this._items[index].price;
 
         if (this.hasEnoughCoins(itemPrice)) {
             this._coins -= itemPrice;
-            const [boughtItem] = this.items.splice(index, 1);
+            const [boughtItem] = this._items.splice(index, 1);
 
             EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
         }

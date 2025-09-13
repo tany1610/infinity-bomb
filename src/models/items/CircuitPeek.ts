@@ -13,6 +13,6 @@ export class CircuitPeek extends Item {
     }
 
     apply(gameManager: GameManager): void {
-        gameManager.wireManager.exposeExplodeChance();
+        gameManager.exposeExplodeChance();
     }
 }

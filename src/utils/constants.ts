@@ -45,35 +45,27 @@ export const ITEMS_CONFIG = {
         title: "Circuit Peek",
         effect: "Reveals the explosion chance of the current wire",
         price: 20,
-        image: "snip_master",
+        image: "circuit_peek",
     },
     fuseKit: {
         _id: 3,
         title: "Fuse Kit",
         effect: "Restores one lost fuse",
         price: 40,
-        image: "snip_master",
+        image: "fuse_kit",
     },
 };
 
 export const EVENTS = {
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
-        ITEM_ADDED: "shop:itemAdded",
-    },
-    INVENTORY: {
-        ITEM_USED: "inventory:itemUsed",
-        ITEM_ADDED: "inventory:itemAdded",
-    },
-    GAME: {
-        FUSE_LOST: "game:fuseLost",
-        FUSE_ADDED: "game:fuseAdded",
     },
 };
 
 export const GAME_CONFIG = {
-    startingcoins: 100,
+    startingCoins: 100,
     startinglives: 3,
+    startingShopItems: 3,
     header: {
         position: { xRatio: 0.5, y: 30 },
         backgroundColor: getCssVarAsHex("--background-color"),
@@ -90,9 +82,9 @@ export const GAME_CONFIG = {
             },
         },
         coins: {
-            x: 200,
+            x: 190,
             y: 20,
-            text: "Coins:",
+            text: "BlastCoins:",
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
@@ -100,7 +92,7 @@ export const GAME_CONFIG = {
             },
         },
         skips: {
-            x: 350,
+            x: 380,
             y: 20,
             text: "Skips:",
             style: {
@@ -174,11 +166,14 @@ export const GAME_CONFIG = {
         },
     },
     shop: {
+        maxItems: 3,
         position: { xRatio: 1, yRatio: 0.5 },
         offsetX: -120,
+        offsetY: -75,
         width: 200,
         height: 300,
         backgroundColor: getCssVarAsHex("--background-color"),
+        itemsSpacing: 55,
         text: {
             origin: 0.5,
             label: "Blast Shop",
@@ -187,6 +182,20 @@ export const GAME_CONFIG = {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
                 fontFamily: FONT_FAMILY,
+            },
+            titleStyle: {
+                fontSize: "14px",
+                color: getCssVar("--primary-text-light"),
+                fontFamily: FONT_FAMILY,
+            },
+            descriptionStyle: {
+                fontSize: "12px",
+                color: getCssVar("--text-white"),
+                fontFamily: FONT_FAMILY,
+                wordWrap: {
+                    width: 150,
+                    useAdvancedWrap: true,
+                },
             },
         },
     },

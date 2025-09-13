@@ -2,7 +2,7 @@
     font-family: "VT323", monospace;
     --background-color: #161516;
     --text-color: #9b8b70;
-    --dark-text: #000000ff;
+    --text-white: #e7e7e7;
     --primary-text-light: #d9ceae;
     --primary-text-darker: #9b8b70;
     --primary-grey: #444444;
@@ -14,26 +14,16 @@
     --black-wire: #1a1a1a;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html,
 body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     height: 100%;
+    background: url("/assets/background.png");
 }
 
-body {
-    background-color: var(--background-color);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1;
-    display: flex;
+canvas {
+    display: block;
+    margin: 0 auto;
 }

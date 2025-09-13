@@ -1,39 +1,36 @@
 import Phaser from "phaser";
 import { EVENTS, GAME_CONFIG } from "../utils/constants";
-import type { ShopManager } from "../managers/ShopManager";
 import { EventBus } from "../utils/EventBus";
+import type { GameManager } from "../managers/GameManager";
+import { ShopSlot } from "./slots/ShopSlot";
 
 interface ShopConfig {
     scene: Phaser.Scene;
-    manager: ShopManager;
+    gameManager: GameManager;
 }
 
 export class Shop {
     private scene: Phaser.Scene;
-    private manager: ShopManager;
-    private itemSprites: Phaser.GameObjects.Sprite[] = [];
+    private gameManager: GameManager;
+    private shopSlots: ShopSlot[] = [];
 
-    private initItemSprites() {
-        this.itemSprites.forEach((sprite) => sprite.destroy());
-        this.itemSprites = [];
+    private initShopItems() {
+        this.shopSlots.forEach((slot) => slot.destroy());
+        this.shopSlots = [];
 
-        const shopItems = this.manager.availableItems;
+        const shopItems = this.gameManager.shopItems;
 
-        for (let i = 0; i < shopItems.length; i++) {
-            const item = shopItems[i];
-            const sprite = this.scene.add
-                .sprite(320, 170 + 50 * i, item.image)
-                .setOrigin(0.5)
-                .setInteractive({ useHandCursor: true })
-                .on("pointerdown", () => this.manager.buyItem(item.id));
-
-            this.itemSprites.push(sprite);
+        for (let index = 0; index < shopItems.length; index++) {
+            const item = shopItems[index];
+            this.shopSlots.push(
+                new ShopSlot({ index, item, scene: this.scene, gameManager: this.gameManager })
+            );
         }
     }
 
-    constructor({ scene, manager }: ShopConfig) {
+    constructor({ scene, gameManager }: ShopConfig) {
         this.scene = scene;
-        this.manager = manager;
+        this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
         const config = GAME_CONFIG.shop;
@@ -47,8 +44,8 @@ export class Shop {
             .text(shopX, shopY + textConfig.offsetY, textConfig.label, { ...textConfig.style })
             .setOrigin(textConfig.origin);
 
-        this.initItemSprites();
+        this.initShopItems();
 
-        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initItemSprites, this);
+        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initShopItems, this);
     }
 }

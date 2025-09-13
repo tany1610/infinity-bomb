@@ -1,19 +1,24 @@
-import { GameScene } from "./scenes/GameScene";
-import { MainMenuScene } from "./scenes/MainMenuScene";
 import "./style.scss";
 import Phaser from "phaser";
+import { GameScene } from "./scenes/GameScene";
+import { MainMenuScene } from "./scenes/MainMenuScene";
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.WEBGL,
-  width: 500,
-  height: 500,
-  scene: [MainMenuScene, GameScene],
-  physics: {
-    default: "arcade",
-    arcade: {
-      debug: false,
+    type: Phaser.WEBGL,
+    width: 500,
+    height: 500,
+    transparent: true,
+    scene: [MainMenuScene, GameScene],
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-  },
+    physics: {
+        default: "arcade",
+        arcade: {
+            debug: false,
+        },
+    },
 };
 
 new Phaser.Game(config);

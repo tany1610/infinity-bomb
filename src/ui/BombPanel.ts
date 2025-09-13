@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 import { GAME_CONFIG } from "../utils/constants";
+import { CutButton } from "./buttons/CutButton";
+import { SkipButton } from "./buttons/SkipButton";
 
 interface BombPanelConfig {
     scene: Phaser.Scene;
@@ -16,8 +18,6 @@ export class BombPanel {
         const config = GAME_CONFIG.bombPanel;
         const textConfig = config.text;
         const wireConfig = config.wire;
-        const cutButtonConfig = config.buttons.cut;
-        const skipButtonConfig = config.buttons.skip;
 
         this.scene.add.rectangle(
             width * config.position.xRatio + config.offsetX,
@@ -45,40 +45,7 @@ export class BombPanel {
         );
 
         // --- Buttons ---
-        const cutButton = this.scene.add
-            .rectangle(
-                width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,
-                height * cutButtonConfig.position.yRatio + cutButtonConfig.offsetY,
-                cutButtonConfig.width,
-                cutButtonConfig.height,
-                cutButtonConfig.backgroundColor
-            )
-            .setInteractive({ useHandCursor: true });
-        this.scene.add
-            .text(
-                width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,
-                height * cutButtonConfig.position.yRatio + cutButtonConfig.offsetY,
-                cutButtonConfig.text.label,
-                { ...cutButtonConfig.text.style }
-            )
-            .setOrigin(cutButtonConfig.text.origin);
-
-        const skipButton = this.scene.add
-            .rectangle(
-                width * skipButtonConfig.position.xRatio + skipButtonConfig.offsetX,
-                height * skipButtonConfig.position.yRatio + skipButtonConfig.offsetY,
-                skipButtonConfig.width,
-                skipButtonConfig.height,
-                skipButtonConfig.backgroundColor
-            )
-            .setInteractive({ useHandCursor: true });
-        this.scene.add
-            .text(
-                width * skipButtonConfig.position.xRatio + skipButtonConfig.offsetX,
-                height * skipButtonConfig.position.yRatio + skipButtonConfig.offsetY,
-                skipButtonConfig.text.label,
-                { ...skipButtonConfig.text.style }
-            )
-            .setOrigin(skipButtonConfig.text.origin);
+        const cutButton = new CutButton({ scene: this.scene });
+        const skipButton = new SkipButton({ scene: this.scene });
     }
 }

@@ -1,3 +1,4 @@
+import type { Item } from "../models/items/Item";
 import { GAME_CONFIG } from "../utils/constants";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
@@ -22,23 +23,33 @@ export class GameManager {
         this.initGame();
     }
 
-    public get wireManager() {
-        return this._wireManager;
-    }
-
-    public get shopManager() {
-        return this._shopManager;
-    }
-
-    public get inventoryManager() {
-        return this._inventoryManager;
-    }
-
     public get lives() {
         return this._lives;
     }
 
+    public get shopItems(): Item[] {
+        return this._shopManager.items;
+    }
+
+    public get coins(): number {
+        return this._shopManager.coins;
+    }
+
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
+    }
+
+    public exposeExplodeChance(): void {
+        this._wireManager.exposeExplodeChance();
+    }
+
+    public forceSafeCut(): void {
+        this._wireManager.forceSafeCut();
+    }
+
+    public buyItem(itemId: string): void {
+        if (this._inventoryManager.hasSpace) {
+            this._shopManager.buyItem(itemId);
+        }
     }
 }
