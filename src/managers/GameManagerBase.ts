@@ -73,10 +73,6 @@ export class GameManagerBase {
         return this._shopManager.coins;
     }
 
-    public activateDoubleReward(): void {
-        this._shopManager.activateDoubleReward();
-    }
-
     public get inventoryItems(): Item[] {
         return this._inventoryManager.items;
     }
@@ -112,13 +108,6 @@ export class GameManagerBase {
             this.applyRewards();
         }
         this.nextRound();
-    }
-
-    public buyItem(item: Item): void {
-        if (this._inventoryManager.hasSpace && this._shopManager.hasEnoughCoins(item.price)) {
-            const boughtItem = this._shopManager.buyItem(item.id);
-            EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
-        }
     }
 
     public destroy(): void {

@@ -1,3 +1,6 @@
+import type { Item } from "../models/items/Item";
+import { EVENTS } from "../utils/constants";
+import { EventBus } from "../utils/EventBus";
 import { GameManagerBase } from "./GameManagerBase";
 
 export class GameManager extends GameManagerBase {
@@ -10,6 +13,13 @@ export class GameManager extends GameManagerBase {
 
     public cutWire(): void {
         super.cutWire(this._doubleBlow);
+    }
+
+    public buyItem(item: Item): void {
+        if (this._inventoryManager.hasSpace && this._shopManager.hasEnoughCoins(item.price)) {
+            const boughtItem = this._shopManager.buyItem(item.id);
+            EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
+        }
     }
 
     public activateDoubleReward(): void {
