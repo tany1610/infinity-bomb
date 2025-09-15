@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { GAME_OVER_MENU_CONFIG, MAIN_MENU_CONFIG } from "../utils/constants";
+import { GAME_OVER_MENU_CONFIG } from "../utils/constants";
 import { Text } from "../ui/Text";
 import { MenuButton } from "../ui/buttons/MenuButton";
 

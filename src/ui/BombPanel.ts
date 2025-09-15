@@ -46,9 +46,8 @@ export class BombPanel {
 
         this.wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
 
-        // --- Buttons ---
-        const cutButton = new CutButton({ scene: this.scene, gameManager: this.gameManager });
-        const skipButton = new SkipButton({ scene: this.scene, gameManager: this.gameManager });
+        new CutButton({ scene: this.scene, gameManager: this.gameManager });
+        new SkipButton({ scene: this.scene, gameManager: this.gameManager });
 
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.redrawWire, this);
     }
