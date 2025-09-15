@@ -5,6 +5,8 @@ import { Shop } from "../ui/Shop";
 import { Inventory } from "../ui/Inventory";
 import { GameManager } from "../managers/GameManager";
 import { Hint } from "../ui/Hint";
+import { EventBus } from "../utils/EventBus";
+import { EVENTS } from "../utils/constants";
 
 export class GameScene extends Phaser.Scene {
     private gameManager!: GameManager;
@@ -36,5 +38,7 @@ export class GameScene extends Phaser.Scene {
 
         // --- Inventory (bottom) ---
         new Inventory({ scene: this, gameManager: this.gameManager });
+
+        EventBus.on(EVENTS.GAME.GAME_OVER, () => this.scene.start("GameOverScene"));
     }
 }

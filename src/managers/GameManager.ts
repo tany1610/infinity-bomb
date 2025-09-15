@@ -19,7 +19,10 @@ export class GameManager {
         this._round = 1;
     }
 
-    private gameOver(): void {}
+    private gameOver(): void {
+        localStorage.setItem("score", this._round.toString());
+        EventBus.emit(EVENTS.GAME.GAME_OVER);
+    }
 
     private blowFuse(): void {
         if (this._lives - 1 <= 0) {

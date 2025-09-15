@@ -5,24 +5,6 @@ const BOMB_PANEL_SIZE = 200;
 
 export const FONT_FAMILY = "VT323";
 
-export const MENU_CONFIG = {
-    title: {
-        text: "Infinity Bomb",
-        fontSize: "32px",
-        color: getCssVar("--text-color"),
-        position: { xRatio: 0.5, yRatio: 0.1 },
-    },
-    button: {
-        fontSize: "24px",
-        color: getCssVar("--primary-text-light"),
-        letterSpacing: 1,
-        padding: { x: 20, y: 10 },
-        position: { xRatio: 0.5, yRatio: 0.25 },
-        spacing: 0.12,
-        align: "center",
-    },
-};
-
 export const WIRE_COLORS = {
     red: getCssVarAsHex("--red-wire"),
     blue: getCssVarAsHex("--blue-wire"),
@@ -60,6 +42,7 @@ export const EVENTS = {
     GAME: {
         LOST_LIFE: "game:lostLife",
         NEXT_ROUND: "game:nextRound",
+        GAME_OVER: "game:gameOver",
     },
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
@@ -79,6 +62,49 @@ export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
     startingShopItems: 4,
+};
+
+export const MAIN_MENU_CONFIG = {
+    title: {
+        text: "Infinity Bomb",
+        fontSize: "32px",
+        color: getCssVar("--text-color"),
+        position: { xRatio: 0.5, yRatio: 0.1 },
+    },
+    button: {
+        fontSize: "24px",
+        color: getCssVar("--primary-text-light"),
+        letterSpacing: 1,
+        padding: { x: 20, y: 10 },
+        position: { xRatio: 0.5, yRatio: 0.25 },
+        spacing: 0.12,
+        align: "center",
+    },
+};
+
+export const GAME_OVER_MENU_CONFIG = {
+    title: {
+        text: "Game Over",
+        fontSize: "32px",
+        color: getCssVar("--text-color"),
+        position: { xRatio: 0.5, yRatio: 0.1 },
+    },
+    scoreText: {
+        text: "Score: ",
+        fontSize: "20px",
+        color: getCssVar("--text-color"),
+        position: { xRatio: 0.5, yRatio: 0.2 },
+    },
+    button: {
+        text: "Main Menu",
+        fontSize: "24px",
+        color: getCssVar("--primary-text-light"),
+        letterSpacing: 1,
+        padding: { x: 20, y: 10 },
+        position: { xRatio: 0.5, yRatio: 0.3 },
+        spacing: 0.12,
+        align: "center",
+    },
 };
 
 export const UI_CONFIG = {

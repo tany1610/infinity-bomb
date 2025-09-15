@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { MENU_CONFIG } from "../utils/constants";
+import { MAIN_MENU_CONFIG } from "../utils/constants";
 import { Text } from "../ui/Text";
 import { MenuButton } from "../ui/buttons/MenuButton";
 
@@ -17,31 +17,31 @@ export class MainMenuScene extends Phaser.Scene {
 
         new Text({
             scene: this,
-            x: width * MENU_CONFIG.title.position.xRatio,
-            y: height * MENU_CONFIG.title.position.yRatio,
-            content: MENU_CONFIG.title.text,
+            x: width * MAIN_MENU_CONFIG.title.position.xRatio,
+            y: height * MAIN_MENU_CONFIG.title.position.yRatio,
+            content: MAIN_MENU_CONFIG.title.text,
             style: {
-                fontSize: MENU_CONFIG.title.fontSize,
-                color: MENU_CONFIG.title.color,
+                fontSize: MAIN_MENU_CONFIG.title.fontSize,
+                color: MAIN_MENU_CONFIG.title.color,
             },
         });
 
         new MenuButton({
             scene: this,
-            x: width * MENU_CONFIG.button.position.xRatio,
-            y: height * MENU_CONFIG.button.position.yRatio,
+            x: width * MAIN_MENU_CONFIG.button.position.xRatio,
+            y: height * MAIN_MENU_CONFIG.button.position.yRatio,
             text: "Start",
-            style: MENU_CONFIG.button,
+            style: MAIN_MENU_CONFIG.button,
             texture: "button_start_normal",
             onClick: () => this.scene.start("GameScene"),
         });
 
         new MenuButton({
             scene: this,
-            x: width * MENU_CONFIG.button.position.xRatio,
-            y: height * (MENU_CONFIG.button.position.yRatio + MENU_CONFIG.button.spacing),
+            x: width * MAIN_MENU_CONFIG.button.position.xRatio,
+            y: height * (MAIN_MENU_CONFIG.button.position.yRatio + MAIN_MENU_CONFIG.button.spacing),
             text: "Quit",
-            style: MENU_CONFIG.button,
+            style: MAIN_MENU_CONFIG.button,
             texture: "button_start_normal",
             onClick: () => window.close(),
         });
