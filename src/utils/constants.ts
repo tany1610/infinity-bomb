@@ -57,6 +57,9 @@ export const ITEMS_CONFIG = {
 };
 
 export const EVENTS = {
+    GAME: {
+        LOST_LIFE: "game:lostLife",
+    },
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
     },
@@ -65,6 +68,7 @@ export const EVENTS = {
         WIRE_POINTEROUT: "bombPanel:wireMouseOut",
     },
     INVENTORY: {
+        ITEM_USED: "inventory:itemUsed",
         ITEM_POINTEROVER: "inventory:itemMouseOver",
         ITEM_POINTEROUT: "inventory:itemMouseOut",
     },

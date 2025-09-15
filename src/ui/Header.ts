@@ -52,6 +52,13 @@ export class Header {
         this.coinsText.setText(`${coinsConfig.text} ${coins}`);
     }
 
+    private updateLives() {
+        const livesConfig = GAME_CONFIG.header.lives;
+        const lives = this.gameManager.lives;
+
+        this.livesText.setText(`${livesConfig.text} ${lives}`);
+    }
+
     constructor({ scene, gameManager }: HeaderConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
@@ -73,5 +80,7 @@ export class Header {
         this.drawHeaderContent();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.updateCoins, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateLives, this);
+        EventBus.on(EVENTS.GAME.LOST_LIFE, this.updateLives, this);
     }
 }

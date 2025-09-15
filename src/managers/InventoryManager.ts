@@ -12,11 +12,19 @@ export class InventoryManager {
         }
     }
 
+    private removeItem(item: Item) {
+        const index = this._items.findIndex((invItem) => invItem.id === item.id);
+        if (index >= 0) {
+            this._items.splice(index, 1);
+        }
+    }
+
     constructor() {
         this._items = [];
         this.slotsCount = GAME_CONFIG.inventory.slots.count;
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.addItem, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.removeItem, this);
     }
 
     public get items(): Item[] {

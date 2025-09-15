@@ -48,5 +48,6 @@ export class Inventory {
         this.initInventoryItems();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initInventoryItems, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.initInventoryItems, this);
     }
 }

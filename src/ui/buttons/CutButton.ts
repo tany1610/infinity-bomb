@@ -1,14 +1,18 @@
+import type { GameManager } from "../../managers/GameManager";
 import { GAME_CONFIG } from "../../utils/constants";
 
 interface CutButtonConfig {
     scene: Phaser.Scene;
+    gameManager: GameManager;
 }
 
 export class CutButton {
     private scene: Phaser.Scene;
+    private gameManager: GameManager;
 
-    constructor({ scene }: CutButtonConfig) {
+    constructor({ scene, gameManager }: CutButtonConfig) {
         this.scene = scene;
+        this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
 
@@ -22,7 +26,8 @@ export class CutButton {
                 cutButtonConfig.height,
                 cutButtonConfig.backgroundColor
             )
-            .setInteractive({ useHandCursor: true });
+            .setInteractive({ useHandCursor: true })
+            .on("pointerdown", () => gameManager.cutWire());
         this.scene.add
             .text(
                 width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,

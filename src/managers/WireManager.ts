@@ -44,9 +44,11 @@ export class WireManager {
     }
 
     public cutWire(): boolean {
-        const willExplode = this._currentWire.cut();
-        this._currentWire = this.generateRandomWire();
-        return willExplode;
+        const explodes = this._currentWire.cut();
+        if (!explodes) {
+            this._currentWire = this.generateRandomWire();
+        }
+        return explodes;
     }
 
     public skipWire(): void {

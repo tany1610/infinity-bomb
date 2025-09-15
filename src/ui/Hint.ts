@@ -58,5 +58,6 @@ export class Hint {
         EventBus.on(EVENTS.BOMB_PANEL.WIRE_POINTEROUT, this.hide, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_POINTEROVER, this.show, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_POINTEROUT, this.hide, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.hide, this);
     }
 }

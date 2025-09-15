@@ -1,5 +1,6 @@
 import type { Item } from "../models/items/Item";
-import { GAME_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EventBus } from "../utils/EventBus";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
 import { WireManager } from "./WireManager";
@@ -11,8 +12,22 @@ export class GameManager {
     public _shopManager: ShopManager;
     public _inventoryManager: InventoryManager;
 
-    private initGame() {
+    private initGame(): void {
         this._lives = GAME_CONFIG.startinglives;
+    }
+
+    private gameOver(): void {
+        const explodeChance = this._wireManager.currentWire.explodeChance;
+        alert(`Game Over! Explode chance was: ${explodeChance * 100}%`);
+    }
+
+    private blowFuse(): void {
+        if (this._lives - 1 < 0) {
+            this.gameOver();
+        } else {
+            this._lives -= 1;
+            EventBus.emit(EVENTS.GAME.LOST_LIFE);
+        }
     }
 
     constructor() {
@@ -53,6 +68,18 @@ export class GameManager {
 
     public forceSafeCut(): void {
         this._wireManager.forceSafeCut();
+    }
+
+    // [WIP]: currently for testing purposes
+    public cutWire(): void {
+        const explodeChance = this._wireManager.currentWire.explodeChance;
+        this._wireManager.exposeExplodeChance();
+        const explodes = this._wireManager.cutWire();
+        if (explodes) {
+            this.blowFuse();
+        } else {
+            alert(`SAFE! Explode chance was: ${explodeChance * 100}%`);
+        }
     }
 
     public buyItem(itemId: string): void {

@@ -18,6 +18,10 @@ export class Wire implements IHovarable {
         return this._colorValue;
     }
 
+    public get explodeChance(): number {
+        return this._explodeChance;
+    }
+
     public set explodeChance(value: number) {
         this._explodeChance = value;
     }

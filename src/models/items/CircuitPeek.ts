@@ -1,6 +1,7 @@
 import { GameManager } from "../../managers/GameManager";
 import { Item } from "./Item";
-import { ITEMS_CONFIG } from "../../utils/constants";
+import { EVENTS, ITEMS_CONFIG } from "../../utils/constants";
+import { EventBus } from "../../utils/EventBus";
 
 export class CircuitPeek extends Item {
     constructor() {
@@ -14,5 +15,6 @@ export class CircuitPeek extends Item {
 
     apply(gameManager: GameManager): void {
         gameManager.exposeExplodeChance();
+        EventBus.emit(EVENTS.INVENTORY.ITEM_USED, this);
     }
 }

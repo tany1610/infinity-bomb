@@ -41,7 +41,7 @@ export class BombPanel {
         const wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
 
         // --- Buttons ---
-        const cutButton = new CutButton({ scene: this.scene });
+        const cutButton = new CutButton({ scene: this.scene, gameManager: this.gameManager });
         const skipButton = new SkipButton({ scene: this.scene });
     }
 }
