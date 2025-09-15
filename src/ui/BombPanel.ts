@@ -1,8 +1,9 @@
-import { GAME_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../utils/constants";
 import type { GameManager } from "../managers/GameManager";
 import { CutButton } from "./buttons/CutButton";
 import { SkipButton } from "./buttons/SkipButton";
 import { Wire } from "./Wire";
+import { EventBus } from "../utils/EventBus";
 
 interface BombPanelConfig {
     scene: Phaser.Scene;
@@ -12,6 +13,11 @@ interface BombPanelConfig {
 export class BombPanel {
     private scene: Phaser.Scene;
     private gameManager!: GameManager;
+    private wire: Wire;
+
+    private redrawWire() {
+        this.wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
+    }
 
     constructor({ scene, gameManager }: BombPanelConfig) {
         this.scene = scene;
@@ -38,10 +44,12 @@ export class BombPanel {
             )
             .setOrigin(textConfig.origin);
 
-        const wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
+        this.wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
 
         // --- Buttons ---
         const cutButton = new CutButton({ scene: this.scene, gameManager: this.gameManager });
         const skipButton = new SkipButton({ scene: this.scene });
+
+        EventBus.on(EVENTS.GAME.NEXT_ROUND, this.redrawWire, this);
     }
 }

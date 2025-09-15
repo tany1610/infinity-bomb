@@ -80,6 +80,7 @@ export class Header {
         this.drawHeaderContent();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.updateCoins, this);
+        EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateCoins, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateLives, this);
         EventBus.on(EVENTS.GAME.LOST_LIFE, this.updateLives, this);
     }

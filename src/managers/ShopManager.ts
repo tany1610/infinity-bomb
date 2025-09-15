@@ -1,18 +1,25 @@
 import type { Item } from "../models/items/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
-import { EventBus } from "../utils/EventBus";
+import { GAME_CONFIG } from "../utils/constants";
 
 export class ShopManager {
     private _coins: number;
     private _items: Item[] = [];
 
+    private generateRandomItem() {
+        return ITEM_CLASSES[Math.floor(Math.random() * ITEM_CLASSES.length)];
+    }
+
+    private addNewItem() {
+        const RandomItem = this.generateRandomItem();
+        this._items.push(new RandomItem());
+    }
+
     private generateRandomItems(count: number) {
         this._items = [];
 
         for (let i = 0; i < count; i++) {
-            const RandomItem = ITEM_CLASSES[Math.floor(Math.random() * ITEM_CLASSES.length)];
-            this._items.push(new RandomItem());
+            this.addNewItem();
         }
     }
 
@@ -33,15 +40,22 @@ export class ShopManager {
         return this._items;
     }
 
-    public buyItem(itemId: string): void {
+    public buyItem(itemId: string): Item | null {
         const index = this._items.findIndex((item) => item.id === itemId);
         const itemPrice = this._items[index].price;
 
         if (this.hasEnoughCoins(itemPrice)) {
             this._coins -= itemPrice;
             const [boughtItem] = this._items.splice(index, 1);
-
-            EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
+            this.addNewItem();
+            return boughtItem;
         }
+
+        return null;
+    }
+
+    public reward(wireExplodeChance: number) {
+        const reward = wireExplodeChance * 100;
+        this._coins += reward;
     }
 }

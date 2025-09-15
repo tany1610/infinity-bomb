@@ -59,6 +59,7 @@ export const ITEMS_CONFIG = {
 export const EVENTS = {
     GAME: {
         LOST_LIFE: "game:lostLife",
+        NEXT_ROUND: "game:nextRound",
     },
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",

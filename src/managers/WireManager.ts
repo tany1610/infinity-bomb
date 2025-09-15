@@ -3,7 +3,7 @@ import { WIRE_COLORS } from "../utils/constants";
 
 export class WireManager {
     private wiresConfig: Record<keyof typeof WIRE_COLORS, number>;
-    private _currentWire: Wire;
+    private _currentWire!: Wire;
 
     private generateRandomChance(): number {
         // Random step chance between 10% and 90%
@@ -21,18 +21,18 @@ export class WireManager {
         );
     }
 
-    private generateRandomWire(): Wire {
+    private generateRandomWire(): void {
         const colors = Object.keys(WIRE_COLORS) as (keyof typeof WIRE_COLORS)[];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const colorHexValue = WIRE_COLORS[randomColor];
         const explodeChance = this.wiresConfig[randomColor];
 
-        return new Wire(randomColor, colorHexValue, explodeChance);
+        this._currentWire = new Wire(randomColor, colorHexValue, explodeChance);
     }
 
     constructor() {
         this.wiresConfig = this.generateRandomConfig();
-        this._currentWire = this.generateRandomWire();
+        this.generateRandomWire();
     }
 
     public get currentWire() {
@@ -45,14 +45,15 @@ export class WireManager {
 
     public cutWire(): boolean {
         const explodes = this._currentWire.cut();
-        if (!explodes) {
-            this._currentWire = this.generateRandomWire();
-        }
         return explodes;
     }
 
     public skipWire(): void {
-        this._currentWire = this.generateRandomWire();
+        this.generateRandomWire();
+    }
+
+    public nextWire(): void {
+        this.generateRandomWire();
     }
 
     public forceSafeCut(): void {

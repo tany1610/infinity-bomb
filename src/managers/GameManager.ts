@@ -30,6 +30,13 @@ export class GameManager {
         }
     }
 
+    private nextRound(): void {
+        const currentWireExplodeChance = this._wireManager.currentWire.explodeChance;
+        this._shopManager.reward(currentWireExplodeChance);
+        this._wireManager.nextWire();
+        EventBus.emit(EVENTS.GAME.NEXT_ROUND);
+    }
+
     constructor() {
         this._shopManager = new ShopManager();
         this._inventoryManager = new InventoryManager();
@@ -72,19 +79,18 @@ export class GameManager {
 
     // [WIP]: currently for testing purposes
     public cutWire(): void {
-        const explodeChance = this._wireManager.currentWire.explodeChance;
-        this._wireManager.exposeExplodeChance();
         const explodes = this._wireManager.cutWire();
         if (explodes) {
             this.blowFuse();
         } else {
-            alert(`SAFE! Explode chance was: ${explodeChance * 100}%`);
+            this.nextRound();
         }
     }
 
     public buyItem(itemId: string): void {
         if (this._inventoryManager.hasSpace) {
-            this._shopManager.buyItem(itemId);
+            const boughtItem = this._shopManager.buyItem(itemId);
+            EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
         }
     }
 }
