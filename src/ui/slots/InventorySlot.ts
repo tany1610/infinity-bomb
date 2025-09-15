@@ -16,7 +16,7 @@ export class InventorySlot {
     private gameManager: GameManager;
     private sprite!: Phaser.GameObjects.Sprite;
 
-    private onPointerDown = () => {
+    private applyItem = () => {
         if (this.item) {
             this.item.apply(this.gameManager);
         }
@@ -51,7 +51,7 @@ export class InventorySlot {
                     EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROVER, this.item)
                 )
                 .on("pointerout", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROUT, this.item))
-                .on("pointerdown", this.onPointerDown);
+                .on("pointerdown", this.applyItem);
         }
     }
 

@@ -25,7 +25,12 @@ export class Inventory {
         for (let index = 0; index < slotsConfig.count; index++) {
             const item = inventoryItems[index];
             this.inventorySlots.push(
-                new InventorySlot({ index, item, scene: this.scene, gameManager: this.gameManager })
+                new InventorySlot({
+                    index,
+                    item,
+                    scene: this.scene,
+                    gameManager: this.gameManager,
+                })
             );
         }
     }

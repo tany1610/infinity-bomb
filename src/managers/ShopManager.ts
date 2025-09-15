@@ -23,10 +23,6 @@ export class ShopManager {
         }
     }
 
-    private hasEnoughCoins(price: number): boolean {
-        return this._coins >= price;
-    }
-
     constructor() {
         this._coins = GAME_CONFIG.startingCoins;
         this.generateRandomItems(GAME_CONFIG.startingShopItems);
@@ -40,18 +36,18 @@ export class ShopManager {
         return this._items;
     }
 
-    public buyItem(itemId: string): Item | null {
+    public hasEnoughCoins(price: number): boolean {
+        return this._coins >= price;
+    }
+
+    public buyItem(itemId: string): Item {
         const index = this._items.findIndex((item) => item.id === itemId);
         const itemPrice = this._items[index].price;
 
-        if (this.hasEnoughCoins(itemPrice)) {
-            this._coins -= itemPrice;
-            const [boughtItem] = this._items.splice(index, 1);
-            this.addNewItem();
-            return boughtItem;
-        }
-
-        return null;
+        this._coins -= itemPrice;
+        const [boughtItem] = this._items.splice(index, 1);
+        this.addNewItem();
+        return boughtItem;
     }
 
     public reward(wireExplodeChance: number) {

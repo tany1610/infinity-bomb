@@ -31,7 +31,7 @@ export class ShopSlot {
             .sprite(spriteX, spriteY + config.itemsSpacing * index, this.item.image)
             .setInteractive({ useHandCursor: true })
             .setOrigin(0.5)
-            .on("pointerdown", () => this.gameManager.buyItem(this.item.id));
+            .on("pointerdown", () => this.gameManager.buyItem(this.item));
 
         this.title = this.scene.add.text(
             spriteX + 20,

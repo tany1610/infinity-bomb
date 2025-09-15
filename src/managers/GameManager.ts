@@ -30,9 +30,12 @@ export class GameManager {
         }
     }
 
+    private applyRewards(): void {
+        const currentWire = this._wireManager.currentWire;
+        this._shopManager.reward(currentWire.explodeChance);
+    }
+
     private nextRound(): void {
-        const currentWireExplodeChance = this._wireManager.currentWire.explodeChance;
-        this._shopManager.reward(currentWireExplodeChance);
         this._wireManager.nextWire();
         EventBus.emit(EVENTS.GAME.NEXT_ROUND);
     }
@@ -83,13 +86,14 @@ export class GameManager {
         if (explodes) {
             this.blowFuse();
         } else {
-            this.nextRound();
+            this.applyRewards();
         }
+        this.nextRound();
     }
 
-    public buyItem(itemId: string): void {
-        if (this._inventoryManager.hasSpace) {
-            const boughtItem = this._shopManager.buyItem(itemId);
+    public buyItem(item: Item): void {
+        if (this._inventoryManager.hasSpace && this._shopManager.hasEnoughCoins(item.price)) {
+            const boughtItem = this._shopManager.buyItem(item.id);
             EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
         }
     }
