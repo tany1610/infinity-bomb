@@ -22,7 +22,7 @@ export class GameManager {
     }
 
     private blowFuse(): void {
-        if (this._lives - 1 < 0) {
+        if (this._lives - 1 <= 0) {
             this.gameOver();
         } else {
             this._lives -= 1;
@@ -80,7 +80,6 @@ export class GameManager {
         this._wireManager.forceSafeCut();
     }
 
-    // [WIP]: currently for testing purposes
     public cutWire(): void {
         const explodes = this._wireManager.cutWire();
         if (explodes) {
