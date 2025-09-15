@@ -87,6 +87,10 @@ export class GameManager {
         return this._shopManager.coins;
     }
 
+    public applyDoubleReward(): void {
+        this._shopManager.activateDoubleReward();
+    }
+
     public get inventoryItems(): Item[] {
         return this._inventoryManager.items;
     }

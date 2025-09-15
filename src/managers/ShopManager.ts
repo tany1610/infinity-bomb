@@ -5,6 +5,7 @@ import { GAME_CONFIG } from "../utils/constants";
 
 export class ShopManager {
     private _coins: number;
+    private _doubleReward: boolean;
     private _items: Item[] = [];
 
     private generateRandomItem() {
@@ -26,6 +27,7 @@ export class ShopManager {
 
     constructor() {
         this._coins = GAME_CONFIG.startingCoins;
+        this._doubleReward = false;
         this.generateRandomItems(GAME_CONFIG.startingShopItems);
     }
 
@@ -35,6 +37,10 @@ export class ShopManager {
 
     public get items() {
         return this._items;
+    }
+
+    public activateDoubleReward(): void {
+        this._doubleReward = true;
     }
 
     public hasEnoughCoins(price: number): boolean {
@@ -52,8 +58,9 @@ export class ShopManager {
     }
 
     public reward(currentWire: Wire) {
-        const rewardMult = currentWire.doubleReward ? 2 : 1;
+        const rewardMult = this._doubleReward ? 2 : 1;
         const reward = currentWire.explodeChance * 100 * rewardMult;
         this._coins += reward;
+        this._doubleReward = false;
     }
 }
