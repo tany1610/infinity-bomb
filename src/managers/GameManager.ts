@@ -10,6 +10,7 @@ export class GameManager {
     private _lives!: number;
     private _round!: number;
     private _skips!: number;
+    private _doubleBlow!: boolean;
 
     public _wireManager: WireManager;
     public _shopManager: ShopManager;
@@ -19,6 +20,7 @@ export class GameManager {
         this._lives = GAME_CONFIG.startinglives;
         this._round = 1;
         this._skips = GAME_CONFIG.startingSkips;
+        this._doubleBlow = false;
     }
 
     private gameOver(): void {
@@ -27,21 +29,28 @@ export class GameManager {
     }
 
     private blowFuse(): void {
-        if (this._lives - 1 <= 0) {
+        const liveCost = this._doubleBlow ? 2 : 1;
+
+        if (this._lives - liveCost <= 0) {
             this.gameOver();
         } else {
-            this._lives -= 1;
+            this._lives -= liveCost;
+            this._doubleBlow = false;
             EventBus.emit(EVENTS.GAME.LOST_LIFE);
         }
     }
 
     private applyRewards(): void {
         const currentWire = this._wireManager.currentWire;
-        this._shopManager.reward(currentWire.explodeChance);
+        this._shopManager.reward(currentWire);
+    }
+
+    private nextWire() {
+        this._wireManager.nextWire();
     }
 
     private nextRound(): void {
-        this._wireManager.nextWire();
+        this.nextWire();
         this._round += 1;
         EventBus.emit(EVENTS.GAME.NEXT_ROUND);
     }
@@ -80,6 +89,11 @@ export class GameManager {
 
     public get inventoryItems(): Item[] {
         return this._inventoryManager.items;
+    }
+
+    public activateDoubleBlow(): void {
+        this._doubleBlow = true;
+        this._wireManager.halveExplodeChance();
     }
 
     public addFuse(): void {

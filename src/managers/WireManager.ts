@@ -63,4 +63,8 @@ export class WireManager {
     public exposeExplodeChance(): void {
         this._currentWire.exposeExplodeChance();
     }
+
+    public halveExplodeChance(): void {
+        this._currentWire.explodeChance /= 2;
+    }
 }

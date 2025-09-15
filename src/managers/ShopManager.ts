@@ -1,5 +1,6 @@
 import type { Item } from "../models/items/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
+import type { Wire } from "../models/Wire";
 import { GAME_CONFIG } from "../utils/constants";
 
 export class ShopManager {
@@ -50,8 +51,9 @@ export class ShopManager {
         return boughtItem;
     }
 
-    public reward(wireExplodeChance: number) {
-        const reward = wireExplodeChance * 100;
+    public reward(currentWire: Wire) {
+        const rewardMult = currentWire.doubleReward ? 2 : 1;
+        const reward = currentWire.explodeChance * 100 * rewardMult;
         this._coins += reward;
     }
 }
