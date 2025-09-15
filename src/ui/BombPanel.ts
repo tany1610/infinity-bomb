@@ -1,4 +1,4 @@
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import type { GameManager } from "../managers/GameManager";
 import { CutButton } from "./buttons/CutButton";
 import { SkipButton } from "./buttons/SkipButton";
@@ -25,7 +25,7 @@ export class BombPanel {
 
         const { width, height } = this.scene.scale;
 
-        const config = GAME_CONFIG.bombPanel;
+        const config = UI_CONFIG.bombPanel;
         const textConfig = config.text;
 
         this.scene.add.rectangle(

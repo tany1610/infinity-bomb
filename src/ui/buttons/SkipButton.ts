@@ -1,4 +1,4 @@
-import { GAME_CONFIG } from "../../utils/constants";
+import { UI_CONFIG } from "../../utils/constants";
 
 interface SkipButtonConfig {
     scene: Phaser.Scene;
@@ -12,7 +12,7 @@ export class SkipButton {
 
         const { width, height } = this.scene.scale;
 
-        const skipButtonConfig = GAME_CONFIG.bombPanel.buttons.skip;
+        const skipButtonConfig = UI_CONFIG.bombPanel.buttons.skip;
 
         this.scene.add
             .rectangle(

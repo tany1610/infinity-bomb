@@ -1,5 +1,5 @@
 import type { GameManager } from "../../managers/GameManager";
-import { GAME_CONFIG } from "../../utils/constants";
+import { UI_CONFIG } from "../../utils/constants";
 
 interface CutButtonConfig {
     scene: Phaser.Scene;
@@ -16,7 +16,7 @@ export class CutButton {
 
         const { width, height } = this.scene.scale;
 
-        const cutButtonConfig = GAME_CONFIG.bombPanel.buttons.cut;
+        const cutButtonConfig = UI_CONFIG.bombPanel.buttons.cut;
 
         this.scene.add
             .rectangle(

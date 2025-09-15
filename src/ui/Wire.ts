@@ -1,5 +1,5 @@
 import type { Wire as WireModel } from "../models/Wire";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 
 interface WireConfig {
@@ -16,7 +16,7 @@ export class Wire {
         this.wire = wire;
 
         const { width, height } = this.scene.scale;
-        const wireConfig = GAME_CONFIG.bombPanel.wire;
+        const wireConfig = UI_CONFIG.bombPanel.wire;
 
         this.scene.add
             .rectangle(

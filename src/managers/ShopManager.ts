@@ -1,6 +1,6 @@
 import type { Item } from "../models/items/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
-import { GAME_CONFIG } from "../utils/constants";
+import { GAME_CONFIG, UI_CONFIG } from "../utils/constants";
 
 export class ShopManager {
     private _coins: number;

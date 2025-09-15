@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { GameManager } from "../managers/GameManager";
 import { InventorySlot } from "./slots/InventorySlot";
 import { EventBus } from "../utils/EventBus";
@@ -18,7 +18,7 @@ export class Inventory {
         this.inventorySlots.forEach((slot) => slot.destroy());
         this.inventorySlots = [];
 
-        const slotsConfig = GAME_CONFIG.inventory.slots;
+        const slotsConfig = UI_CONFIG.inventory.slots;
 
         const inventoryItems = this.gameManager.inventoryItems;
 
@@ -40,7 +40,7 @@ export class Inventory {
         this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
-        const config = GAME_CONFIG.inventory;
+        const config = UI_CONFIG.inventory;
 
         this.scene.add.rectangle(
             width * config.position.xRatio,

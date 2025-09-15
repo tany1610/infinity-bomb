@@ -1,6 +1,6 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/items/Item";
-import { EVENTS, GAME_CONFIG } from "../../utils/constants";
+import { EVENTS, UI_CONFIG } from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 
 interface InventorySlotConfig {
@@ -28,7 +28,7 @@ export class InventorySlot {
         this.gameManager = gameManager;
 
         const { height } = this.scene.scale;
-        const slotsConfig = GAME_CONFIG.inventory.slots;
+        const slotsConfig = UI_CONFIG.inventory.slots;
 
         this.scene.add.rectangle(
             slotsConfig.offsetX + index * slotsConfig.spacing,

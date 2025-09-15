@@ -1,5 +1,5 @@
 import type { GameManager } from "../managers/GameManager";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 
 interface HeaderConfig {
@@ -13,14 +13,17 @@ export class Header {
     private livesText!: Phaser.GameObjects.Text;
     private coinsText!: Phaser.GameObjects.Text;
     private skipsText!: Phaser.GameObjects.Text;
+    private roundText!: Phaser.GameObjects.Text;
 
     private drawHeaderContent(): void {
-        const livesConfig = GAME_CONFIG.header.lives;
-        const coinsConfig = GAME_CONFIG.header.coins;
-        const skipsConfig = GAME_CONFIG.header.skips;
+        const livesConfig = UI_CONFIG.header.lives;
+        const coinsConfig = UI_CONFIG.header.coins;
+        const skipsConfig = UI_CONFIG.header.skips;
+        const roundConfig = UI_CONFIG.header.round;
 
         const lives = this.gameManager.lives;
         const coins = this.gameManager.coins;
+        const round = this.gameManager.round;
 
         this.livesText = this.scene.add.text(
             livesConfig.x,
@@ -43,29 +46,44 @@ export class Header {
         this.skipsText = this.scene.add.text(skipsConfig.x, skipsConfig.y, skipsConfig.text, {
             ...skipsConfig.style,
         });
+
+        this.roundText = this.scene.add.text(
+            roundConfig.x,
+            roundConfig.y,
+            `${roundConfig.text} ${round}`,
+            {
+                ...roundConfig.style,
+            }
+        );
     }
 
     private updateCoins() {
-        const coinsConfig = GAME_CONFIG.header.coins;
+        const coinsConfig = UI_CONFIG.header.coins;
         const coins = this.gameManager.coins;
 
         this.coinsText.setText(`${coinsConfig.text} ${coins}`);
     }
 
     private updateLives() {
-        const livesConfig = GAME_CONFIG.header.lives;
+        const livesConfig = UI_CONFIG.header.lives;
         const lives = this.gameManager.lives;
 
         this.livesText.setText(`${livesConfig.text} ${lives}`);
     }
 
+    private updateRound() {
+        const roundConfig = UI_CONFIG.header.round;
+        const round = this.gameManager.round;
+
+        this.roundText.setText(`${roundConfig.text} ${round}`);
+    }
     constructor({ scene, gameManager }: HeaderConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
 
         const { width } = this.scene.scale;
 
-        const config = GAME_CONFIG.header;
+        const config = UI_CONFIG.header;
 
         this.scene.add
             .rectangle(
@@ -81,6 +99,7 @@ export class Header {
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.updateCoins, this);
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateCoins, this);
+        EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateRound, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateLives, this);
         EventBus.on(EVENTS.GAME.LOST_LIFE, this.updateLives, this);
     }

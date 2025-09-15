@@ -1,5 +1,6 @@
 import type { Item } from "../models/items/Item";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import type { Wire } from "../models/Wire";
+import { EVENTS, GAME_CONFIG, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
@@ -7,6 +8,7 @@ import { WireManager } from "./WireManager";
 
 export class GameManager {
     private _lives!: number;
+    private _round!: number;
 
     public _wireManager: WireManager;
     public _shopManager: ShopManager;
@@ -14,12 +16,10 @@ export class GameManager {
 
     private initGame(): void {
         this._lives = GAME_CONFIG.startinglives;
+        this._round = 1;
     }
 
-    private gameOver(): void {
-        const explodeChance = this._wireManager.currentWire.explodeChance;
-        alert(`Game Over! Explode chance was: ${explodeChance * 100}%`);
-    }
+    private gameOver(): void {}
 
     private blowFuse(): void {
         if (this._lives - 1 <= 0) {
@@ -37,6 +37,7 @@ export class GameManager {
 
     private nextRound(): void {
         this._wireManager.nextWire();
+        this._round += 1;
         EventBus.emit(EVENTS.GAME.NEXT_ROUND);
     }
 
@@ -48,11 +49,15 @@ export class GameManager {
         this.initGame();
     }
 
-    public get lives() {
+    public get lives(): number {
         return this._lives;
     }
 
-    public get currentWire() {
+    public get round(): number {
+        return this._round;
+    }
+
+    public get currentWire(): Wire {
         return this._wireManager.currentWire;
     }
 

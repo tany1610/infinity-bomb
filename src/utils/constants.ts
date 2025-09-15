@@ -79,6 +79,9 @@ export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
     startingShopItems: 4,
+};
+
+export const UI_CONFIG = {
     header: {
         position: { xRatio: 0.5, y: 30 },
         backgroundColor: getCssVarAsHex("--background-color"),
@@ -95,7 +98,7 @@ export const GAME_CONFIG = {
             },
         },
         coins: {
-            x: 190,
+            x: 140,
             y: 20,
             text: "BlastCoins:",
             style: {
@@ -105,9 +108,19 @@ export const GAME_CONFIG = {
             },
         },
         skips: {
-            x: 380,
+            x: 280,
             y: 20,
             text: "Skips:",
+            style: {
+                fontSize: "20px",
+                color: getCssVar("--primary-text-light"),
+                fontFamily: FONT_FAMILY,
+            },
+        },
+        round: {
+            x: 400,
+            y: 20,
+            text: "Round:",
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),

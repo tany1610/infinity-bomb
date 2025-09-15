@@ -1,5 +1,5 @@
 import type { Item } from "../models/items/Item";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 
 export class InventoryManager {
@@ -21,7 +21,7 @@ export class InventoryManager {
 
     constructor() {
         this._items = [];
-        this.slotsCount = GAME_CONFIG.inventory.slots.count;
+        this.slotsCount = UI_CONFIG.inventory.slots.count;
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.addItem, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.removeItem, this);

@@ -1,5 +1,5 @@
 import type { Item } from "../models/items/Item";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import type { IHovarable } from "../utils/interfaces";
 
@@ -29,8 +29,8 @@ export class Hint {
         this.scene = scene;
 
         const { width, height } = this.scene.scale;
-        const inventoryConfig = GAME_CONFIG.inventory;
-        const hintConfig = GAME_CONFIG.hint;
+        const inventoryConfig = UI_CONFIG.inventory;
+        const hintConfig = UI_CONFIG.hint;
 
         this.background = this.scene.add.rectangle(
             width * inventoryConfig.position.xRatio,

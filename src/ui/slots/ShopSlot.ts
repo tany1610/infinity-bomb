@@ -1,6 +1,6 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/items/Item";
-import { GAME_CONFIG } from "../../utils/constants";
+import { UI_CONFIG } from "../../utils/constants";
 
 interface ShopSlotConfig {
     index: number;
@@ -23,7 +23,7 @@ export class ShopSlot {
         this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
-        const config = GAME_CONFIG.shop;
+        const config = UI_CONFIG.shop;
         const spriteX = width * config.position.xRatio + 1.6 * config.offsetX;
         const spriteY = height * config.position.yRatio + config.offsetY;
 

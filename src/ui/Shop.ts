@@ -1,5 +1,5 @@
 import type { GameManager } from "../managers/GameManager";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import { ShopSlot } from "./slots/ShopSlot";
 
@@ -32,7 +32,7 @@ export class Shop {
         this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
-        const config = GAME_CONFIG.shop;
+        const config = UI_CONFIG.shop;
         const textConfig = config.text;
 
         const shopX = width * config.position.xRatio + config.offsetX;
