@@ -11,6 +11,12 @@ import { EVENTS } from "../utils/constants";
 export class GameScene extends Phaser.Scene {
     private gameManager!: GameManager;
 
+    private endGameHandler() {
+        this.gameManager.destroy();
+        this.scene.stop("GameScene");
+        this.scene.start("GameOverScene");
+    }
+
     constructor() {
         super("GameScene");
     }
@@ -39,6 +45,6 @@ export class GameScene extends Phaser.Scene {
         // --- Inventory (bottom) ---
         new Inventory({ scene: this, gameManager: this.gameManager });
 
-        EventBus.on(EVENTS.GAME.GAME_OVER, () => this.scene.start("GameOverScene"));
+        EventBus.on(EVENTS.GAME.GAME_OVER, () => this.endGameHandler());
     }
 }

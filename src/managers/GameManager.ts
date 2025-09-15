@@ -104,4 +104,8 @@ export class GameManager {
             EventBus.emit(EVENTS.SHOP.ITEM_BOUGHT, boughtItem);
         }
     }
+
+    public destroy(): void {
+        EventBus.removeAllListeners();
+    }
 }
