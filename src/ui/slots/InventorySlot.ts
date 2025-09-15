@@ -41,8 +41,10 @@ export class InventorySlot {
                 )
                 .setInteractive({ useHandCursor: true })
                 .setOrigin(0.5)
-                .on("pointerover", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTOVER, this.item))
-                .on("pointerout", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTOUT, this.item));
+                .on("pointerover", () =>
+                    EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROVER, this.item)
+                )
+                .on("pointerout", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROUT, this.item));
         }
     }
 

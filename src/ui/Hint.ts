@@ -1,6 +1,7 @@
 import type { Item } from "../models/items/Item";
 import { EVENTS, GAME_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
+import type { IHovarable } from "../utils/interfaces";
 
 interface HintConfig {
     scene: Phaser.Scene;
@@ -12,10 +13,10 @@ export class Hint {
     private title: Phaser.GameObjects.Text;
     private description: Phaser.GameObjects.Text;
 
-    private show(item: Item) {
+    private show(item: IHovarable) {
         this.background.setVisible(true);
         this.title.setText(item.name).setVisible(true);
-        this.description.setText(item.effect).setVisible(true);
+        this.description.setText(item.description).setVisible(true);
     }
 
     private hide() {
@@ -53,7 +54,9 @@ export class Hint {
 
         this.hide();
 
-        EventBus.on(EVENTS.INVENTORY.ITEM_POINTOVER, this.show, this);
-        EventBus.on(EVENTS.INVENTORY.ITEM_POINTOUT, this.hide, this);
+        EventBus.on(EVENTS.BOMB_PANEL.WIRE_POINTEROVER, this.show, this);
+        EventBus.on(EVENTS.BOMB_PANEL.WIRE_POINTEROUT, this.hide, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_POINTEROVER, this.show, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_POINTEROUT, this.hide, this);
     }
 }

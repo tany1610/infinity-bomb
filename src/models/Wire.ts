@@ -1,22 +1,33 @@
-import type { WIRE_COLORS } from "../utils/constants";
+import { capitalize } from "../utils/helpers";
+import type { IHovarable } from "../utils/interfaces";
 
-export class Wire {
-    private _color: keyof typeof WIRE_COLORS;
+export class Wire implements IHovarable {
+    private _colorName: string;
+    private _colorValue: number;
     private _explodeChance: number;
     private _explodeChanceExposed: boolean;
 
-    constructor(color: keyof typeof WIRE_COLORS, explodeChance: number) {
-        this._color = color;
+    constructor(colorName: string, colorValue: number, explodeChance: number) {
+        this._colorName = colorName;
+        this._colorValue = colorValue;
         this._explodeChance = explodeChance;
         this._explodeChanceExposed = false;
     }
 
-    public get color() {
-        return this._color;
+    public get color(): number {
+        return this._colorValue;
     }
 
     public set explodeChance(value: number) {
         this._explodeChance = value;
+    }
+
+    public get name(): string {
+        return `${capitalize(this._colorName)} Wire`;
+    }
+
+    public get description(): string {
+        return `Explode chance: ${this.getExplodeChance()}`;
     }
 
     public getExplodeChance(): string {

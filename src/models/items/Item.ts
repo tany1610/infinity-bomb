@@ -1,17 +1,18 @@
 import { GameManager } from "../../managers/GameManager";
+import type { IHovarable } from "../../utils/interfaces";
 
-export abstract class Item {
+export abstract class Item implements IHovarable {
     private _id: string;
-    private _title: string;
+    private _name: string;
     private _price: number;
-    private _effect: string;
+    private _description: string;
     private _image: string;
 
-    constructor(title: string, price: number, effect: string, image: string) {
+    constructor(name: string, price: number, description: string, image: string) {
         this._id = Phaser.Utils.String.UUID();
-        this._title = title;
+        this._name = name;
         this._price = price;
-        this._effect = effect;
+        this._description = description;
         this._image = image;
     }
 
@@ -22,15 +23,15 @@ export abstract class Item {
     }
 
     public get name() {
-        return this._title;
+        return this._name;
     }
 
     public get price() {
         return this._price;
     }
 
-    public get effect() {
-        return this._effect;
+    public get description() {
+        return this._description;
     }
 
     public get image() {

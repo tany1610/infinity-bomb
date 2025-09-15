@@ -45,7 +45,7 @@ export class ShopSlot {
         this.description = this.scene.add.text(
             spriteX + 20,
             spriteY + config.itemsSpacing * index - 5,
-            this.item.effect,
+            this.item.description,
             {
                 ...config.text.descriptionStyle,
             }

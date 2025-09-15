@@ -27,6 +27,10 @@ export class GameManager {
         return this._lives;
     }
 
+    public get currentWire() {
+        return this._wireManager.currentWire;
+    }
+
     public get shopItems(): Item[] {
         return this._shopManager.items;
     }

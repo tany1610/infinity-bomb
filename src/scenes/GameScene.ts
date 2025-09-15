@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
         new Header({ scene: this, gameManager: this.gameManager });
 
         // --- Bomb Panel (center) ---
-        new BombPanel({ scene: this });
+        new BombPanel({ scene: this, gameManager: this.gameManager });
 
         // --- Shop (right side) ---
         new Shop({ scene: this, gameManager: this.gameManager });

@@ -1,8 +1,8 @@
-export function getCssVar(varName: string) {
+export const getCssVar = (varName: string) => {
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-}
+};
 
-export function getCssVarAsHex(varName: string): number {
+export const getCssVarAsHex = (varName: string): number => {
     const value = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
 
     if (!value.startsWith("#")) {
@@ -10,4 +10,9 @@ export function getCssVarAsHex(varName: string): number {
     }
 
     return parseInt(value.slice(1), 16);
-}
+};
+
+export const capitalize = (word: string): string => {
+    if (!word) return "";
+    return word.charAt(0).toUpperCase() + word.slice(1);
+};

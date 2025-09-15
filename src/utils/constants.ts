@@ -60,9 +60,13 @@ export const EVENTS = {
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
     },
+    BOMB_PANEL: {
+        WIRE_POINTEROVER: "bombPanel:wireMouseOver",
+        WIRE_POINTEROUT: "bombPanel:wireMouseOut",
+    },
     INVENTORY: {
-        ITEM_POINTOVER: "inventory:itemMouseOver",
-        ITEM_POINTOUT: "inventory:itemMouseOut",
+        ITEM_POINTEROVER: "inventory:itemMouseOver",
+        ITEM_POINTEROUT: "inventory:itemMouseOut",
     },
 };
 

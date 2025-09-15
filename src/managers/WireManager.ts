@@ -24,9 +24,10 @@ export class WireManager {
     private generateRandomWire(): Wire {
         const colors = Object.keys(WIRE_COLORS) as (keyof typeof WIRE_COLORS)[];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const colorHexValue = WIRE_COLORS[randomColor];
         const explodeChance = this.wiresConfig[randomColor];
 
-        return new Wire(randomColor, explodeChance);
+        return new Wire(randomColor, colorHexValue, explodeChance);
     }
 
     constructor() {
