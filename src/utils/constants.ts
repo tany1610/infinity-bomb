@@ -43,6 +43,7 @@ export const EVENTS = {
         LOST_LIFE: "game:lostLife",
         NEXT_ROUND: "game:nextRound",
         GAME_OVER: "game:gameOver",
+        SKIP: "game:skip",
     },
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",
@@ -62,6 +63,7 @@ export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
     startingShopItems: 4,
+    startingSkips: 3,
 };
 
 export const MAIN_MENU_CONFIG = {

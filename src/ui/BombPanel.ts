@@ -48,7 +48,7 @@ export class BombPanel {
 
         // --- Buttons ---
         const cutButton = new CutButton({ scene: this.scene, gameManager: this.gameManager });
-        const skipButton = new SkipButton({ scene: this.scene });
+        const skipButton = new SkipButton({ scene: this.scene, gameManager: this.gameManager });
 
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.redrawWire, this);
     }

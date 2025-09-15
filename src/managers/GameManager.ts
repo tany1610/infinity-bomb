@@ -1,6 +1,6 @@
 import type { Item } from "../models/items/Item";
 import type { Wire } from "../models/Wire";
-import { EVENTS, GAME_CONFIG, UI_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
@@ -9,6 +9,7 @@ import { WireManager } from "./WireManager";
 export class GameManager {
     private _lives!: number;
     private _round!: number;
+    private _skips!: number;
 
     public _wireManager: WireManager;
     public _shopManager: ShopManager;
@@ -17,6 +18,7 @@ export class GameManager {
     private initGame(): void {
         this._lives = GAME_CONFIG.startinglives;
         this._round = 1;
+        this._skips = GAME_CONFIG.startingSkips;
     }
 
     private gameOver(): void {
@@ -60,6 +62,10 @@ export class GameManager {
         return this._round;
     }
 
+    public get skips(): number {
+        return this._skips;
+    }
+
     public get currentWire(): Wire {
         return this._wireManager.currentWire;
     }
@@ -78,6 +84,14 @@ export class GameManager {
 
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
+    }
+
+    public applySkip(): void {
+        if (this._skips - 1 >= 0) {
+            this._skips -= 1;
+            this.nextRound();
+            EventBus.emit(EVENTS.GAME.SKIP);
+        }
     }
 
     public exposeExplodeChance(): void {

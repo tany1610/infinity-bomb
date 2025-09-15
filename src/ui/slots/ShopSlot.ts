@@ -36,7 +36,7 @@ export class ShopSlot {
         this.title = this.scene.add.text(
             spriteX + 20,
             spriteY + config.itemsSpacing * index - 20,
-            this.item.name,
+            `${this.item.name} - ${this.item.price} BC`,
             {
                 ...config.text.titleStyle,
             }

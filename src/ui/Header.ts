@@ -24,6 +24,7 @@ export class Header {
         const lives = this.gameManager.lives;
         const coins = this.gameManager.coins;
         const round = this.gameManager.round;
+        const skips = this.gameManager.skips;
 
         this.livesText = this.scene.add.text(
             livesConfig.x,
@@ -43,9 +44,14 @@ export class Header {
             }
         );
 
-        this.skipsText = this.scene.add.text(skipsConfig.x, skipsConfig.y, skipsConfig.text, {
-            ...skipsConfig.style,
-        });
+        this.skipsText = this.scene.add.text(
+            skipsConfig.x,
+            skipsConfig.y,
+            `${skipsConfig.text} ${skips}`,
+            {
+                ...skipsConfig.style,
+            }
+        );
 
         this.roundText = this.scene.add.text(
             roundConfig.x,
@@ -77,6 +83,14 @@ export class Header {
 
         this.roundText.setText(`${roundConfig.text} ${round}`);
     }
+
+    private updateSkips() {
+        const skipsConfig = UI_CONFIG.header.skips;
+        const skips = this.gameManager.skips;
+
+        this.skipsText.setText(`${skipsConfig.text} ${skips}`);
+    }
+
     constructor({ scene, gameManager }: HeaderConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
@@ -102,5 +116,6 @@ export class Header {
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateRound, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateLives, this);
         EventBus.on(EVENTS.GAME.LOST_LIFE, this.updateLives, this);
+        EventBus.on(EVENTS.GAME.SKIP, this.updateSkips, this);
     }
 }

@@ -1,14 +1,18 @@
+import type { GameManager } from "../../managers/GameManager";
 import { UI_CONFIG } from "../../utils/constants";
 
 interface SkipButtonConfig {
     scene: Phaser.Scene;
+    gameManager: GameManager;
 }
 
 export class SkipButton {
     private scene: Phaser.Scene;
+    private gameManager: GameManager;
 
-    constructor({ scene }: SkipButtonConfig) {
+    constructor({ scene, gameManager }: SkipButtonConfig) {
         this.scene = scene;
+        this.gameManager = gameManager;
 
         const { width, height } = this.scene.scale;
 
@@ -22,7 +26,8 @@ export class SkipButton {
                 skipButtonConfig.height,
                 skipButtonConfig.backgroundColor
             )
-            .setInteractive({ useHandCursor: true });
+            .setInteractive({ useHandCursor: true })
+            .on("pointerdown", () => gameManager.applySkip());
         this.scene.add
             .text(
                 width * skipButtonConfig.position.xRatio + skipButtonConfig.offsetX,
