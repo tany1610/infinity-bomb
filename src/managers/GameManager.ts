@@ -11,8 +11,8 @@ export class GameManager extends GameManagerBase {
         this._doubleBlow = false;
     }
 
-    public cutWire(): void {
-        super.cutWire(this._doubleBlow);
+    public cutWire(): boolean {
+        return super.cutWire(this._doubleBlow);
     }
 
     public nextWire(): void {

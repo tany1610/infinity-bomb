@@ -330,6 +330,8 @@ export const AUDIO_KEYS = {
     GAME_OVER: "gameOver",
     CLICK: "click",
     COIN: "coin",
+    SUCCESS: "success",
+    EXPLOSION: "explosion",
 };
 
 export const AUDIO = {
@@ -337,6 +339,8 @@ export const AUDIO = {
     [AUDIO_KEYS.GAME_OVER]: "assets/audio/gameOver.mp3",
     [AUDIO_KEYS.CLICK]: "assets/audio/click.wav",
     [AUDIO_KEYS.COIN]: "assets/audio/coin.wav",
+    [AUDIO_KEYS.SUCCESS]: "assets/audio/success.ogg",
+    [AUDIO_KEYS.EXPLOSION]: "assets/audio/explosion.wav",
 };
 
 export const AUDIO_CONFIG = {

@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
     private endGameHandler() {
         this.gameManager.destroy();
         AudioManager.getInstance().stopMusic();
-        AudioManager.getInstance().playMusic(AUDIO_KEYS.GAME_OVER);
+        AudioManager.getInstance().playSfx(AUDIO_KEYS.GAME_OVER);
         this.scene.stop("GameScene");
         this.scene.start("GameOverScene");
     }

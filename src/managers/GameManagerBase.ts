@@ -10,6 +10,7 @@ export class GameManagerBase {
     private _lives!: number;
     private _round!: number;
     private _skips!: number;
+    private _isGameOver: boolean = false;
 
     public _wireManager: WireManager;
     public _shopManager: ShopManager;
@@ -23,6 +24,7 @@ export class GameManagerBase {
 
     private gameOver(): void {
         localStorage.setItem("score", this._round.toString());
+        this._isGameOver = true;
         EventBus.emit(EVENTS.GAME.GAME_OVER);
     }
 
@@ -72,6 +74,10 @@ export class GameManagerBase {
         return this._inventoryManager.items;
     }
 
+    public get isGameOver(): boolean {
+        return this._isGameOver;
+    }
+
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
     }
@@ -100,7 +106,7 @@ export class GameManagerBase {
         }
     }
 
-    public cutWire(doubleBlow: boolean): void {
+    public cutWire(doubleBlow: boolean): boolean {
         const explodes = this._wireManager.cutWire();
         if (explodes) {
             this.blowFuse(doubleBlow);
@@ -108,6 +114,7 @@ export class GameManagerBase {
             this.applyRewards();
         }
         this.nextRound();
+        return explodes;
     }
 
     public destroy(): void {
