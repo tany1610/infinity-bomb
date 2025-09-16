@@ -31,14 +31,9 @@ export class GameManagerBase {
         this._shopManager.reward(currentWire);
     }
 
-    private nextWire() {
-        this._wireManager.nextWire();
-    }
-
     private nextRound(): void {
-        this.nextWire();
         this._round += 1;
-        EventBus.emit(EVENTS.GAME.NEXT_ROUND);
+        this.nextWire();
     }
 
     constructor() {
@@ -79,6 +74,11 @@ export class GameManagerBase {
 
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
+    }
+
+    public nextWire() {
+        this._wireManager.nextWire();
+        EventBus.emit(EVENTS.GAME.NEXT_ROUND);
     }
 
     public applySkip(): void {

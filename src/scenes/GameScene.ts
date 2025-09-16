@@ -25,6 +25,10 @@ export class GameScene extends Phaser.Scene {
         this.load.image("snip_master", "assets/snip-master.png");
         this.load.image("circuit_peek", "assets/circuit-peek.png");
         this.load.image("fuse_kit", "assets/fuse-kit.png");
+        this.load.image("defuser_drone", "assets/defuser-drone.png");
+        this.load.image("greedy_snip", "assets/greedy-snip.png");
+        this.load.image("payday", "assets/payday.png");
+        this.load.image("wire_swap", "assets/wire-swap.png");
     }
 
     create() {

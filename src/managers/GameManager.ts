@@ -38,4 +38,8 @@ export class GameManager extends GameManagerBase {
     public forceSafeCut(): void {
         this._wireManager.forceSafeCut();
     }
+
+    public halveExplodeChance(): void {
+        this._wireManager.halveExplodeChance();
+    }
 }

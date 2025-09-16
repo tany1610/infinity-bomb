@@ -36,6 +36,34 @@ export const ITEMS_CONFIG = {
         price: 40,
         image: "fuse_kit",
     },
+    defuserDrone: {
+        _id: 4,
+        title: "Defuser Drone",
+        effect: "Don't trust yourself? This drone will cut the wire for you",
+        price: 10,
+        image: "defuser_drone",
+    },
+    greedySnip: {
+        _id: 5,
+        title: "Greedy Snip",
+        effect: "Halves the chance of this wire exploding. If it still does, you lose 2 fuses",
+        price: 30,
+        image: "greedy_snip",
+    },
+    payday: {
+        _id: 6,
+        title: "Payday",
+        effect: "This round rewards double coins",
+        price: 40,
+        image: "payday",
+    },
+    wireSwap: {
+        _id: 7,
+        title: "Wire Swap",
+        effect: "Don't like your odds? Get a new wire",
+        price: 60,
+        image: "wire_swap",
+    },
 };
 
 export const EVENTS = {
