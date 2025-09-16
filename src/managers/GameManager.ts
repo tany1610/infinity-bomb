@@ -15,6 +15,11 @@ export class GameManager extends GameManagerBase {
         super.cutWire(this._doubleBlow);
     }
 
+    public nextWire(): void {
+        super.nextWire();
+        this._doubleBlow = false;
+    }
+
     public buyItem(item: Item): void {
         if (this._inventoryManager.hasSpace && this._shopManager.hasEnoughCoins(item.price)) {
             const boughtItem = this._shopManager.buyItem(item.id);

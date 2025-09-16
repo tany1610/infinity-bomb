@@ -7,6 +7,7 @@ export class Payday extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.payday.title,
+            ITEMS_CONFIG.payday.key,
             ITEMS_CONFIG.payday.price,
             ITEMS_CONFIG.payday.effect,
             ITEMS_CONFIG.payday.image

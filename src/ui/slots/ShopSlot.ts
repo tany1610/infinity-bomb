@@ -24,7 +24,7 @@ export class ShopSlot {
 
         const { width, height } = this.scene.scale;
         const config = UI_CONFIG.shop;
-        const spriteX = width * config.position.xRatio + 1.6 * config.offsetX;
+        const spriteX = width * config.position.xRatio + 1.64 * config.offsetX;
         const spriteY = height * config.position.yRatio + config.offsetY;
 
         this.sprite = this.scene.add
@@ -35,7 +35,7 @@ export class ShopSlot {
 
         this.title = this.scene.add.text(
             spriteX + 20,
-            spriteY + config.itemsSpacing * index - 20,
+            spriteY + config.itemsSpacing * index - 22,
             `${this.item.name} - ${this.item.price} BC`,
             {
                 ...config.text.titleStyle,
@@ -44,7 +44,7 @@ export class ShopSlot {
 
         this.description = this.scene.add.text(
             spriteX + 20,
-            spriteY + config.itemsSpacing * index - 5,
+            spriteY + config.itemsSpacing * index - 8,
             this.item.description,
             {
                 ...config.text.descriptionStyle,

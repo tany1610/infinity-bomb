@@ -46,7 +46,7 @@ export class GameOverScene extends Phaser.Scene {
             text: GAME_OVER_MENU_CONFIG.button.text,
             style: GAME_OVER_MENU_CONFIG.button,
             texture: "button_start_normal",
-            onClick: () => this.scene.start("MainMenuScene"),
+            onClickHandler: () => this.scene.start("MainMenuScene"),
         });
     }
 }

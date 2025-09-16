@@ -1,5 +1,6 @@
+import { AudioManager } from "../managers/AudioManager";
 import type { GameManager } from "../managers/GameManager";
-import { EVENTS, UI_CONFIG } from "../utils/constants";
+import { AUDIO_KEYS, EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import { ShopSlot } from "./slots/ShopSlot";
 
@@ -27,6 +28,10 @@ export class Shop {
         }
     }
 
+    private playCoinSound() {
+        AudioManager.getInstance().playSfx(AUDIO_KEYS.COIN);
+    }
+
     constructor({ scene, gameManager }: ShopConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
@@ -46,5 +51,6 @@ export class Shop {
         this.initShopItems();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initShopItems, this);
+        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.playCoinSound, this);
     }
 }

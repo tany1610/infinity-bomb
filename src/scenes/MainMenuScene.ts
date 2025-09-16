@@ -1,7 +1,8 @@
 import Phaser from "phaser";
-import { MAIN_MENU_CONFIG } from "../utils/constants";
+import { MAIN_MENU_CONFIG, AUDIO_CONFIG, AUDIO, AUDIO_KEYS } from "../utils/constants";
 import { Text } from "../ui/Text";
 import { MenuButton } from "../ui/buttons/MenuButton";
+import { AudioManager } from "../managers/AudioManager";
 
 export class MainMenuScene extends Phaser.Scene {
     constructor() {
@@ -9,11 +10,15 @@ export class MainMenuScene extends Phaser.Scene {
     }
 
     preload() {
+        AudioManager.preload(this, { ...AUDIO });
         this.load.image("button_start_normal", "assets/button-normal.png");
     }
 
     create() {
         const { width, height } = this.scale;
+
+        AudioManager.init(this, { ...AUDIO_CONFIG });
+        AudioManager.getInstance().playMusic(AUDIO_KEYS.GAME_MUSIC);
 
         new Text({
             scene: this,
@@ -33,7 +38,7 @@ export class MainMenuScene extends Phaser.Scene {
             text: "Start",
             style: MAIN_MENU_CONFIG.button,
             texture: "button_start_normal",
-            onClick: () => this.scene.start("GameScene"),
+            onClickHandler: () => this.scene.start("GameScene"),
         });
 
         new MenuButton({
@@ -43,7 +48,7 @@ export class MainMenuScene extends Phaser.Scene {
             text: "Quit",
             style: MAIN_MENU_CONFIG.button,
             texture: "button_start_normal",
-            onClick: () => window.close(),
+            onClickHandler: () => window.close(),
         });
     }
 }

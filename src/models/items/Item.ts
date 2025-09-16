@@ -3,13 +3,15 @@ import type { IHovarable } from "../../utils/interfaces";
 
 export abstract class Item implements IHovarable {
     private _id: string;
+    private _key: number;
     private _name: string;
     private _price: number;
     private _description: string;
     private _image: string;
 
-    constructor(name: string, price: number, description: string, image: string) {
+    constructor(name: string, key: number, price: number, description: string, image: string) {
         this._id = Phaser.Utils.String.UUID();
+        this._key = key;
         this._name = name;
         this._price = price;
         this._description = description;
@@ -20,6 +22,10 @@ export abstract class Item implements IHovarable {
 
     public get id() {
         return this._id;
+    }
+
+    public get key() {
+        return this._key;
     }
 
     public get name() {

@@ -7,6 +7,7 @@ export class SnipMaster extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.snipMaster.title,
+            ITEMS_CONFIG.snipMaster.key,
             ITEMS_CONFIG.snipMaster.price,
             ITEMS_CONFIG.snipMaster.effect,
             ITEMS_CONFIG.snipMaster.image

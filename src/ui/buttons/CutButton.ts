@@ -10,6 +10,10 @@ export class CutButton {
     private scene: Phaser.Scene;
     private gameManager: GameManager;
 
+    private onClick() {
+        this.gameManager.cutWire();
+    }
+
     constructor({ scene, gameManager }: CutButtonConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
@@ -27,7 +31,7 @@ export class CutButton {
                 cutButtonConfig.backgroundColor
             )
             .setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => gameManager.cutWire());
+            .on("pointerdown", () => this.onClick());
         this.scene.add
             .text(
                 width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,

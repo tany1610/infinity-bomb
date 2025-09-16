@@ -7,6 +7,7 @@ export class FuseKit extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.fuseKit.title,
+            ITEMS_CONFIG.fuseKit.key,
             ITEMS_CONFIG.fuseKit.price,
             ITEMS_CONFIG.fuseKit.effect,
             ITEMS_CONFIG.fuseKit.image

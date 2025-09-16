@@ -16,49 +16,49 @@ export const WIRE_COLORS = {
 
 export const ITEMS_CONFIG = {
     snipMaster: {
-        _id: 1,
+        key: 1,
         title: "Snip Master",
         effect: "Guarantees a safe cut on the current wire",
         price: 30,
         image: "snip_master",
     },
     circuitPeek: {
-        _id: 2,
+        key: 2,
         title: "Circuit Peek",
         effect: "Reveals the explosion chance of the current wire",
         price: 20,
         image: "circuit_peek",
     },
     fuseKit: {
-        _id: 3,
+        key: 3,
         title: "Fuse Kit",
         effect: "Restores one lost fuse",
         price: 40,
         image: "fuse_kit",
     },
     defuserDrone: {
-        _id: 4,
+        key: 4,
         title: "Defuser Drone",
         effect: "Don't trust yourself? This drone will cut the wire for you",
         price: 10,
         image: "defuser_drone",
     },
     greedySnip: {
-        _id: 5,
+        key: 5,
         title: "Greedy Snip",
-        effect: "Halves the chance of this wire exploding. If it still does, you lose 2 fuses",
+        effect: "Halves the chance of the current wire exploding. If it still does, you lose 2 fuses",
         price: 30,
         image: "greedy_snip",
     },
     payday: {
-        _id: 6,
+        key: 6,
         title: "Payday",
         effect: "This round rewards double coins",
         price: 40,
         image: "payday",
     },
     wireSwap: {
-        _id: 7,
+        key: 7,
         title: "Wire Swap",
         effect: "Don't like your odds? Get a new wire",
         price: 60,
@@ -297,7 +297,7 @@ export const UI_CONFIG = {
         },
     },
     hint: {
-        height: 60,
+        height: 70,
         backgroundColor: getCssVarAsHex("--primary-grey"),
         title: {
             offestY: -18,
@@ -309,13 +309,43 @@ export const UI_CONFIG = {
             },
         },
         description: {
-            offestY: 5,
+            offestY: 9,
             origin: 0.5,
             style: {
                 fontSize: "16px",
                 color: getCssVar("--text-white"),
                 fontFamily: FONT_FAMILY,
+                wordWrap: {
+                    width: 400,
+                    useAdvancedWrap: true,
+                },
+                align: "center",
             },
         },
+    },
+};
+
+export const AUDIO_KEYS = {
+    GAME_MUSIC: "gameMusic",
+    GAME_OVER: "gameOver",
+    CLICK: "click",
+    COIN: "coin",
+};
+
+export const AUDIO = {
+    [AUDIO_KEYS.GAME_MUSIC]: "assets/audio/gameMusic.mp3",
+    [AUDIO_KEYS.GAME_OVER]: "assets/audio/gameOver.mp3",
+    [AUDIO_KEYS.CLICK]: "assets/audio/click.wav",
+    [AUDIO_KEYS.COIN]: "assets/audio/coin.wav",
+};
+
+export const AUDIO_CONFIG = {
+    musicConfig: {
+        loop: true,
+        volume: 0.5,
+    },
+    soundConfig: {
+        loop: false,
+        volume: 1,
     },
 };

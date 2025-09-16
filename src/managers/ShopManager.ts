@@ -13,8 +13,13 @@ export class ShopManager {
     }
 
     private addNewItem() {
-        const RandomItem = this.generateRandomItem();
-        this._items.push(new RandomItem());
+        let item: Item;
+        do {
+            const RandomItem = this.generateRandomItem();
+            item = new RandomItem();
+        } while (this._items.some((i) => i.key === item.key));
+
+        this._items.push(item);
     }
 
     private generateRandomItems(count: number) {

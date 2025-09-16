@@ -10,6 +10,10 @@ export class SkipButton {
     private scene: Phaser.Scene;
     private gameManager: GameManager;
 
+    private onClick() {
+        this.gameManager.applySkip();
+    }
+
     constructor({ scene, gameManager }: SkipButtonConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
@@ -27,7 +31,7 @@ export class SkipButton {
                 skipButtonConfig.backgroundColor
             )
             .setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => gameManager.applySkip());
+            .on("pointerdown", () => this.onClick());
         this.scene.add
             .text(
                 width * skipButtonConfig.position.xRatio + skipButtonConfig.offsetX,

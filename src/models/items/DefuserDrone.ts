@@ -7,6 +7,7 @@ export class DefuserDrone extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.defuserDrone.title,
+            ITEMS_CONFIG.defuserDrone.key,
             ITEMS_CONFIG.defuserDrone.price,
             ITEMS_CONFIG.defuserDrone.effect,
             ITEMS_CONFIG.defuserDrone.image

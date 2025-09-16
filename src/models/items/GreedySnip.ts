@@ -7,6 +7,7 @@ export class GreedySnip extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.greedySnip.title,
+            ITEMS_CONFIG.greedySnip.key,
             ITEMS_CONFIG.greedySnip.price,
             ITEMS_CONFIG.greedySnip.effect,
             ITEMS_CONFIG.greedySnip.image

@@ -7,6 +7,7 @@ export class WireSwap extends Item {
     constructor() {
         super(
             ITEMS_CONFIG.wireSwap.title,
+            ITEMS_CONFIG.wireSwap.key,
             ITEMS_CONFIG.wireSwap.price,
             ITEMS_CONFIG.wireSwap.effect,
             ITEMS_CONFIG.wireSwap.image

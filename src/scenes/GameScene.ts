@@ -6,13 +6,16 @@ import { Inventory } from "../ui/Inventory";
 import { GameManager } from "../managers/GameManager";
 import { Hint } from "../ui/Hint";
 import { EventBus } from "../utils/EventBus";
-import { EVENTS } from "../utils/constants";
+import { AUDIO_KEYS, EVENTS } from "../utils/constants";
+import { AudioManager } from "../managers/AudioManager";
 
 export class GameScene extends Phaser.Scene {
     private gameManager!: GameManager;
 
     private endGameHandler() {
         this.gameManager.destroy();
+        AudioManager.getInstance().stopMusic();
+        AudioManager.getInstance().playMusic(AUDIO_KEYS.GAME_OVER);
         this.scene.stop("GameScene");
         this.scene.start("GameOverScene");
     }
