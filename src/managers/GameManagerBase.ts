@@ -37,11 +37,6 @@ export class GameManagerBase {
         AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
     }
 
-    private nextRound(): void {
-        this._round += 1;
-        this.nextWire();
-    }
-
     constructor() {
         this._shopManager = new ShopManager();
         this._inventoryManager = new InventoryManager();
@@ -89,6 +84,11 @@ export class GameManagerBase {
     public nextWire() {
         this._wireManager.nextWire();
         EventBus.emit(EVENTS.GAME.NEXT_ROUND);
+    }
+
+    public nextRound(): void {
+        this._round += 1;
+        this.nextWire();
     }
 
     public applySkip(): void {

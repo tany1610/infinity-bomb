@@ -1,13 +1,16 @@
 import type { Item } from "../models/items/Item";
 import { EVENTS } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
+import { EventManager } from "./EventManager";
 import { GameManagerBase } from "./GameManagerBase";
 
 export class GameManager extends GameManagerBase {
     private _doubleBlow!: boolean;
+    private _eventManager: EventManager;
 
     constructor() {
         super();
+        this._eventManager = new EventManager({ gameManager: this });
         this._doubleBlow = false;
     }
 
@@ -18,6 +21,11 @@ export class GameManager extends GameManagerBase {
     public nextWire(): void {
         super.nextWire();
         this._doubleBlow = false;
+    }
+
+    public nextRound(): void {
+        super.nextRound();
+        this._eventManager.checkEvents(this.round);
     }
 
     public buyItem(item: Item): void {

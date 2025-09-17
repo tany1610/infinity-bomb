@@ -87,6 +87,26 @@ export const EVENTS = {
         ITEM_POINTEROVER: "inventory:itemMouseOver",
         ITEM_POINTEROUT: "inventory:itemMouseOut",
     },
+    UNLOCKABLE_EVENTS: {
+        BLACK_MARKET_UNLOCKED: "unlockableEvents:blackMarketUnlocked",
+    },
+};
+
+export const EVENT_MANAGER_EVENTS_KEYS = {
+    BLACK_MARKET: "black_market",
+};
+
+export const EVENT_MAMAGER_CONFIG = {
+    EVENTS: {
+        [EVENT_MANAGER_EVENTS_KEYS.BLACK_MARKET]: {
+            _id: EVENT_MANAGER_EVENTS_KEYS.BLACK_MARKET,
+            name: "Black Market",
+            description:
+                "Grants access to the black market. The black market offers cheaper items, but they might not work properly",
+            unlockRound: 5,
+            duration: Infinity,
+        },
+    },
 };
 
 export const GAME_CONFIG = {
