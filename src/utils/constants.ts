@@ -5,13 +5,15 @@ const BOMB_PANEL_SIZE = 200;
 
 export const FONT_FAMILY = "VT323";
 
-export const WIRE_COLORS = {
-    red: getCssVarAsHex("--red-wire"),
-    blue: getCssVarAsHex("--blue-wire"),
-    green: getCssVarAsHex("--green-wire"),
-    yellow: getCssVarAsHex("--yellow-wire"),
-    purple: getCssVarAsHex("--purple-wire"),
-    black: getCssVarAsHex("--black-wire"),
+export const WIRES = {
+    red: "red_wire",
+    blue: "blue_wire",
+    green: "green_wire",
+    yellow: "yellow_wire",
+    purple: "purple_wire",
+    black: "black_wire",
+    orange: "orange_wire",
+    white: "white_wire",
 };
 
 export const ITEMS_CONFIG = {
@@ -208,7 +210,7 @@ export const UI_CONFIG = {
             offsetY: -50,
             width: 100,
             height: 10,
-            color: WIRE_COLORS.red,
+            color: WIRES.red,
         },
         buttons: {
             cut: {

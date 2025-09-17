@@ -19,12 +19,10 @@ export class Wire {
         const wireConfig = UI_CONFIG.bombPanel.wire;
 
         this.scene.add
-            .rectangle(
+            .sprite(
                 width * wireConfig.position.xRatio + wireConfig.offsetX,
                 height * wireConfig.position.yRatio + wireConfig.offsetY,
-                wireConfig.width,
-                wireConfig.height,
-                this.wire.color
+                this.wire.texture
             )
             .setInteractive({ useHandCursor: true })
             .on("pointerover", () => EventBus.emit(EVENTS.BOMB_PANEL.WIRE_POINTEROVER, this.wire))

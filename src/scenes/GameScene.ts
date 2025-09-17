@@ -25,13 +25,24 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("snip_master", "assets/snip-master.png");
-        this.load.image("circuit_peek", "assets/circuit-peek.png");
-        this.load.image("fuse_kit", "assets/fuse-kit.png");
-        this.load.image("defuser_drone", "assets/defuser-drone.png");
-        this.load.image("greedy_snip", "assets/greedy-snip.png");
-        this.load.image("payday", "assets/payday.png");
-        this.load.image("wire_swap", "assets/wire-swap.png");
+        // Items
+        this.load.image("snip_master", "assets/items/snip-master.png");
+        this.load.image("circuit_peek", "assets/items/circuit-peek.png");
+        this.load.image("fuse_kit", "assets/items/fuse-kit.png");
+        this.load.image("defuser_drone", "assets/items/defuser-drone.png");
+        this.load.image("greedy_snip", "assets/items/greedy-snip.png");
+        this.load.image("payday", "assets/items/payday.png");
+        this.load.image("wire_swap", "assets/items/wire-swap.png");
+
+        // Wires
+        this.load.image("red_wire", "assets/wires/red-wire.png");
+        this.load.image("blue_wire", "assets/wires/blue-wire.png");
+        this.load.image("green_wire", "assets/wires/green-wire.png");
+        this.load.image("yellow_wire", "assets/wires/yellow-wire.png");
+        this.load.image("purple_wire", "assets/wires/purple-wire.png");
+        this.load.image("black_wire", "assets/wires/black-wire.png");
+        this.load.image("orange_wire", "assets/wires/orange-wire.png");
+        this.load.image("white_wire", "assets/wires/white-wire.png");
     }
 
     create() {

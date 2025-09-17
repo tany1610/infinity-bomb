@@ -3,19 +3,15 @@ import type { IHovarable } from "../utils/interfaces";
 
 export class Wire implements IHovarable {
     private _colorName: string;
-    private _colorValue: number;
     private _explodeChance: number;
     private _explodeChanceExposed: boolean;
+    private _texture: string;
 
-    constructor(colorName: string, colorValue: number, explodeChance: number) {
+    constructor(colorName: string, texture: string, explodeChance: number) {
         this._colorName = colorName;
-        this._colorValue = colorValue;
         this._explodeChance = explodeChance;
         this._explodeChanceExposed = false;
-    }
-
-    public get color(): number {
-        return this._colorValue;
+        this._texture = texture;
     }
 
     public get explodeChance(): number {
@@ -24,6 +20,10 @@ export class Wire implements IHovarable {
 
     public set explodeChance(value: number) {
         this._explodeChance = value;
+    }
+
+    public get texture() {
+        return this._texture;
     }
 
     public get name(): string {
