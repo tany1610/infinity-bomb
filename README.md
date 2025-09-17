@@ -1,3 +1,18 @@
+# Infinity Bomb  
+
+**Infinity Bomb** is a pixel-art roguelike game about defusing a bomb wire by wire.  
+The player starts with limited lives (fuses), coins, and skips, and faces randomly generated wires — each with a unique explosion chance. Cutting the wrong wire costs a fuse, while surviving rewards coins based on risk: higher risk means higher reward.  
+
+Between rounds, players can buy items from the shop to improve their chances, reveal hidden information, or manipulate the bomb. The goal is simple: **survive as many rounds as possible before running out of fuses.**  
+
+## Key Features
+- 🎲 High-risk/high-reward gameplay with randomly generated wires  
+- 🛒 Shop system with unique items and inventory management  
+- 💥 Explosions, skips, and strategic choices each round  
+- 📈 Progression with new mechanics unlocking every 10 rounds  
+- 🎓 Tutorial & immersive effects to keep the tension high  
+
+
 # 🗺️ Infinity Bomb Roadmap
 
 ### **Phase 1 – Core foundation**
