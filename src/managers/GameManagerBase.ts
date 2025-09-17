@@ -34,6 +34,7 @@ export class GameManagerBase {
     private applyRewards(): void {
         const currentWire = this._wireManager.currentWire;
         this._shopManager.reward(currentWire);
+        AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
     }
 
     private nextRound(): void {
@@ -106,21 +107,19 @@ export class GameManagerBase {
             this.gameOver();
         } else {
             this._lives -= liveCost;
+            AudioManager.getInstance().playSfx(AUDIO_KEYS.EXPLOSION);
             EventBus.emit(EVENTS.GAME.LOST_LIFE);
         }
     }
 
-    public cutWire(doubleBlow: boolean): boolean {
+    public cutWire(doubleBlow: boolean): void {
         const explodes = this._wireManager.cutWire();
         if (explodes) {
             this.blowFuse(doubleBlow);
-            AudioManager.getInstance().playSfx(AUDIO_KEYS.EXPLOSION);
         } else {
             this.applyRewards();
-            AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
         }
         this.nextRound();
-        return explodes;
     }
 
     public destroy(): void {
