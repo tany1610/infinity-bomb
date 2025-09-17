@@ -1,7 +1,8 @@
 import type { Item } from "../models/items/Item";
 import type { Wire } from "../models/Wire";
-import { EVENTS, GAME_CONFIG } from "../utils/constants";
+import { AUDIO_KEYS, EVENTS, GAME_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
+import { AudioManager } from "./AudioManager";
 import { InventoryManager } from "./InventoryManager";
 import { ShopManager } from "./ShopManager";
 import { WireManager } from "./WireManager";
@@ -25,6 +26,8 @@ export class GameManagerBase {
     private gameOver(): void {
         localStorage.setItem("score", this._round.toString());
         this._isGameOver = true;
+        AudioManager.getInstance().stopMusic();
+        AudioManager.getInstance().playSfx(AUDIO_KEYS.GAME_OVER);
         EventBus.emit(EVENTS.GAME.GAME_OVER);
     }
 
@@ -91,6 +94,7 @@ export class GameManagerBase {
         if (this._skips - 1 >= 0) {
             this._skips -= 1;
             this.nextRound();
+            AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
             EventBus.emit(EVENTS.GAME.SKIP);
         }
     }
@@ -110,8 +114,10 @@ export class GameManagerBase {
         const explodes = this._wireManager.cutWire();
         if (explodes) {
             this.blowFuse(doubleBlow);
+            AudioManager.getInstance().playSfx(AUDIO_KEYS.EXPLOSION);
         } else {
             this.applyRewards();
+            AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
         }
         this.nextRound();
         return explodes;

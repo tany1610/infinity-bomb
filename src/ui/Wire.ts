@@ -10,6 +10,7 @@ interface WireConfig {
 export class Wire {
     private scene: Phaser.Scene;
     private wire: WireModel;
+    private sprite: Phaser.GameObjects.Sprite;
 
     constructor({ scene, wire }: WireConfig) {
         this.scene = scene;
@@ -18,7 +19,7 @@ export class Wire {
         const { width, height } = this.scene.scale;
         const wireConfig = UI_CONFIG.bombPanel.wire;
 
-        this.scene.add
+        this.sprite = this.scene.add
             .sprite(
                 width * wireConfig.position.xRatio + wireConfig.offsetX,
                 height * wireConfig.position.yRatio + wireConfig.offsetY,
@@ -27,5 +28,9 @@ export class Wire {
             .setInteractive({ useHandCursor: true })
             .on("pointerover", () => EventBus.emit(EVENTS.BOMB_PANEL.WIRE_POINTEROVER, this.wire))
             .on("pointerout", () => EventBus.emit(EVENTS.BOMB_PANEL.WIRE_POINTEROUT, this.wire));
+    }
+
+    public destroy() {
+        this.sprite.destroy();
     }
 }

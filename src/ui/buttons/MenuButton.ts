@@ -1,5 +1,4 @@
-import { AudioManager } from "../../managers/AudioManager";
-import { AUDIO_KEYS, FONT_FAMILY } from "../../utils/constants";
+import { FONT_FAMILY } from "../../utils/constants";
 
 interface MenuButtonConfig {
     scene: Phaser.Scene;
@@ -14,16 +13,8 @@ interface MenuButtonConfig {
 export class MenuButton {
     private buttonSprite: Phaser.GameObjects.Sprite;
     private textObject: Phaser.GameObjects.Text;
-    private onClickHandler: () => void;
-
-    private onClick() {
-        this.onClickHandler();
-        AudioManager.getInstance().playSfx(AUDIO_KEYS.CLICK);
-    }
 
     constructor({ scene, x, y, text, style, texture, onClickHandler }: MenuButtonConfig) {
-        this.onClickHandler = onClickHandler;
-
         this.buttonSprite = scene.add
             .sprite(x, y, texture)
             .setOrigin(0.5)
@@ -37,7 +28,7 @@ export class MenuButton {
             .setOrigin(0.5)
             .setResolution(3);
 
-        this.buttonSprite.on("pointerdown", () => this.onClick());
+        this.buttonSprite.on("pointerdown", onClickHandler);
     }
 
     public setPosition(x: number, y: number) {

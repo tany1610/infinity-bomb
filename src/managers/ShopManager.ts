@@ -1,7 +1,8 @@
 import type { Item } from "../models/items/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
 import type { Wire } from "../models/Wire";
-import { GAME_CONFIG } from "../utils/constants";
+import { AUDIO_KEYS, GAME_CONFIG } from "../utils/constants";
+import { AudioManager } from "./AudioManager";
 
 export class ShopManager {
     private _coins: number;
@@ -55,6 +56,8 @@ export class ShopManager {
     public buyItem(itemId: string): Item {
         const index = this._items.findIndex((item) => item.id === itemId);
         const itemPrice = this._items[index].price;
+
+        AudioManager.getInstance().playSfx(AUDIO_KEYS.COIN);
 
         this._coins -= itemPrice;
         const [boughtItem] = this._items.splice(index, 1);

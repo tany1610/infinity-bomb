@@ -16,6 +16,7 @@ export class BombPanel {
     private wire: Wire;
 
     private redrawWire() {
+        this.wire.destroy();
         this.wire = new Wire({ scene: this.scene, wire: this.gameManager.currentWire });
     }
 

@@ -1,6 +1,5 @@
-import { AudioManager } from "../../managers/AudioManager";
 import type { GameManager } from "../../managers/GameManager";
-import { AUDIO_KEYS, UI_CONFIG } from "../../utils/constants";
+import { UI_CONFIG } from "../../utils/constants";
 
 interface CutButtonConfig {
     scene: Phaser.Scene;
@@ -10,16 +9,6 @@ interface CutButtonConfig {
 export class CutButton {
     private scene: Phaser.Scene;
     private gameManager: GameManager;
-
-    private onClick() {
-        const explodes = this.gameManager.cutWire();
-        const isGameOver = this.gameManager.isGameOver;
-        if (explodes && !isGameOver) {
-            AudioManager.getInstance().playSfx(AUDIO_KEYS.EXPLOSION);
-        } else if (!explodes) {
-            AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
-        }
-    }
 
     constructor({ scene, gameManager }: CutButtonConfig) {
         this.scene = scene;
@@ -38,7 +27,7 @@ export class CutButton {
                 cutButtonConfig.backgroundColor
             )
             .setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => this.onClick());
+            .on("pointerdown", () => this.gameManager.cutWire());
         this.scene.add
             .text(
                 width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,
