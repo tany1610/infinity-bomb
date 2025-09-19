@@ -65,6 +65,10 @@ export class GameManagerBase {
         return this._shopManager.items;
     }
 
+    public get blackMarketItem(): Item | null {
+        return this._shopManager.blackMarketItem;
+    }
+
     public get coins(): number {
         return this._shopManager.coins;
     }
@@ -79,6 +83,10 @@ export class GameManagerBase {
 
     public addFuse(): void {
         this._lives = Math.min(this._lives + 1, GAME_CONFIG.startinglives);
+    }
+
+    public addSkip(): void {
+        this._skips += 1;
     }
 
     public nextWire() {

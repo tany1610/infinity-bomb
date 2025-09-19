@@ -115,6 +115,7 @@ export class Header {
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateCoins, this);
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.updateRound, this);
         EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateLives, this);
+        EventBus.on(EVENTS.INVENTORY.ITEM_USED, this.updateSkips, this);
         EventBus.on(EVENTS.GAME.LOST_LIFE, this.updateLives, this);
         EventBus.on(EVENTS.GAME.SKIP, this.updateSkips, this);
     }

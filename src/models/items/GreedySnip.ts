@@ -16,6 +16,7 @@ export class GreedySnip extends Item {
 
     apply(gameManager: GameManager): void {
         gameManager.activateDoubleBlow();
+        gameManager.halveExplodeChance();
         EventBus.emit(EVENTS.INVENTORY.ITEM_USED, this);
     }
 }

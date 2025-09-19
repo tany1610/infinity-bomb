@@ -1,5 +1,5 @@
 import type { GameManager } from "../managers/GameManager";
-import { EVENTS, UI_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_CONFIG, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import { ShopSlot } from "./slots/ShopSlot";
 
@@ -11,8 +11,10 @@ interface ShopConfig {
 export class Shop {
     private scene: Phaser.Scene;
     private container: Phaser.GameObjects.Container;
+    private blackMarketContainer: Phaser.GameObjects.Container;
     private gameManager: GameManager;
     private shopSlots: ShopSlot[] = [];
+    private blackMarketItem!: ShopSlot;
 
     private initShopItems() {
         this.shopSlots.forEach((slot) => slot.destroy());
@@ -31,6 +33,24 @@ export class Shop {
                     shopContainer: this.container,
                 })
             );
+        }
+    }
+
+    private initBlackMarketItem() {
+        const blackMarketItem = this.gameManager.blackMarketItem;
+
+        if (this.blackMarketItem) {
+            this.blackMarketItem.destroy();
+        }
+
+        if (blackMarketItem) {
+            this.blackMarketItem = new ShopSlot({
+                index: GAME_CONFIG.startingShopItems + 0.6,
+                item: blackMarketItem,
+                scene: this.scene,
+                gameManager: this.gameManager,
+                shopContainer: this.blackMarketContainer,
+            });
         }
     }
 
@@ -69,7 +89,7 @@ export class Shop {
             })
             .setOrigin(...textConfig.origin);
 
-        const blackMarketContainer = this.scene.add.container();
+        this.blackMarketContainer = this.scene.add.container();
 
         const blackMarket = this.scene.add.rectangle(
             0,
@@ -85,20 +105,22 @@ export class Shop {
             })
             .setOrigin(blackMarketTextConfig.origin);
 
-        blackMarketContainer.add(blackMarket);
-        blackMarketContainer.add(blackMarketText);
+        this.blackMarketContainer.add(blackMarket);
+        this.blackMarketContainer.add(blackMarketText);
 
-        this.hideContainer(blackMarketContainer);
+        this.hideContainer(this.blackMarketContainer);
 
-        this.container.add(blackMarketContainer);
+        this.container.add(this.blackMarketContainer);
         this.container.add(shop);
         this.container.add(shopText);
 
         this.initShopItems();
+        this.initBlackMarketItem();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initShopItems, this);
+        EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initBlackMarketItem, this);
         EventBus.on(EVENTS.UNLOCKABLE_EVENTS.BLACK_MARKET_UNLOCKED, () =>
-            this.showContainer(blackMarketContainer)
+            this.showContainer(this.blackMarketContainer)
         );
     }
 }

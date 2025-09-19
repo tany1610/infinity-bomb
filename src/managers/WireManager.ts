@@ -75,9 +75,9 @@ export class WireManager {
         this._currentWire.explodeChance = 0;
     }
 
-    public exposeExplodeChance(): void {
+    public exposeExplodeChance(glitched: boolean = false): void {
         const currentWireColor = this._currentWire.colorName as keyof typeof WIRES;
-        this._currentWire.exposeExplodeChance();
+        this._currentWire.exposeExplodeChance(glitched);
         this.wiresConfig[currentWireColor].isExplodeChanceExposed = true;
     }
 

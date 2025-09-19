@@ -1,3 +1,4 @@
+import { CORRUPTED_ITEM_CLASSES } from "../models/corruptedItems/ItemsRegistry";
 import type { Item } from "../models/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
 import type { Wire } from "../models/Wire";
@@ -8,9 +9,19 @@ export class ShopManager {
     private _coins: number;
     private _doubleReward: boolean;
     private _items: Item[] = [];
+    private _blackMarketItem!: Item | null;
 
     private generateRandomItem() {
         return ITEM_CLASSES[Math.floor(Math.random() * ITEM_CLASSES.length)];
+    }
+
+    private getRandomCorruptedItemClass() {
+        return CORRUPTED_ITEM_CLASSES[Math.floor(Math.random() * CORRUPTED_ITEM_CLASSES.length)];
+    }
+
+    private generateRandomBlackMarketItem() {
+        const RandomItem = this.getRandomCorruptedItemClass();
+        this._blackMarketItem = new RandomItem();
     }
 
     private addNewItem() {
@@ -35,6 +46,7 @@ export class ShopManager {
         this._coins = GAME_CONFIG.startingCoins;
         this._doubleReward = false;
         this.generateRandomItems(GAME_CONFIG.startingShopItems);
+        this.generateRandomBlackMarketItem();
     }
 
     public get coins() {
@@ -43,6 +55,10 @@ export class ShopManager {
 
     public get items() {
         return this._items;
+    }
+
+    public get blackMarketItem() {
+        return this._blackMarketItem;
     }
 
     public activateDoubleReward(): void {
@@ -55,14 +71,23 @@ export class ShopManager {
 
     public buyItem(itemId: string): Item {
         const index = this._items.findIndex((item) => item.id === itemId);
-        const itemPrice = this._items[index].price;
+        let boughtItem, itemPrice;
+
+        if (index >= 0) {
+            itemPrice = this._items[index].price;
+            [boughtItem] = this._items.splice(index, 1);
+            this.addNewItem();
+        } else {
+            // Black Market item
+            itemPrice = this._blackMarketItem!.price;
+            boughtItem = this._blackMarketItem;
+            this._blackMarketItem = null;
+        }
 
         AudioManager.getInstance().playSfx(AUDIO_KEYS.COIN);
-
         this._coins -= itemPrice;
-        const [boughtItem] = this._items.splice(index, 1);
-        this.addNewItem();
-        return boughtItem;
+
+        return boughtItem!;
     }
 
     public reward(currentWire: Wire) {

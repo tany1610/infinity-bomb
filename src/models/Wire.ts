@@ -5,6 +5,7 @@ export class Wire implements IHovarable {
     private _colorName: string;
     private _explodeChance: number;
     private _explodeChanceExposed: boolean;
+    private _explodeChanceGlitched: boolean;
     private _texture: string;
 
     constructor(colorName: string, texture: string, wireConfig: WireConfig) {
@@ -12,6 +13,7 @@ export class Wire implements IHovarable {
         this._explodeChance = wireConfig.explodeChance;
         this._explodeChanceExposed = wireConfig.isExplodeChanceExposed;
         this._texture = texture;
+        this._explodeChanceGlitched = false;
     }
 
     public get explodeChance(): number {
@@ -39,7 +41,10 @@ export class Wire implements IHovarable {
     }
 
     public getExplodeChance(): string {
-        if (this._explodeChanceExposed) {
+        if (this._explodeChanceGlitched) {
+            const randomPercent = Number(Math.random().toFixed(1)) * 100;
+            return `${randomPercent}%`;
+        } else if (this._explodeChanceExposed) {
             return `${this._explodeChance * 100}%`;
         }
 
@@ -50,7 +55,8 @@ export class Wire implements IHovarable {
         return Math.random() < this._explodeChance;
     }
 
-    public exposeExplodeChance(): void {
+    public exposeExplodeChance(glitched: boolean = false): void {
+        this._explodeChanceGlitched = glitched;
         this._explodeChanceExposed = true;
     }
 }

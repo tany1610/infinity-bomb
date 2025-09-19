@@ -9,6 +9,7 @@ export abstract class Item implements IHovarable {
     private _description: string;
     private _image: string;
     private _isCorrupted: boolean;
+    private _corruptionChance: number;
 
     constructor(
         name: string,
@@ -16,7 +17,8 @@ export abstract class Item implements IHovarable {
         price: number,
         description: string,
         image: string,
-        isCorrupted: boolean = false
+        isCorrupted: boolean = false,
+        corruptionChance: number = 0
     ) {
         this._id = Phaser.Utils.String.UUID();
         this._key = key;
@@ -25,6 +27,7 @@ export abstract class Item implements IHovarable {
         this._description = description;
         this._image = image;
         this._isCorrupted = isCorrupted;
+        this._corruptionChance = corruptionChance;
     }
 
     abstract apply(gameManager: GameManager): void;
@@ -55,5 +58,9 @@ export abstract class Item implements IHovarable {
 
     public get isCorrupted() {
         return this._isCorrupted;
+    }
+
+    public get corruptionChance() {
+        return this._corruptionChance;
     }
 }

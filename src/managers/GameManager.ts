@@ -41,11 +41,10 @@ export class GameManager extends GameManagerBase {
 
     public activateDoubleBlow(): void {
         this._doubleBlow = true;
-        this._wireManager.halveExplodeChance();
     }
 
-    public exposeExplodeChance(): void {
-        this._wireManager.exposeExplodeChance();
+    public exposeExplodeChance(glitched: boolean = false): void {
+        this._wireManager.exposeExplodeChance(glitched);
     }
 
     public forceSafeCut(): void {
