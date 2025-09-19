@@ -27,7 +27,7 @@ export const ITEMS_CONFIG = {
     circuitPeek: {
         key: 2,
         title: "Circuit Peek",
-        effect: "Reveals the explosion chance of the current wire",
+        effect: "Pemanently reveals the explosion chance of the current wire color",
         price: 20,
         image: "circuit_peek",
     },
@@ -96,14 +96,14 @@ export const EVENT_MANAGER_EVENTS_KEYS = {
     BLACK_MARKET: "black_market",
 };
 
-export const EVENT_MAMAGER_CONFIG = {
+export const EVENT_MANAGER_CONFIG = {
     EVENTS: {
         [EVENT_MANAGER_EVENTS_KEYS.BLACK_MARKET]: {
             _id: EVENT_MANAGER_EVENTS_KEYS.BLACK_MARKET,
             name: "Black Market",
             description:
                 "Grants access to the black market. The black market offers cheaper items, but they might not work properly",
-            unlockRound: 3,
+            unlockRound: 5,
             duration: Infinity,
         },
     },
@@ -300,7 +300,16 @@ export const UI_CONFIG = {
             },
         },
         blackMarket: {
-            height: 70,
+            text: {
+                label: "Black Market",
+                style: {
+                    fontSize: "20px",
+                    color: getCssVar("--primary-text-light"),
+                    fontFamily: FONT_FAMILY,
+                },
+                origin: 0.5,
+            },
+            height: 80,
             backgroundColor: getCssVarAsHex("--background-color-secondary"),
         },
     },
@@ -404,3 +413,5 @@ export const AUDIO_CONFIG = {
         volume: 1,
     },
 };
+
+export const GLITCH_COLORS = [0x66cc66, 0x66cccc, 0xcc6666, 0xaa88cc, 0x888888];

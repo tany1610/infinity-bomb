@@ -34,11 +34,11 @@ export class Shop {
         }
     }
 
-    private hideContainer(container: Phaser.GameObjects.Rectangle) {
+    private hideContainer(container: Phaser.GameObjects.Container) {
         container.setVisible(false);
     }
 
-    private showContainer(container: Phaser.GameObjects.Rectangle) {
+    private showContainer(container: Phaser.GameObjects.Container) {
         container.setVisible(true);
     }
 
@@ -53,6 +53,7 @@ export class Shop {
         this.container = this.scene.add.container(shopX, shopY);
 
         const textConfig = config.text;
+        const blackMarketTextConfig = config.blackMarket.text;
 
         const shop = this.scene.add.rectangle(
             0,
@@ -62,25 +63,36 @@ export class Shop {
             config.backgroundColor
         );
 
-        const blackMarketContainer = this.scene.add.rectangle(
-            0,
-            shop.height - config.blackMarket.height,
-            config.width,
-            config.blackMarket.height,
-            config.blackMarket.backgroundColor
-        );
-
-        this.hideContainer(blackMarketContainer);
-
-        const text = this.scene.add
+        const shopText = this.scene.add
             .text(0, 0, textConfig.label, {
                 ...textConfig.style,
             })
             .setOrigin(...textConfig.origin);
 
+        const blackMarketContainer = this.scene.add.container();
+
+        const blackMarket = this.scene.add.rectangle(
+            0,
+            shop.height - config.blackMarket.height / 1.5,
+            config.width,
+            config.blackMarket.height,
+            config.blackMarket.backgroundColor
+        );
+
+        const blackMarketText = this.scene.add
+            .text(blackMarket.x, blackMarket.y - 25, blackMarketTextConfig.label, {
+                ...blackMarketTextConfig.style,
+            })
+            .setOrigin(blackMarketTextConfig.origin);
+
+        blackMarketContainer.add(blackMarket);
+        blackMarketContainer.add(blackMarketText);
+
+        this.hideContainer(blackMarketContainer);
+
         this.container.add(blackMarketContainer);
         this.container.add(shop);
-        this.container.add(text);
+        this.container.add(shopText);
 
         this.initShopItems();
 

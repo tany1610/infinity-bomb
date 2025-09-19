@@ -1,6 +1,6 @@
 import type { GameManager } from "../../managers/GameManager";
-import type { Item } from "../../models/items/Item";
-import { UI_CONFIG } from "../../utils/constants";
+import type { Item } from "../../models/Item";
+import { GLITCH_COLORS, UI_CONFIG } from "../../utils/constants";
 
 interface ShopSlotConfig {
     index: number;
@@ -17,6 +17,31 @@ export class ShopSlot {
     private sprite: Phaser.GameObjects.Sprite;
     private title: Phaser.GameObjects.Text;
     private description: Phaser.GameObjects.Text;
+
+    private applyGlitchEffect() {
+        this.scene.time.addEvent({
+            delay: Phaser.Math.Between(1000, 2000),
+            loop: true,
+            callback: () => {
+                const color = Phaser.Utils.Array.GetRandom(GLITCH_COLORS);
+                this.sprite.setTint(color);
+
+                this.scene.tweens.add({
+                    targets: this.sprite,
+                    x: this.sprite.x + Phaser.Math.Between(-5, 5),
+                    alpha: { from: 1, to: 0.5 },
+                    yoyo: true,
+                    duration: 80,
+                    repeat: 1,
+                    onComplete: () => {
+                        this.sprite.setX(Math.round(this.sprite.x));
+                        this.sprite.setY(Math.round(this.sprite.y));
+                        this.sprite.clearTint();
+                    },
+                });
+            },
+        });
+    }
 
     constructor({ index, item, scene, gameManager, shopContainer }: ShopSlotConfig) {
         this.item = item;
@@ -49,6 +74,10 @@ export class ShopSlot {
                 ...config.text.descriptionStyle,
             }
         );
+
+        if (this.item.isCorrupted) {
+            this.applyGlitchEffect();
+        }
 
         shopContainer.add([this.sprite, this.title, this.description]);
     }

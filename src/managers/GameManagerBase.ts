@@ -1,4 +1,4 @@
-import type { Item } from "../models/items/Item";
+import type { Item } from "../models/Item";
 import type { Wire } from "../models/Wire";
 import { AUDIO_KEYS, EVENTS, GAME_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";

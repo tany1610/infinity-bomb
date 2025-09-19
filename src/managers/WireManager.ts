@@ -1,8 +1,9 @@
 import { Wire } from "../models/Wire";
 import { WIRES } from "../utils/constants";
+import type { WireConfig } from "../utils/interfaces";
 
 export class WireManager {
-    private wiresConfig: Record<keyof typeof WIRES, number>;
+    private wiresConfig: Record<keyof typeof WIRES, WireConfig>;
     private _currentWire!: Wire;
 
     private generateUniqueChances(): number[] {
@@ -20,25 +21,28 @@ export class WireManager {
         return chances;
     }
 
-    private generateRandomConfig(): Record<keyof typeof WIRES, number> {
+    private generateRandomConfig(): Record<keyof typeof WIRES, WireConfig> {
         const colors = Object.keys(WIRES) as (keyof typeof WIRES)[];
         const chances = this.generateUniqueChances();
 
         return colors.reduce(
             (acc, color, idx) => {
-                acc[color] = chances[idx];
+                acc[color] = {
+                    explodeChance: chances[idx],
+                    isExplodeChanceExposed: false,
+                };
                 return acc;
             },
-            {} as Record<keyof typeof WIRES, number>
+            {} as Record<keyof typeof WIRES, WireConfig>
         );
     }
 
     private generateRandomWire(): void {
         const colors = Object.keys(WIRES) as (keyof typeof WIRES)[];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const explodeChance = this.wiresConfig[randomColor];
+        const wireConfig = this.wiresConfig[randomColor];
 
-        this._currentWire = new Wire(randomColor, WIRES[randomColor], explodeChance);
+        this._currentWire = new Wire(randomColor, WIRES[randomColor], wireConfig);
     }
 
     constructor() {
@@ -51,7 +55,7 @@ export class WireManager {
     }
 
     public getWireExplosionChance(color: keyof typeof WIRES): number {
-        return this.wiresConfig[color];
+        return this.wiresConfig[color].explodeChance;
     }
 
     public cutWire(): boolean {
@@ -72,7 +76,9 @@ export class WireManager {
     }
 
     public exposeExplodeChance(): void {
+        const currentWireColor = this._currentWire.colorName as keyof typeof WIRES;
         this._currentWire.exposeExplodeChance();
+        this.wiresConfig[currentWireColor].isExplodeChanceExposed = true;
     }
 
     public halveExplodeChance(): void {

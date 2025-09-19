@@ -1,4 +1,4 @@
-import type { Item } from "../models/items/Item";
+import type { Item } from "../models/Item";
 import { ITEM_CLASSES } from "../models/items/ItemsRegistry";
 import type { Wire } from "../models/Wire";
 import { AUDIO_KEYS, GAME_CONFIG } from "../utils/constants";

@@ -1,5 +1,5 @@
 import { capitalize } from "../utils/helpers";
-import type { IHovarable } from "../utils/interfaces";
+import type { IHovarable, WireConfig } from "../utils/interfaces";
 
 export class Wire implements IHovarable {
     private _colorName: string;
@@ -7,10 +7,10 @@ export class Wire implements IHovarable {
     private _explodeChanceExposed: boolean;
     private _texture: string;
 
-    constructor(colorName: string, texture: string, explodeChance: number) {
+    constructor(colorName: string, texture: string, wireConfig: WireConfig) {
         this._colorName = colorName;
-        this._explodeChance = explodeChance;
-        this._explodeChanceExposed = false;
+        this._explodeChance = wireConfig.explodeChance;
+        this._explodeChanceExposed = wireConfig.isExplodeChanceExposed;
         this._texture = texture;
     }
 
@@ -20,6 +20,10 @@ export class Wire implements IHovarable {
 
     public set explodeChance(value: number) {
         this._explodeChance = value;
+    }
+
+    public get colorName(): string {
+        return this._colorName;
     }
 
     public get texture() {

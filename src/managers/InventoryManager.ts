@@ -1,4 +1,4 @@
-import type { Item } from "../models/items/Item";
+import type { Item } from "../models/Item";
 import { EVENTS, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 

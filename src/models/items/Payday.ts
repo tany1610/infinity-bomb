@@ -1,5 +1,5 @@
 import { GameManager } from "../../managers/GameManager";
-import { Item } from "./Item";
+import { Item } from "../Item";
 import { EVENTS, ITEMS_CONFIG } from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 

@@ -1,5 +1,5 @@
-import { GameManager } from "../../managers/GameManager";
-import type { IHovarable } from "../../utils/interfaces";
+import { GameManager } from "../managers/GameManager";
+import type { IHovarable } from "../utils/interfaces";
 
 export abstract class Item implements IHovarable {
     private _id: string;
@@ -8,14 +8,23 @@ export abstract class Item implements IHovarable {
     private _price: number;
     private _description: string;
     private _image: string;
+    private _isCorrupted: boolean;
 
-    constructor(name: string, key: number, price: number, description: string, image: string) {
+    constructor(
+        name: string,
+        key: number,
+        price: number,
+        description: string,
+        image: string,
+        isCorrupted: boolean = false
+    ) {
         this._id = Phaser.Utils.String.UUID();
         this._key = key;
         this._name = name;
         this._price = price;
         this._description = description;
         this._image = image;
+        this._isCorrupted = isCorrupted;
     }
 
     abstract apply(gameManager: GameManager): void;
@@ -42,5 +51,9 @@ export abstract class Item implements IHovarable {
 
     public get image() {
         return this._image;
+    }
+
+    public get isCorrupted() {
+        return this._isCorrupted;
     }
 }
