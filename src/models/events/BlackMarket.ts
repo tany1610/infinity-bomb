@@ -13,6 +13,6 @@ export class BlackMarket extends GameEvent {
         super({ ...config, gameManager: gameManager });
     }
     public apply(): void {
-        EventBus.emit(EVENTS.UNLOCKABLE_EVENTS.BLACK_MARKET_UNLOCKED);
+        EventBus.emit(EVENTS.UNLOCKABLE_EVENTS.BLACK_MARKET_UNLOCKED, this);
     }
 }

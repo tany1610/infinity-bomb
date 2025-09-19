@@ -7,6 +7,7 @@ interface ShopSlotConfig {
     item: Item;
     scene: Phaser.Scene;
     gameManager: GameManager;
+    shopContainer: Phaser.GameObjects.Container;
 }
 
 export class ShopSlot {
@@ -17,25 +18,23 @@ export class ShopSlot {
     private title: Phaser.GameObjects.Text;
     private description: Phaser.GameObjects.Text;
 
-    constructor({ index, item, scene, gameManager }: ShopSlotConfig) {
+    constructor({ index, item, scene, gameManager, shopContainer }: ShopSlotConfig) {
         this.item = item;
         this.scene = scene;
         this.gameManager = gameManager;
 
-        const { width, height } = this.scene.scale;
         const config = UI_CONFIG.shop;
-        const spriteX = width * config.position.xRatio + 1.64 * config.offsetX;
-        const spriteY = height * config.position.yRatio + config.offsetY;
+        const yOffset = config.itemsSpacing * index;
 
         this.sprite = this.scene.add
-            .sprite(spriteX, spriteY + config.itemsSpacing * index, this.item.image)
+            .sprite(0, yOffset - 5, this.item.image)
             .setInteractive({ useHandCursor: true })
-            .setOrigin(0.5)
+            .setOrigin(...config.itemsOrigin)
             .on("pointerdown", () => this.gameManager.buyItem(this.item));
 
         this.title = this.scene.add.text(
-            spriteX + 20,
-            spriteY + config.itemsSpacing * index - 22,
+            this.sprite.x - 55,
+            this.sprite.y - 60,
             `${this.item.name} - ${this.item.price} BC`,
             {
                 ...config.text.titleStyle,
@@ -43,13 +42,15 @@ export class ShopSlot {
         );
 
         this.description = this.scene.add.text(
-            spriteX + 20,
-            spriteY + config.itemsSpacing * index - 8,
+            this.sprite.x - 55,
+            this.sprite.y - 45,
             this.item.description,
             {
                 ...config.text.descriptionStyle,
             }
         );
+
+        shopContainer.add([this.sprite, this.title, this.description]);
     }
 
     public destroy() {

@@ -7,14 +7,24 @@ import { GameManager } from "../managers/GameManager";
 import { Hint } from "../ui/Hint";
 import { EventBus } from "../utils/EventBus";
 import { EVENTS } from "../utils/constants";
+import { EventDialog } from "../ui/EventDialog";
+import type { GameEvent } from "../models/events/GameEvent";
 
 export class GameScene extends Phaser.Scene {
     private gameManager!: GameManager;
+    private eventDialog!: EventDialog;
 
     private endGameHandler() {
         this.gameManager.destroy();
         this.scene.stop("GameScene");
         this.scene.start("GameOverScene");
+    }
+
+    private attatchUnlockedEventsListeners() {
+        const unlockableEvents = Object.values(EVENTS.UNLOCKABLE_EVENTS);
+        for (const event of unlockableEvents) {
+            EventBus.on(event, (event: GameEvent) => this.eventDialog.show(event));
+        }
     }
 
     constructor() {
@@ -45,6 +55,9 @@ export class GameScene extends Phaser.Scene {
     create() {
         this.gameManager = new GameManager();
 
+        // --- Event Dialog - triggered on unlocking an event ---
+        this.eventDialog = new EventDialog({ scene: this });
+
         // --- Top Bar ---
         new Header({ scene: this, gameManager: this.gameManager });
 
@@ -59,6 +72,8 @@ export class GameScene extends Phaser.Scene {
 
         // --- Inventory (bottom) ---
         new Inventory({ scene: this, gameManager: this.gameManager });
+
+        this.attatchUnlockedEventsListeners();
 
         EventBus.on(EVENTS.GAME.GAME_OVER, () => this.endGameHandler());
     }

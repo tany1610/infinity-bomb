@@ -10,6 +10,7 @@ interface ShopConfig {
 
 export class Shop {
     private scene: Phaser.Scene;
+    private container: Phaser.GameObjects.Container;
     private gameManager: GameManager;
     private shopSlots: ShopSlot[] = [];
 
@@ -22,29 +23,70 @@ export class Shop {
         for (let index = 0; index < shopItems.length; index++) {
             const item = shopItems[index];
             this.shopSlots.push(
-                new ShopSlot({ index, item, scene: this.scene, gameManager: this.gameManager })
+                new ShopSlot({
+                    index,
+                    item,
+                    scene: this.scene,
+                    gameManager: this.gameManager,
+                    shopContainer: this.container,
+                })
             );
         }
+    }
+
+    private hideContainer(container: Phaser.GameObjects.Rectangle) {
+        container.setVisible(false);
+    }
+
+    private showContainer(container: Phaser.GameObjects.Rectangle) {
+        container.setVisible(true);
     }
 
     constructor({ scene, gameManager }: ShopConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
 
-        const { width, height } = this.scene.scale;
         const config = UI_CONFIG.shop;
+        const shopX = config.position.x;
+        const shopY = config.position.y;
+
+        this.container = this.scene.add.container(shopX, shopY);
+
         const textConfig = config.text;
 
-        const shopX = width * config.position.xRatio + config.offsetX;
-        const shopY = height * config.position.yRatio;
+        const shop = this.scene.add.rectangle(
+            0,
+            0,
+            config.width,
+            config.height,
+            config.backgroundColor
+        );
 
-        this.scene.add.rectangle(shopX, shopY, config.width, config.height, config.backgroundColor);
-        this.scene.add
-            .text(shopX, shopY + textConfig.offsetY, textConfig.label, { ...textConfig.style })
-            .setOrigin(textConfig.origin);
+        const blackMarketContainer = this.scene.add.rectangle(
+            0,
+            shop.height - config.blackMarket.height,
+            config.width,
+            config.blackMarket.height,
+            config.blackMarket.backgroundColor
+        );
+
+        this.hideContainer(blackMarketContainer);
+
+        const text = this.scene.add
+            .text(0, 0, textConfig.label, {
+                ...textConfig.style,
+            })
+            .setOrigin(...textConfig.origin);
+
+        this.container.add(blackMarketContainer);
+        this.container.add(shop);
+        this.container.add(text);
 
         this.initShopItems();
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initShopItems, this);
+        EventBus.on(EVENTS.UNLOCKABLE_EVENTS.BLACK_MARKET_UNLOCKED, () =>
+            this.showContainer(blackMarketContainer)
+        );
     }
 }

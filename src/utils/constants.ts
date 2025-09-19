@@ -34,7 +34,7 @@ export const ITEMS_CONFIG = {
     fuseKit: {
         key: 3,
         title: "Fuse Kit",
-        effect: "Restores one lost fuse",
+        effect: "Restores one lost fuse (max 3 fuses)",
         price: 40,
         image: "fuse_kit",
     },
@@ -55,7 +55,7 @@ export const ITEMS_CONFIG = {
     payday: {
         key: 6,
         title: "Payday",
-        effect: "This round rewards double coins",
+        effect: "This round rewards double coins (if you survive that is)",
         price: 40,
         image: "payday",
     },
@@ -103,7 +103,7 @@ export const EVENT_MAMAGER_CONFIG = {
             name: "Black Market",
             description:
                 "Grants access to the black market. The black market offers cheaper items, but they might not work properly",
-            unlockRound: 5,
+            unlockRound: 3,
             duration: Infinity,
         },
     },
@@ -112,7 +112,7 @@ export const EVENT_MAMAGER_CONFIG = {
 export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
-    startingShopItems: 4,
+    startingShopItems: 3,
     startingSkips: 3,
 };
 
@@ -162,7 +162,7 @@ export const GAME_OVER_MENU_CONFIG = {
 export const UI_CONFIG = {
     header: {
         position: { xRatio: 0.5, y: 30 },
-        backgroundColor: getCssVarAsHex("--background-color"),
+        backgroundColor: getCssVarAsHex("--background-color-primary"),
         height: 60,
         origin: 0.5,
         lives: {
@@ -211,7 +211,7 @@ export const UI_CONFIG = {
         position: { xRatio: 0.5, yRatio: 0.5 },
         offsetX: -(BOMB_PANEL_SIZE / 2),
         offsetY: -50,
-        backgroundColor: getCssVarAsHex("--background-color"),
+        backgroundColor: getCssVarAsHex("--background-color-primary"),
         text: {
             label: "Bomb Panel",
             position: { xRatio: 0.5, yRatio: 0.5 },
@@ -239,7 +239,7 @@ export const UI_CONFIG = {
                 height: 40,
                 offsetX: -(BOMB_PANEL_SIZE / 2) - 50,
                 offsetY: 100,
-                backgroundColor: getCssVarAsHex("--background-color"),
+                backgroundColor: getCssVarAsHex("--background-color-primary"),
                 text: {
                     origin: 0.5,
                     label: "CUT",
@@ -256,7 +256,7 @@ export const UI_CONFIG = {
                 height: 40,
                 offsetX: -(BOMB_PANEL_SIZE / 2) + 50,
                 offsetY: 100,
-                backgroundColor: getCssVarAsHex("--background-color"),
+                backgroundColor: getCssVarAsHex("--background-color-primary"),
                 text: {
                     origin: 0.5,
                     label: "SKIP",
@@ -270,18 +270,15 @@ export const UI_CONFIG = {
         },
     },
     shop: {
-        maxItems: 4,
-        position: { xRatio: 1, yRatio: 0.472 },
-        offsetX: -120,
-        offsetY: -75,
+        position: { x: 380, y: 200 },
         width: 200,
-        height: 275,
-        backgroundColor: getCssVarAsHex("--background-color"),
+        height: 200,
+        backgroundColor: getCssVarAsHex("--background-color-primary"),
         itemsSpacing: 55,
+        itemsOrigin: [2, 1.3],
         text: {
-            origin: 0.5,
             label: "Blast Shop",
-            offsetY: -120,
+            origin: [0.5, 5],
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
@@ -302,12 +299,16 @@ export const UI_CONFIG = {
                 },
             },
         },
+        blackMarket: {
+            height: 70,
+            backgroundColor: getCssVarAsHex("--background-color-secondary"),
+        },
     },
     inventory: {
         height: 80,
         position: { xRatio: 0.5, yRatio: 1 },
         offsetY: -30,
-        backgroundColor: getCssVarAsHex("--background-color"),
+        backgroundColor: getCssVarAsHex("--background-color-primary"),
         slots: {
             count: 6,
             width: 50,
@@ -344,6 +345,34 @@ export const UI_CONFIG = {
                 align: "center",
             },
         },
+    },
+    eventDialog: {
+        background: getCssVarAsHex("--game-background"),
+        infoContainer: {
+            text: {
+                offsetY: -20,
+                origin: 0.5,
+                titleStyle: {
+                    fontSize: "24px",
+                    color: getCssVar("--primary-text-light"),
+                    fontFamily: FONT_FAMILY,
+                    align: "center",
+                },
+                descriptionStyle: {
+                    fontSize: "18px",
+                    color: getCssVar("--text-white"),
+                    fontFamily: FONT_FAMILY,
+                    align: "center",
+                    wordWrap: {
+                        width: 500,
+                        useAdvancedWrap: true,
+                    },
+                },
+            },
+            height: 100,
+            background: getCssVarAsHex("--background-color-primary"),
+        },
+        alpha: 0.6,
     },
 };
 
