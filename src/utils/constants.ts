@@ -159,7 +159,7 @@ export const EVENT_MANAGER_CONFIG = {
             name: "Black Market",
             description:
                 "Grants access to the black market. The black market offers cheaper items, but they might not work properly",
-            unlockRound: 2,
+            unlockRound: 5,
             duration: Infinity,
         },
     },

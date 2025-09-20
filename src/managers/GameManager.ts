@@ -18,12 +18,9 @@ export class GameManager extends GameManagerBase {
         super.cutWire(this._doubleBlow);
     }
 
-    public nextWire(): void {
-        super.nextWire();
-        this._doubleBlow = false;
-    }
-
     public nextRound(): void {
+        this._doubleBlow = false;
+        this._shopManager.generateRandomBlackMarketItem();
         super.nextRound();
         this._eventManager.checkEvents(this.round);
     }

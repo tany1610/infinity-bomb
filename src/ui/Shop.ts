@@ -89,7 +89,7 @@ export class Shop {
             })
             .setOrigin(...textConfig.origin);
 
-        this.blackMarketContainer = this.scene.add.container();
+        this.blackMarketContainer = this.scene.add.container(0, 0);
 
         const blackMarket = this.scene.add.rectangle(
             0,
@@ -119,6 +119,7 @@ export class Shop {
 
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initShopItems, this);
         EventBus.on(EVENTS.SHOP.ITEM_BOUGHT, this.initBlackMarketItem, this);
+        EventBus.on(EVENTS.GAME.NEXT_ROUND, this.initBlackMarketItem, this);
         EventBus.on(EVENTS.UNLOCKABLE_EVENTS.BLACK_MARKET_UNLOCKED, () =>
             this.showContainer(this.blackMarketContainer)
         );

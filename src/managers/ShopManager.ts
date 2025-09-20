@@ -19,11 +19,6 @@ export class ShopManager {
         return CORRUPTED_ITEM_CLASSES[Math.floor(Math.random() * CORRUPTED_ITEM_CLASSES.length)];
     }
 
-    private generateRandomBlackMarketItem() {
-        const RandomItem = this.getRandomCorruptedItemClass();
-        this._blackMarketItem = new RandomItem();
-    }
-
     private addNewItem() {
         let item: Item;
         do {
@@ -88,6 +83,11 @@ export class ShopManager {
         this._coins -= itemPrice;
 
         return boughtItem!;
+    }
+
+    public generateRandomBlackMarketItem() {
+        const RandomItem = this.getRandomCorruptedItemClass();
+        this._blackMarketItem = new RandomItem();
     }
 
     public reward(currentWire: Wire) {
