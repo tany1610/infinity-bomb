@@ -1,6 +1,6 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/Item";
-import { EVENTS, UI_CONFIG } from "../../utils/constants";
+import { EVENTS, GLITCH_COLORS, UI_CONFIG } from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 
 interface InventorySlotConfig {
@@ -21,6 +21,31 @@ export class InventorySlot {
             this.item.apply(this.gameManager);
         }
     };
+
+    private applyGlitchEffect() {
+        this.scene.time.addEvent({
+            delay: Phaser.Math.Between(1000, 2000),
+            loop: true,
+            callback: () => {
+                const color = Phaser.Utils.Array.GetRandom(GLITCH_COLORS);
+                this.sprite.setTint(color);
+
+                this.scene.tweens.add({
+                    targets: this.sprite,
+                    x: this.sprite.x + Phaser.Math.Between(-5, 5),
+                    alpha: { from: 1, to: 0.5 },
+                    yoyo: true,
+                    duration: 80,
+                    repeat: 1,
+                    onComplete: () => {
+                        this.sprite.setX(Math.round(this.sprite.x));
+                        this.sprite.setY(Math.round(this.sprite.y));
+                        this.sprite.clearTint();
+                    },
+                });
+            },
+        });
+    }
 
     constructor({ index, item = null, scene, gameManager }: InventorySlotConfig) {
         this.item = item;
@@ -52,6 +77,9 @@ export class InventorySlot {
                 )
                 .on("pointerout", () => EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROUT, this.item))
                 .on("pointerdown", this.applyItem);
+            if (this.item.isCorrupted) {
+                this.applyGlitchEffect();
+            }
         }
     }
 
