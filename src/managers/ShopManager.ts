@@ -90,10 +90,15 @@ export class ShopManager {
         this._blackMarketItem = new RandomItem();
     }
 
+    public addCoins(coins: number) {
+        // As coins can be a negative, make sure we don't go under 0
+        this._coins = Math.max(this._coins + coins, 0);
+    }
+
     public reward(currentWire: Wire) {
         const rewardMult = this._doubleReward ? 2 : 1;
         const reward = currentWire.explodeChance * 100 * rewardMult;
-        this._coins += reward;
+        this.addCoins(reward);
         this._doubleReward = false;
     }
 }

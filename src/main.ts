@@ -3,11 +3,12 @@ import Phaser from "phaser";
 import { GameScene } from "./scenes/GameScene";
 import { MainMenuScene } from "./scenes/MainMenuScene";
 import { GameOverScene } from "./scenes/GameOverScene";
+import { GAME_HEIGHT, GAME_WIDTH } from "./utils/constants";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.WEBGL,
-    width: 500,
-    height: 500,
+    width: GAME_WIDTH,
+    height: GAME_HEIGHT,
     transparent: true,
     scene: [MainMenuScene, GameScene, GameOverScene],
     scale: {

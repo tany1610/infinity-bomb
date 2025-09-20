@@ -1,6 +1,6 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/Item";
-import { GLITCH_COLORS, UI_CONFIG } from "../../utils/constants";
+import { GLITCH_COLORS, SHOP_HEIGHT, SHOP_WIDTH, UI_CONFIG } from "../../utils/constants";
 
 interface ShopSlotConfig {
     index: number;
@@ -58,17 +58,17 @@ export class ShopSlot {
             .on("pointerdown", () => this.gameManager.buyItem(this.item));
 
         this.title = this.scene.add.text(
-            this.sprite.x - 55,
-            this.sprite.y - 60,
-            `${this.item.name} - ${this.item.price} BC`,
+            this.sprite.x - SHOP_WIDTH / 4,
+            this.sprite.y - SHOP_HEIGHT / 3.3,
+            `${this.item.name} ${this.item.price}BC`,
             {
                 ...config.text.titleStyle,
             }
         );
 
         this.description = this.scene.add.text(
-            this.sprite.x - 55,
-            this.sprite.y - 45,
+            this.title.x,
+            this.title.y + 20,
             this.item.description,
             {
                 ...config.text.descriptionStyle,

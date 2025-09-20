@@ -2,6 +2,13 @@ import "../style.scss";
 import { getCssVar, getCssVarAsHex } from "./helpers";
 
 const BOMB_PANEL_SIZE = 200;
+const HEADER_HEIGHT = 60;
+const BLACK_MARKET_HEIGHT = 110;
+
+export const SHOP_WIDTH = 250;
+export const SHOP_HEIGHT = 280;
+export const GAME_WIDTH = 600;
+export const GAME_HEIGHT = 600;
 
 export const FONT_FAMILY = "VT323";
 
@@ -20,7 +27,7 @@ export const ITEMS_CONFIG = {
     snipMaster: {
         key: 1,
         title: "Snip Master",
-        effect: "Guarantees a safe cut on the current wire",
+        effect: "Guarantees a safe cut on the current wire (no coin reward)",
         price: 30,
         image: "snip_master",
     },
@@ -48,7 +55,7 @@ export const ITEMS_CONFIG = {
     greedySnip: {
         key: 5,
         title: "Greedy Snip",
-        effect: "Halves the chance of the current wire exploding. If it still does, you lose 2 fuses",
+        effect: "Explode chance is halved this round. If it still explodes, lose 2 fuses",
         price: 30,
         image: "greedy_snip",
     },
@@ -69,7 +76,7 @@ export const ITEMS_CONFIG = {
     snipMasterCorrupted: {
         key: 8,
         title: "Snip Master (Corrupted)",
-        effect: "Safe cut +1 Skip. [Corruption]: 30% chance to lose half your coins",
+        effect: "Safe cut (no coin reward) +1 Skip. [Corruption]: 30% chance to lose half your coins on the end of the round",
         corruptionChance: 30,
         price: 20,
         image: "snip_master",
@@ -77,7 +84,7 @@ export const ITEMS_CONFIG = {
     circuitPeekCorrupted: {
         key: 9,
         title: "Circuit Peek (Corrupted)",
-        effect: "Reveals this wire type +1 Skip. [Corruption]: 20% chance to show wrong %",
+        effect: "Reveals the explosion chance of the current wire color +1 Skip. [Corruption]: 20% chance to show wrong chance this round",
         corruptionChance: 20,
         price: 10,
         image: "circuit_peek",
@@ -158,8 +165,8 @@ export const EVENT_MANAGER_CONFIG = {
             _id: EVENT_MANAGER_EVENTS_KEYS.BLACK_MARKET,
             name: "Black Market",
             description:
-                "Grants access to the black market. The black market offers cheaper items, but they might not work properly",
-            unlockRound: 5,
+                "Grants access to the black market. The items are better and cheaper, but they might not work properly",
+            unlockRound: 2,
             duration: Infinity,
         },
     },
@@ -168,7 +175,7 @@ export const EVENT_MANAGER_CONFIG = {
 export const GAME_CONFIG = {
     startingCoins: 100,
     startinglives: 3,
-    startingShopItems: 3,
+    startingShopItems: 4,
     startingSkips: 3,
 };
 
@@ -219,7 +226,7 @@ export const UI_CONFIG = {
     header: {
         position: { xRatio: 0.5, y: 30 },
         backgroundColor: getCssVarAsHex("--background-color-primary"),
-        height: 60,
+        height: HEADER_HEIGHT,
         origin: 0.5,
         lives: {
             x: 50,
@@ -326,31 +333,34 @@ export const UI_CONFIG = {
         },
     },
     shop: {
-        position: { x: 380, y: 200 },
-        width: 200,
-        height: 200,
+        position: {
+            x: GAME_WIDTH / 2 + BOMB_PANEL_SIZE - 50,
+            y: GAME_HEIGHT / 2 - BOMB_PANEL_SIZE / 4,
+        },
+        width: SHOP_WIDTH,
+        height: SHOP_HEIGHT,
         backgroundColor: getCssVarAsHex("--background-color-primary"),
         itemsSpacing: 55,
-        itemsOrigin: [2, 1.3],
+        itemsOrigin: [2.3, 1.8],
         text: {
             label: "Blast Shop",
-            origin: [0.5, 5],
+            origin: [0.5, 0.5 + (SHOP_HEIGHT / 100) * 2.2],
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
                 fontFamily: FONT_FAMILY,
             },
             titleStyle: {
-                fontSize: "14px",
+                fontSize: "16px",
                 color: getCssVar("--primary-text-light"),
                 fontFamily: FONT_FAMILY,
             },
             descriptionStyle: {
-                fontSize: "12px",
+                fontSize: "14px",
                 color: getCssVar("--text-white"),
                 fontFamily: FONT_FAMILY,
                 wordWrap: {
-                    width: 150,
+                    width: 180,
                     useAdvancedWrap: true,
                 },
             },
@@ -363,9 +373,9 @@ export const UI_CONFIG = {
                     color: getCssVar("--primary-text-light"),
                     fontFamily: FONT_FAMILY,
                 },
-                origin: 0.5,
+                origin: [0.4, 0.5 + (BLACK_MARKET_HEIGHT / 100) * 1.8],
             },
-            height: 80,
+            height: BLACK_MARKET_HEIGHT,
             backgroundColor: getCssVarAsHex("--background-color-secondary"),
         },
     },

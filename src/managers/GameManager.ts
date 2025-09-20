@@ -51,4 +51,12 @@ export class GameManager extends GameManagerBase {
     public halveExplodeChance(): void {
         this._wireManager.halveExplodeChance();
     }
+
+    public getCoins(): number {
+        return this._shopManager.coins;
+    }
+
+    public addCoins(coins: number) {
+        this._shopManager.addCoins(coins);
+    }
 }

@@ -45,7 +45,7 @@ export class Shop {
 
         if (blackMarketItem) {
             this.blackMarketItem = new ShopSlot({
-                index: GAME_CONFIG.startingShopItems + 0.6,
+                index: GAME_CONFIG.startingShopItems + 0.7,
                 item: blackMarketItem,
                 scene: this.scene,
                 gameManager: this.gameManager,
@@ -93,17 +93,17 @@ export class Shop {
 
         const blackMarket = this.scene.add.rectangle(
             0,
-            shop.height - config.blackMarket.height / 1.5,
+            shop.height - config.blackMarket.height + 20,
             config.width,
             config.blackMarket.height,
             config.blackMarket.backgroundColor
         );
 
         const blackMarketText = this.scene.add
-            .text(blackMarket.x, blackMarket.y - 25, blackMarketTextConfig.label, {
+            .text(blackMarket.x, blackMarket.y, blackMarketTextConfig.label, {
                 ...blackMarketTextConfig.style,
             })
-            .setOrigin(blackMarketTextConfig.origin);
+            .setOrigin(...blackMarketTextConfig.origin);
 
         this.blackMarketContainer.add(blackMarket);
         this.blackMarketContainer.add(blackMarketText);
