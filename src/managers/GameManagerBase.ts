@@ -108,7 +108,7 @@ export class GameManagerBase {
         }
     }
 
-    public blowFuse(doubleBlow: boolean): void {
+    public blowFuse(doubleBlow: boolean = false): void {
         const liveCost = doubleBlow ? 2 : 1;
 
         if (this._lives - liveCost <= 0) {

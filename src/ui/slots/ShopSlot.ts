@@ -59,7 +59,7 @@ export class ShopSlot {
 
         this.title = this.scene.add.text(
             this.sprite.x - SHOP_WIDTH / 4,
-            this.sprite.y - SHOP_HEIGHT / 3.3,
+            this.sprite.y - SHOP_HEIGHT / 3,
             `${this.item.name} ${this.item.price}BC`,
             {
                 ...config.text.titleStyle,

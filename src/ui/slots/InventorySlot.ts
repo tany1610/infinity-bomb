@@ -1,6 +1,13 @@
 import type { GameManager } from "../../managers/GameManager";
 import type { Item } from "../../models/Item";
-import { EVENTS, GLITCH_COLORS, UI_CONFIG } from "../../utils/constants";
+import {
+    EVENTS,
+    GAME_HEIGHT,
+    GAME_WIDTH,
+    GLITCH_COLORS,
+    INVENTORY_HEIHGT,
+    UI_CONFIG,
+} from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 
 interface InventorySlotConfig {
@@ -8,6 +15,7 @@ interface InventorySlotConfig {
     item: Item | null;
     scene: Phaser.Scene;
     gameManager: GameManager;
+    inventoryContainer: Phaser.GameObjects.Container;
 }
 
 export class InventorySlot {
@@ -47,17 +55,23 @@ export class InventorySlot {
         });
     }
 
-    constructor({ index, item = null, scene, gameManager }: InventorySlotConfig) {
+    constructor({
+        index,
+        item = null,
+        scene,
+        gameManager,
+        inventoryContainer,
+    }: InventorySlotConfig) {
         this.item = item;
         this.scene = scene;
         this.gameManager = gameManager;
 
-        const { height } = this.scene.scale;
         const slotsConfig = UI_CONFIG.inventory.slots;
+        const slotOffset = (slotsConfig.count / 2) * slotsConfig.width;
 
-        this.scene.add.rectangle(
-            slotsConfig.offsetX + index * slotsConfig.spacing,
-            height + slotsConfig.offsetY,
+        const itemContainer = this.scene.add.rectangle(
+            GAME_WIDTH / 2 - slotOffset + index * slotsConfig.spacing,
+            slotsConfig.height / 2 + slotsConfig.height / 3,
             slotsConfig.width,
             slotsConfig.height,
             slotsConfig.backgroundColor
@@ -65,13 +79,8 @@ export class InventorySlot {
 
         if (this.item) {
             this.sprite = this.scene.add
-                .sprite(
-                    slotsConfig.offsetX + index * slotsConfig.spacing,
-                    height + slotsConfig.offsetY,
-                    this.item.image
-                )
+                .sprite(itemContainer.x, itemContainer.y, this.item.image)
                 .setInteractive({ useHandCursor: true })
-                .setOrigin(0.5)
                 .on("pointerover", () =>
                     EventBus.emit(EVENTS.INVENTORY.ITEM_POINTEROVER, this.item)
                 )
@@ -80,6 +89,12 @@ export class InventorySlot {
             if (this.item.isCorrupted) {
                 this.applyGlitchEffect();
             }
+        }
+
+        inventoryContainer.add(itemContainer);
+
+        if (this.sprite) {
+            inventoryContainer.add(this.sprite);
         }
     }
 

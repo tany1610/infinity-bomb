@@ -7,6 +7,7 @@ const BLACK_MARKET_HEIGHT = 110;
 
 export const SHOP_WIDTH = 250;
 export const SHOP_HEIGHT = 280;
+export const INVENTORY_HEIHGT = 80;
 export const GAME_WIDTH = 600;
 export const GAME_HEIGHT = 600;
 
@@ -340,7 +341,7 @@ export const UI_CONFIG = {
         width: SHOP_WIDTH,
         height: SHOP_HEIGHT,
         backgroundColor: getCssVarAsHex("--background-color-primary"),
-        itemsSpacing: 55,
+        itemsSpacing: 60,
         itemsOrigin: [2.3, 1.8],
         text: {
             label: "Blast Shop",
@@ -380,8 +381,8 @@ export const UI_CONFIG = {
         },
     },
     inventory: {
-        height: 80,
-        position: { xRatio: 0.5, yRatio: 1 },
+        height: INVENTORY_HEIHGT,
+        position: { x: 0, y: GAME_HEIGHT - INVENTORY_HEIHGT },
         offsetY: -30,
         backgroundColor: getCssVarAsHex("--background-color-primary"),
         slots: {
@@ -389,8 +390,6 @@ export const UI_CONFIG = {
             width: 50,
             height: 50,
             spacing: 60,
-            offsetX: 120,
-            offsetY: -30,
             backgroundColor: getCssVarAsHex("--primary-grey"),
         },
     },

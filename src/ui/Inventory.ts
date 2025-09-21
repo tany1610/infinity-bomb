@@ -13,6 +13,7 @@ export class Inventory {
     private scene: Phaser.Scene;
     private gameManager: GameManager;
     private inventorySlots: InventorySlot[] = [];
+    private container: Phaser.GameObjects.Container;
 
     private initInventoryItems() {
         this.inventorySlots.forEach((slot) => slot.destroy());
@@ -30,6 +31,7 @@ export class Inventory {
                     item,
                     scene: this.scene,
                     gameManager: this.gameManager,
+                    inventoryContainer: this.container,
                 })
             );
         }
@@ -39,16 +41,16 @@ export class Inventory {
         this.scene = scene;
         this.gameManager = gameManager;
 
-        const { width, height } = this.scene.scale;
+        const { width } = this.scene.scale;
         const config = UI_CONFIG.inventory;
 
-        this.scene.add.rectangle(
-            width * config.position.xRatio,
-            height * config.position.yRatio + config.offsetY,
-            width,
-            config.height,
-            config.backgroundColor
-        );
+        this.container = this.scene.add.container(config.position.x, config.position.y);
+
+        const background = this.scene.add
+            .rectangle(0, 0, width, config.height, config.backgroundColor)
+            .setOrigin(0, 0);
+
+        this.container.add(background);
 
         this.initInventoryItems();
 

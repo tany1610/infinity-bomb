@@ -45,7 +45,7 @@ export class Shop {
 
         if (blackMarketItem) {
             this.blackMarketItem = new ShopSlot({
-                index: GAME_CONFIG.startingShopItems + 0.7,
+                index: GAME_CONFIG.startingShopItems + 0.4,
                 item: blackMarketItem,
                 scene: this.scene,
                 gameManager: this.gameManager,

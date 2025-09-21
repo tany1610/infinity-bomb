@@ -1,4 +1,4 @@
-import { EVENTS, UI_CONFIG } from "../utils/constants";
+import { EVENTS, GAME_WIDTH, UI_CONFIG } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import type { IHovarable } from "../utils/interfaces";
 
@@ -11,6 +11,7 @@ export class Hint {
     private background: Phaser.GameObjects.Rectangle;
     private title: Phaser.GameObjects.Text;
     private description: Phaser.GameObjects.Text;
+    private container: Phaser.GameObjects.Container;
 
     private show(item: IHovarable) {
         this.background.setVisible(true);
@@ -27,13 +28,18 @@ export class Hint {
     constructor({ scene }: HintConfig) {
         this.scene = scene;
 
-        const { width, height } = this.scene.scale;
+        const { width } = this.scene.scale;
         const inventoryConfig = UI_CONFIG.inventory;
         const hintConfig = UI_CONFIG.hint;
 
+        this.container = this.scene.add.container(
+            inventoryConfig.position.x + GAME_WIDTH / 2,
+            inventoryConfig.position.y - inventoryConfig.height / 2
+        );
+
         this.background = this.scene.add.rectangle(
-            width * inventoryConfig.position.xRatio,
-            height * inventoryConfig.position.yRatio + inventoryConfig.offsetY - hintConfig.height,
+            0,
+            0,
             width,
             hintConfig.height,
             hintConfig.backgroundColor
@@ -50,6 +56,10 @@ export class Hint {
                 ...hintConfig.description.style,
             })
             .setOrigin(hintConfig.description.origin);
+
+        this.container.add(this.background);
+        this.container.add(this.title);
+        this.container.add(this.description);
 
         this.hide();
 
