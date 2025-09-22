@@ -31,7 +31,7 @@ Between rounds, players can buy items from the shop to improve their chances, re
   - [x] Round 10 → Black Market.  
   - Round 20 → Random Events.  
   - Round 30 → (to be decided as third unlock).  
-- 🛒 **Black Market Shop**  
+- [x] 🛒 **Black Market Shop**  
   - [x] Separate panel/tab on the screen.  
   - [x] 1 random item per round (random effect or shadow copy).  
 - 🎲 **Random Events System**  
