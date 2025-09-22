@@ -1,5 +1,6 @@
 import { Wire } from "../models/Wire";
-import { WIRES } from "../utils/constants";
+import { EVENTS, WIRES } from "../utils/constants";
+import { EventBus } from "../utils/EventBus";
 import type { WireConfig } from "../utils/interfaces";
 
 export class WireManager {
@@ -83,5 +84,35 @@ export class WireManager {
 
     public halveExplodeChance(): void {
         this._currentWire.explodeChance /= 2;
+    }
+
+    public swapWires(): void {
+        const currentWireColor = this._currentWire.colorName as keyof typeof WIRES;
+        const currentWireExplodeChance = this._currentWire.explodeChance;
+        const saferWires = Object.entries(this.wiresConfig)
+            .filter(([_, config]) => config.explodeChance < currentWireExplodeChance)
+            .map(([color]) => color as keyof typeof WIRES);
+
+        if (saferWires.length === 0) {
+            return; // no safer wire
+        }
+
+        // get random safer wire index
+        const randomIndex = Math.floor(Math.random() * saferWires.length);
+        const saferWireColor = saferWires[randomIndex];
+
+        // switch wires config
+        const tempConfig = this.wiresConfig[currentWireColor];
+        this.wiresConfig[currentWireColor] = this.wiresConfig[saferWireColor];
+        this.wiresConfig[saferWireColor] = tempConfig;
+
+        // create new current wire with the new config
+        this._currentWire = new Wire(
+            currentWireColor,
+            WIRES[currentWireColor],
+            this.wiresConfig[currentWireColor]
+        );
+
+        EventBus.emit(EVENTS.GAME.RESHUFFLED_WIRES);
     }
 }

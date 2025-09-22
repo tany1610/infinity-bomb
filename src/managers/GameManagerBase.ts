@@ -37,6 +37,10 @@ export class GameManagerBase {
         AudioManager.getInstance().playSfx(AUDIO_KEYS.SUCCESS);
     }
 
+    private resetBuffs(): void {
+        this._shopManager.resetRewards();
+    }
+
     constructor() {
         this._shopManager = new ShopManager();
         this._inventoryManager = new InventoryManager();
@@ -91,6 +95,7 @@ export class GameManagerBase {
 
     public nextWire() {
         this._wireManager.nextWire();
+        this.resetBuffs();
         EventBus.emit(EVENTS.GAME.NEXT_ROUND);
     }
 
@@ -128,6 +133,10 @@ export class GameManagerBase {
             this.applyRewards();
         }
         this.nextRound();
+    }
+
+    public swapWires(): void {
+        this._wireManager.swapWires();
     }
 
     public destroy(): void {

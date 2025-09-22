@@ -8,6 +8,7 @@ import { AudioManager } from "./AudioManager";
 export class ShopManager {
     private _coins: number;
     private _doubleReward: boolean;
+    private _trippleReward: boolean;
     private _items: Item[] = [];
     private _blackMarketItem!: Item | null;
 
@@ -40,6 +41,7 @@ export class ShopManager {
     constructor() {
         this._coins = GAME_CONFIG.startingCoins;
         this._doubleReward = false;
+        this._trippleReward = false;
         this.generateRandomItems(GAME_CONFIG.startingShopItems);
         this.generateRandomBlackMarketItem();
     }
@@ -58,6 +60,15 @@ export class ShopManager {
 
     public activateDoubleReward(): void {
         this._doubleReward = true;
+    }
+
+    public activateTrippleReward(): void {
+        this._trippleReward = true;
+    }
+
+    public resetRewards(): void {
+        this._doubleReward = false;
+        this._trippleReward = false;
     }
 
     public hasEnoughCoins(price: number): boolean {
@@ -96,9 +107,15 @@ export class ShopManager {
     }
 
     public reward(currentWire: Wire) {
-        const rewardMult = this._doubleReward ? 2 : 1;
+        let rewardMult = 1;
+        if (this._doubleReward) {
+            rewardMult += 1;
+        }
+        if (this._trippleReward) {
+            rewardMult += 3;
+        }
         const reward = currentWire.explodeChance * 100 * rewardMult;
         this.addCoins(reward);
-        this._doubleReward = false;
+        this.resetRewards();
     }
 }

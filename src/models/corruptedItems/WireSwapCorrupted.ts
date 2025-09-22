@@ -3,7 +3,7 @@ import { Item } from "../Item";
 import { EVENTS, ITEMS_CONFIG } from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 
-export class DefuserDroneCorrupted extends Item {
+export class WireSwapCorrupted extends Item {
     private shouldApplyCorruption(): boolean {
         const randomChance = Number(Math.random().toFixed(1)) * 100;
         return randomChance <= this.corruptionChance;
@@ -11,23 +11,22 @@ export class DefuserDroneCorrupted extends Item {
 
     constructor() {
         super(
-            ITEMS_CONFIG.defuserDroneCorrupted.title,
-            ITEMS_CONFIG.defuserDroneCorrupted.key,
-            ITEMS_CONFIG.defuserDroneCorrupted.price,
-            ITEMS_CONFIG.defuserDroneCorrupted.effect,
-            ITEMS_CONFIG.defuserDroneCorrupted.image,
+            ITEMS_CONFIG.wireSwapCorrupted.title,
+            ITEMS_CONFIG.wireSwapCorrupted.key,
+            ITEMS_CONFIG.wireSwapCorrupted.price,
+            ITEMS_CONFIG.wireSwapCorrupted.effect,
+            ITEMS_CONFIG.wireSwapCorrupted.image,
             true,
-            ITEMS_CONFIG.defuserDroneCorrupted.corruptionChance
+            ITEMS_CONFIG.wireSwapCorrupted.corruptionChance
         );
     }
 
     apply(gameManager: GameManager): void {
+        gameManager.swapWires();
+
         if (this.shouldApplyCorruption()) {
-            gameManager.cutWire();
-            setTimeout(() => {
-                gameManager.cutWire();
-            }, 1000);
         }
+
         EventBus.emit(EVENTS.INVENTORY.ITEM_USED, this);
     }
 }

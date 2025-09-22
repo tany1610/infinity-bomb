@@ -36,6 +36,10 @@ export class GameManager extends GameManagerBase {
         this._shopManager.activateDoubleReward();
     }
 
+    public activateTrippleReward(): void {
+        this._shopManager.activateTrippleReward();
+    }
+
     public activateDoubleBlow(): void {
         this._doubleBlow = true;
     }

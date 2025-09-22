@@ -117,7 +117,7 @@ export const ITEMS_CONFIG = {
     paydayCorrupted: {
         key: 13,
         title: "Payday (Corrupted)",
-        effect: "Triple reward. [Corruption]: 30% chance of 0 coins",
+        effect: "Triple reward. [Corruption]: 30% chance to lose all coins",
         corruptionChance: 30,
         price: 30,
         image: "payday",
@@ -125,7 +125,7 @@ export const ITEMS_CONFIG = {
     wireSwapCorrupted: {
         key: 14,
         title: "Wire Swap (Corrupted)",
-        effect: "Switch with safer wire. [Corruption]: 30% chance to shuffle all wires",
+        effect: "Switch chances with safer wire. [Corruption]: 30% chance to shuffle all wires",
         corruptionChance: 30,
         price: 40,
         image: "wire_swap",
@@ -138,6 +138,7 @@ export const EVENTS = {
         NEXT_ROUND: "game:nextRound",
         GAME_OVER: "game:gameOver",
         SKIP: "game:skip",
+        RESHUFFLED_WIRES: "game:resguffledWires",
     },
     SHOP: {
         ITEM_BOUGHT: "shop:itemBought",

@@ -3,7 +3,7 @@ import { Item } from "../Item";
 import { EVENTS, ITEMS_CONFIG } from "../../utils/constants";
 import { EventBus } from "../../utils/EventBus";
 
-export class DefuserDroneCorrupted extends Item {
+export class PaydayCorrupted extends Item {
     private shouldApplyCorruption(): boolean {
         const randomChance = Number(Math.random().toFixed(1)) * 100;
         return randomChance <= this.corruptionChance;
@@ -11,23 +11,24 @@ export class DefuserDroneCorrupted extends Item {
 
     constructor() {
         super(
-            ITEMS_CONFIG.defuserDroneCorrupted.title,
-            ITEMS_CONFIG.defuserDroneCorrupted.key,
-            ITEMS_CONFIG.defuserDroneCorrupted.price,
-            ITEMS_CONFIG.defuserDroneCorrupted.effect,
-            ITEMS_CONFIG.defuserDroneCorrupted.image,
+            ITEMS_CONFIG.paydayCorrupted.title,
+            ITEMS_CONFIG.paydayCorrupted.key,
+            ITEMS_CONFIG.paydayCorrupted.price,
+            ITEMS_CONFIG.paydayCorrupted.effect,
+            ITEMS_CONFIG.paydayCorrupted.image,
             true,
-            ITEMS_CONFIG.defuserDroneCorrupted.corruptionChance
+            ITEMS_CONFIG.paydayCorrupted.corruptionChance
         );
     }
 
     apply(gameManager: GameManager): void {
+        gameManager.activateTrippleReward();
+
         if (this.shouldApplyCorruption()) {
-            gameManager.cutWire();
-            setTimeout(() => {
-                gameManager.cutWire();
-            }, 1000);
+            const coins = gameManager.getCoins();
+            gameManager.addCoins(-coins);
         }
+
         EventBus.emit(EVENTS.INVENTORY.ITEM_USED, this);
     }
 }

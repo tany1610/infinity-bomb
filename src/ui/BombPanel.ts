@@ -51,5 +51,6 @@ export class BombPanel {
         new SkipButton({ scene: this.scene, gameManager: this.gameManager });
 
         EventBus.on(EVENTS.GAME.NEXT_ROUND, this.redrawWire, this);
+        EventBus.on(EVENTS.GAME.RESHUFFLED_WIRES, this.redrawWire, this);
     }
 }
