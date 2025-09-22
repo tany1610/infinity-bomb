@@ -139,6 +139,10 @@ export class GameManagerBase {
         this._wireManager.swapWires();
     }
 
+    public generateRandomWiresConfig(): void {
+        this._wireManager.generateRandomConfig();
+    }
+
     public destroy(): void {
         EventBus.removeAllListeners();
     }

@@ -5,29 +5,29 @@ import { EventBus } from "../utils/EventBus";
 interface WireConfig {
     scene: Phaser.Scene;
     wire: WireModel;
+    container: Phaser.GameObjects.Container;
 }
 
 export class Wire {
     private scene: Phaser.Scene;
     private wire: WireModel;
     private sprite: Phaser.GameObjects.Sprite;
+    private container: Phaser.GameObjects.Container;
 
-    constructor({ scene, wire }: WireConfig) {
+    constructor({ scene, wire, container }: WireConfig) {
         this.scene = scene;
         this.wire = wire;
+        this.container = container;
 
-        const { width, height } = this.scene.scale;
         const wireConfig = UI_CONFIG.bombPanel.wire;
 
         this.sprite = this.scene.add
-            .sprite(
-                width * wireConfig.position.xRatio + wireConfig.offsetX,
-                height * wireConfig.position.yRatio + wireConfig.offsetY,
-                this.wire.texture
-            )
+            .sprite(wireConfig.position.x, wireConfig.position.y, this.wire.texture)
             .setInteractive({ useHandCursor: true })
             .on("pointerover", () => EventBus.emit(EVENTS.BOMB_PANEL.WIRE_POINTEROVER, this.wire))
             .on("pointerout", () => EventBus.emit(EVENTS.BOMB_PANEL.WIRE_POINTEROUT, this.wire));
+
+        this.container.add(this.sprite);
     }
 
     public destroy() {

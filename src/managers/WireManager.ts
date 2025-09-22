@@ -1,10 +1,10 @@
 import { Wire } from "../models/Wire";
-import { EVENTS, WIRES } from "../utils/constants";
+import { EVENTS, GAME_CONFIG, WIRES } from "../utils/constants";
 import { EventBus } from "../utils/EventBus";
 import type { WireConfig } from "../utils/interfaces";
 
 export class WireManager {
-    private wiresConfig: Record<keyof typeof WIRES, WireConfig>;
+    private wiresConfig!: Record<keyof typeof WIRES, WireConfig>;
     private _currentWire!: Wire;
 
     private generateUniqueChances(): number[] {
@@ -22,11 +22,24 @@ export class WireManager {
         return chances;
     }
 
-    private generateRandomConfig(): Record<keyof typeof WIRES, WireConfig> {
+    private generateRandomWire(): void {
+        const colors = Object.keys(WIRES) as (keyof typeof WIRES)[];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const wireConfig = this.wiresConfig[randomColor];
+
+        this._currentWire = new Wire(randomColor, WIRES[randomColor], wireConfig);
+    }
+
+    constructor() {
+        this.generateRandomConfig();
+        this.generateRandomWire();
+    }
+
+    public generateRandomConfig(): void {
         const colors = Object.keys(WIRES) as (keyof typeof WIRES)[];
         const chances = this.generateUniqueChances();
 
-        return colors.reduce(
+        this.wiresConfig = colors.reduce(
             (acc, color, idx) => {
                 acc[color] = {
                     explodeChance: chances[idx],
@@ -38,19 +51,6 @@ export class WireManager {
         );
     }
 
-    private generateRandomWire(): void {
-        const colors = Object.keys(WIRES) as (keyof typeof WIRES)[];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const wireConfig = this.wiresConfig[randomColor];
-
-        this._currentWire = new Wire(randomColor, WIRES[randomColor], wireConfig);
-    }
-
-    constructor() {
-        this.wiresConfig = this.generateRandomConfig();
-        this.generateRandomWire();
-    }
-
     public get currentWire() {
         return this._currentWire;
     }
@@ -60,6 +60,9 @@ export class WireManager {
     }
 
     public cutWire(): boolean {
+        if (GAME_CONFIG.debugMode) {
+            return false;
+        }
         const explodes = this._currentWire.cut();
         return explodes;
     }

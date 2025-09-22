@@ -3,7 +3,7 @@ import { CircuitPeekCorrupted } from "./CircuitPeekCorrupted";
 import { DefuserDroneCorrupted } from "./DefuserDroneCorrupted";
 import { FuseKitCorrupted } from "./FuseKitCorrupted";
 import { GreedySnipCorrupted } from "./GreedySnipCorrupted";
-import { PaydayCorrupted } from "./paydayCorrupted";
+import { PaydayCorrupted } from "./PaydayCorrupted";
 import { SnipMasterCorrupted } from "./SnipMasterCorrupted";
 import { WireSwapCorrupted } from "./WireSwapCorrupted";
 

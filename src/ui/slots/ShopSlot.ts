@@ -49,17 +49,17 @@ export class ShopSlot {
         this.gameManager = gameManager;
 
         const config = UI_CONFIG.shop;
-        const yOffset = config.itemsSpacing * index;
+        const yOffset = config.itemsSpacing * index - 15;
 
         this.sprite = this.scene.add
-            .sprite(0, yOffset - 5, this.item.image)
+            .sprite(0, yOffset, this.item.image)
             .setInteractive({ useHandCursor: true })
             .setOrigin(...config.itemsOrigin)
             .on("pointerdown", () => this.gameManager.buyItem(this.item));
 
         this.title = this.scene.add.text(
             this.sprite.x - SHOP_WIDTH / 4,
-            this.sprite.y - SHOP_HEIGHT / 3,
+            this.sprite.y - SHOP_HEIGHT / 3.4,
             `${this.item.name} ${this.item.price}BC`,
             {
                 ...config.text.titleStyle,

@@ -25,6 +25,7 @@ export class WireSwapCorrupted extends Item {
         gameManager.swapWires();
 
         if (this.shouldApplyCorruption()) {
+            gameManager.generateRandomWiresConfig();
         }
 
         EventBus.emit(EVENTS.INVENTORY.ITEM_USED, this);

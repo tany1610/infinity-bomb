@@ -4,37 +4,38 @@ import { UI_CONFIG } from "../../utils/constants";
 interface CutButtonConfig {
     scene: Phaser.Scene;
     gameManager: GameManager;
+    container: Phaser.GameObjects.Container;
 }
 
 export class CutButton {
     private scene: Phaser.Scene;
     private gameManager: GameManager;
+    private container: Phaser.GameObjects.Container;
 
-    constructor({ scene, gameManager }: CutButtonConfig) {
+    constructor({ scene, gameManager, container }: CutButtonConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
+        this.container = container;
 
-        const { width, height } = this.scene.scale;
+        const bombPanelConfig = UI_CONFIG.bombPanel;
+        const cutButtonConfig = bombPanelConfig.buttons.cut;
 
-        const cutButtonConfig = UI_CONFIG.bombPanel.buttons.cut;
-
-        this.scene.add
+        const buttonContainer = this.scene.add
             .rectangle(
-                width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,
-                height * cutButtonConfig.position.yRatio + cutButtonConfig.offsetY,
+                -bombPanelConfig.size / 2 + cutButtonConfig.width / 2,
+                cutButtonConfig.height + 100,
                 cutButtonConfig.width,
                 cutButtonConfig.height,
                 cutButtonConfig.backgroundColor
             )
             .setInteractive({ useHandCursor: true })
             .on("pointerdown", () => this.gameManager.cutWire());
-        this.scene.add
-            .text(
-                width * cutButtonConfig.position.xRatio + cutButtonConfig.offsetX,
-                height * cutButtonConfig.position.yRatio + cutButtonConfig.offsetY,
-                cutButtonConfig.text.label,
-                { ...cutButtonConfig.text.style }
-            )
-            .setOrigin(cutButtonConfig.text.origin);
+        const text = this.scene.add
+            .text(buttonContainer.x, buttonContainer.y, cutButtonConfig.text.label, {
+                ...cutButtonConfig.text.style,
+            })
+            .setOrigin(0.5);
+
+        this.container.add([buttonContainer, text]);
     }
 }

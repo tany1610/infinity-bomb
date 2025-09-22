@@ -6,7 +6,7 @@ const HEADER_HEIGHT = 60;
 const BLACK_MARKET_HEIGHT = 110;
 
 export const SHOP_WIDTH = 250;
-export const SHOP_HEIGHT = 280;
+export const SHOP_HEIGHT = 300;
 export const INVENTORY_HEIHGT = 80;
 export const GAME_WIDTH = 600;
 export const GAME_HEIGHT = 600;
@@ -179,6 +179,7 @@ export const GAME_CONFIG = {
     startinglives: 3,
     startingShopItems: 4,
     startingSkips: 3,
+    debugMode: true,
 };
 
 export const MAIN_MENU_CONFIG = {
@@ -273,16 +274,15 @@ export const UI_CONFIG = {
     },
     bombPanel: {
         size: BOMB_PANEL_SIZE,
-        position: { xRatio: 0.5, yRatio: 0.5 },
-        offsetX: -(BOMB_PANEL_SIZE / 2),
-        offsetY: -50,
+        position: {
+            x: GAME_WIDTH / 2 - BOMB_PANEL_SIZE / 2,
+            y: GAME_HEIGHT / 2 - SHOP_HEIGHT / 3,
+        },
         backgroundColor: getCssVarAsHex("--background-color-primary"),
         text: {
             label: "Bomb Panel",
-            position: { xRatio: 0.5, yRatio: 0.5 },
-            offsetX: -(BOMB_PANEL_SIZE / 2),
-            offsetY: -134,
-            origin: 0.5,
+            offsetX: 0,
+            offsetY: -BOMB_PANEL_SIZE / 2 + 25,
             style: {
                 fontSize: "20px",
                 color: getCssVar("--primary-text-light"),
@@ -290,23 +290,15 @@ export const UI_CONFIG = {
             },
         },
         wire: {
-            position: { xRatio: 0.5, yRatio: 0.5 },
-            offsetX: -(BOMB_PANEL_SIZE / 2),
-            offsetY: -50,
-            width: 100,
-            height: 10,
+            position: { x: 0, y: 0 },
             color: WIRES.red,
         },
         buttons: {
             cut: {
-                position: { xRatio: 0.5, yRatio: 0.5 },
                 width: 80,
                 height: 40,
-                offsetX: -(BOMB_PANEL_SIZE / 2) - 50,
-                offsetY: 100,
                 backgroundColor: getCssVarAsHex("--background-color-primary"),
                 text: {
-                    origin: 0.5,
                     label: "CUT",
                     style: {
                         fontSize: "20px",
@@ -316,14 +308,10 @@ export const UI_CONFIG = {
                 },
             },
             skip: {
-                position: { xRatio: 0.5, yRatio: 0.5 },
                 width: 80,
                 height: 40,
-                offsetX: -(BOMB_PANEL_SIZE / 2) + 50,
-                offsetY: 100,
                 backgroundColor: getCssVarAsHex("--background-color-primary"),
                 text: {
-                    origin: 0.5,
                     label: "SKIP",
                     style: {
                         fontSize: "20px",

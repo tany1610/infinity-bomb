@@ -45,7 +45,7 @@ export class Shop {
 
         if (blackMarketItem) {
             this.blackMarketItem = new ShopSlot({
-                index: GAME_CONFIG.startingShopItems + 0.4,
+                index: GAME_CONFIG.startingShopItems + 0.7,
                 item: blackMarketItem,
                 scene: this.scene,
                 gameManager: this.gameManager,
@@ -93,7 +93,7 @@ export class Shop {
 
         const blackMarket = this.scene.add.rectangle(
             0,
-            shop.height - config.blackMarket.height + 20,
+            shop.height - config.blackMarket.height + 10,
             config.width,
             config.blackMarket.height,
             config.blackMarket.backgroundColor
