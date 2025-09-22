@@ -20,22 +20,32 @@ export class CutButton {
         const bombPanelConfig = UI_CONFIG.bombPanel;
         const cutButtonConfig = bombPanelConfig.buttons.cut;
 
-        const buttonContainer = this.scene.add
-            .rectangle(
+        const button = this.scene.add
+            .sprite(
                 -bombPanelConfig.size / 2 + cutButtonConfig.width / 2,
                 cutButtonConfig.height + 100,
-                cutButtonConfig.width,
-                cutButtonConfig.height,
-                cutButtonConfig.backgroundColor
+                "cut_button",
+                0
             )
-            .setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => this.gameManager.cutWire());
-        const text = this.scene.add
-            .text(buttonContainer.x, buttonContainer.y, cutButtonConfig.text.label, {
-                ...cutButtonConfig.text.style,
-            })
-            .setOrigin(0.5);
+            .setInteractive({ useHandCursor: true });
 
-        this.container.add([buttonContainer, text]);
+        button.on("pointerover", () => {
+            button.setFrame(1);
+        });
+
+        button.on("pointerout", () => {
+            button.setFrame(0);
+        });
+
+        button.on("pointerdown", () => {
+            button.setFrame(2);
+            this.gameManager.cutWire();
+        });
+
+        button.on("pointerup", () => {
+            button.setFrame(1);
+        });
+
+        this.container.add([button]);
     }
 }

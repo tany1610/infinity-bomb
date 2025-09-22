@@ -50,6 +50,18 @@ export class GameScene extends Phaser.Scene {
         this.load.image("black_wire", "assets/wires/black-wire.png");
         this.load.image("orange_wire", "assets/wires/orange-wire.png");
         this.load.image("white_wire", "assets/wires/white-wire.png");
+
+        // Cut button
+        this.load.spritesheet("cut_button", "assets/cut-button.png", {
+            frameWidth: 60,
+            frameHeight: 24,
+        });
+
+        // Skip button
+        this.load.spritesheet("skip_button", "assets/skip-button.png", {
+            frameWidth: 60,
+            frameHeight: 24,
+        });
     }
 
     create() {

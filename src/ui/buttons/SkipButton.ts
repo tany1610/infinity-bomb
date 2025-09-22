@@ -20,22 +20,32 @@ export class SkipButton {
         const bombPanelConfig = UI_CONFIG.bombPanel;
         const skipButtonConfig = bombPanelConfig.buttons.skip;
 
-        const buttonContainer = this.scene.add
-            .rectangle(
+        const button = this.scene.add
+            .sprite(
                 bombPanelConfig.size / 2 - skipButtonConfig.width / 2,
                 skipButtonConfig.height + 100,
-                skipButtonConfig.width,
-                skipButtonConfig.height,
-                skipButtonConfig.backgroundColor
+                "skip_button",
+                0
             )
-            .setInteractive({ useHandCursor: true })
-            .on("pointerdown", () => this.gameManager.applySkip());
-        const text = this.scene.add
-            .text(buttonContainer.x, buttonContainer.y, skipButtonConfig.text.label, {
-                ...skipButtonConfig.text.style,
-            })
-            .setOrigin(0.5);
+            .setInteractive({ useHandCursor: true });
 
-        this.container.add([buttonContainer, text]);
+        button.on("pointerover", () => {
+            button.setFrame(1);
+        });
+
+        button.on("pointerout", () => {
+            button.setFrame(0);
+        });
+
+        button.on("pointerdown", () => {
+            button.setFrame(2);
+            this.gameManager.applySkip();
+        });
+
+        button.on("pointerup", () => {
+            button.setFrame(1);
+        });
+
+        this.container.add([button]);
     }
 }
