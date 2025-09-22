@@ -27,13 +27,13 @@ Between rounds, players can buy items from the shop to improve their chances, re
 ---
 
 ### **Phase 2 – Mandatory Core Progression**
-- 🔓 **Unlock System** – new mechanics every X rounds.  
-  - Round 10 → Black Market.  
+- [x] 🔓 **Unlock System** – new mechanics every X rounds.  
+  - [x] Round 10 → Black Market.  
   - Round 20 → Random Events.  
   - Round 30 → (to be decided as third unlock).  
 - 🛒 **Black Market Shop**  
-  - Separate panel/tab on the screen.  
-  - 1 random item per round (random effect or shadow copy).  
+  - [x] Separate panel/tab on the screen.  
+  - [x] 1 random item per round (random effect or shadow copy).  
 - 🎲 **Random Events System**  
   - RandomEvent Manager → communicates with GameManager.  
   - Clear list of events (Bomb Malfunction, Bonus Round, Sabotage, Short Circuit, etc.).  
