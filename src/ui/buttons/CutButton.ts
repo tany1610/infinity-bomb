@@ -1,10 +1,10 @@
 import type { GameManager } from "../../managers/GameManager";
-import { UI_CONFIG } from "../../utils/constants";
 
 interface CutButtonConfig {
     scene: Phaser.Scene;
     gameManager: GameManager;
     container: Phaser.GameObjects.Container;
+    lid: Phaser.GameObjects.Sprite;
 }
 
 export class CutButton {
@@ -12,21 +12,13 @@ export class CutButton {
     private gameManager: GameManager;
     private container: Phaser.GameObjects.Container;
 
-    constructor({ scene, gameManager, container }: CutButtonConfig) {
+    constructor({ scene, gameManager, container, lid }: CutButtonConfig) {
         this.scene = scene;
         this.gameManager = gameManager;
         this.container = container;
 
-        const bombPanelConfig = UI_CONFIG.bombPanel;
-        const cutButtonConfig = bombPanelConfig.buttons.cut;
-
         const button = this.scene.add
-            .sprite(
-                -bombPanelConfig.size / 2 + cutButtonConfig.width / 2,
-                cutButtonConfig.height + 100,
-                "cut_button",
-                0
-            )
+            .sprite(-25, 30, "cut_button", 0)
             .setInteractive({ useHandCursor: true });
 
         button.on("pointerover", () => {
@@ -40,6 +32,12 @@ export class CutButton {
         button.on("pointerdown", () => {
             button.setFrame(2);
             this.gameManager.cutWire();
+            lid.play("lid_close");
+            lid.on("animationcomplete", (animation: Phaser.Animations.Animation) => {
+                if (animation.key === "lid_close") {
+                    lid.play("lid_open");
+                }
+            });
         });
 
         button.on("pointerup", () => {

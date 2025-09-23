@@ -1,15 +1,15 @@
 import "../style.scss";
 import { getCssVar, getCssVarAsHex } from "./helpers";
 
-const BOMB_PANEL_SIZE = 200;
+const BOMB_PANEL_SIZE = 150;
 const HEADER_HEIGHT = 60;
 const BLACK_MARKET_HEIGHT = 110;
 
 export const SHOP_WIDTH = 250;
 export const SHOP_HEIGHT = 300;
 export const INVENTORY_HEIHGT = 80;
-export const GAME_WIDTH = 600;
-export const GAME_HEIGHT = 600;
+export const GAME_WIDTH = 550;
+export const GAME_HEIGHT = 550;
 
 export const FONT_FAMILY = "VT323";
 
@@ -179,7 +179,7 @@ export const GAME_CONFIG = {
     startinglives: 3,
     startingShopItems: 4,
     startingSkips: 3,
-    debugMode: true,
+    debugMode: false,
 };
 
 export const MAIN_MENU_CONFIG = {
@@ -273,53 +273,14 @@ export const UI_CONFIG = {
         },
     },
     bombPanel: {
-        size: BOMB_PANEL_SIZE,
         position: {
-            x: GAME_WIDTH / 2 - BOMB_PANEL_SIZE / 2,
-            y: GAME_HEIGHT / 2 - SHOP_HEIGHT / 3,
+            x: GAME_WIDTH / 2 - BOMB_PANEL_SIZE,
+            y: GAME_HEIGHT / 2 - SHOP_HEIGHT / 6,
         },
         backgroundColor: getCssVarAsHex("--background-color-primary"),
-        text: {
-            label: "Bomb Panel",
-            offsetX: 0,
-            offsetY: -BOMB_PANEL_SIZE / 2 + 25,
-            style: {
-                fontSize: "20px",
-                color: getCssVar("--primary-text-light"),
-                fontFamily: FONT_FAMILY,
-            },
-        },
         wire: {
-            position: { x: 0, y: 0 },
+            position: { x: 2, y: -25 },
             color: WIRES.red,
-        },
-        buttons: {
-            cut: {
-                width: 80,
-                height: 40,
-                backgroundColor: getCssVarAsHex("--background-color-primary"),
-                text: {
-                    label: "CUT",
-                    style: {
-                        fontSize: "20px",
-                        color: getCssVar("--primary-text-light"),
-                        fontFamily: FONT_FAMILY,
-                    },
-                },
-            },
-            skip: {
-                width: 80,
-                height: 40,
-                backgroundColor: getCssVarAsHex("--background-color-primary"),
-                text: {
-                    label: "SKIP",
-                    style: {
-                        fontSize: "20px",
-                        color: getCssVar("--primary-text-light"),
-                        fontFamily: FONT_FAMILY,
-                    },
-                },
-            },
         },
     },
     shop: {

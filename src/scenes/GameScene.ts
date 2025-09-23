@@ -27,6 +27,23 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
+    private createAnimations() {
+        // Lid Animation
+        this.anims.create({
+            key: "lid_close",
+            frames: this.anims.generateFrameNumbers("lid", { start: 0, end: 15 }),
+            frameRate: 12,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: "lid_open",
+            frames: this.anims.generateFrameNumbers("lid", { start: 15, end: 24 }),
+            frameRate: 12,
+            repeat: 0,
+        });
+    }
+
     constructor() {
         super("GameScene");
     }
@@ -51,16 +68,25 @@ export class GameScene extends Phaser.Scene {
         this.load.image("orange_wire", "assets/wires/orange-wire.png");
         this.load.image("white_wire", "assets/wires/white-wire.png");
 
+        // Bomb panel
+        this.load.image("bomb_panel", "assets/bomb-panel.png");
+
         // Cut button
         this.load.spritesheet("cut_button", "assets/cut-button.png", {
-            frameWidth: 60,
-            frameHeight: 24,
+            frameWidth: 45,
+            frameHeight: 18,
         });
 
         // Skip button
         this.load.spritesheet("skip_button", "assets/skip-button.png", {
-            frameWidth: 60,
-            frameHeight: 24,
+            frameWidth: 45,
+            frameHeight: 18,
+        });
+
+        // Lid
+        this.load.spritesheet("lid", "assets/lid-animation.png", {
+            frameWidth: 100,
+            frameHeight: 50,
         });
     }
 
@@ -86,6 +112,7 @@ export class GameScene extends Phaser.Scene {
         new Inventory({ scene: this, gameManager: this.gameManager });
 
         this.attatchUnlockedEventsListeners();
+        this.createAnimations();
 
         EventBus.on(EVENTS.GAME.GAME_OVER, () => this.endGameHandler());
     }
